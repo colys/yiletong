@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace WinFormDemo
 {
@@ -22,14 +23,17 @@ namespace WinFormDemo
         public frmMain()
         {
             InitializeComponent();
+
             CSharpBrowserSettings settings = new CSharpBrowserSettings();
-            settings.DefaultUrl = "www.baidu.com";
+//			Uri url = new Uri ("file:///" + Application.StartupPath.Replace ('\\', '/') + "/main.html");
+			Uri url = new Uri (Application.StartupPath + "\\main.html");
+			settings.DefaultUrl = url.ToString ();
             //settings.UserAgent = "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 4 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19";
             settings.CachePath = @"C:\temp\caches";
             chromeWebBrowser1.Initialize(settings);
-            webBrowser1.Url =new Uri( Application.StartupPath + "\\main.html");
+			webBrowser1.Url = url;
             webBrowser1.ObjectForScripting = this;
-            
+
         }
 
         private string getNextTerminal()
@@ -40,18 +44,26 @@ namespace WinFormDemo
 
         private void FillQueue()
         {
-            terminalQueue.Enqueue("65886057");
-            terminalQueue.Enqueue("65886058");
-            terminalQueue.Enqueue("65886059");
-            terminalQueue.Enqueue("65886060");
-            terminalQueue.Enqueue("65886061");
-            terminalQueue.Enqueue("65886062");
+			DataTable dt = QueryTable ("select terminal from " + GetTableName ("customer_info") + " where status = 1");
+			foreach (DataRow dr in dt.Rows) {				
+				terminalQueue.Enqueue (dr[0].ToString());
+			}
+//            terminalQueue.Enqueue("65886057");
+//            terminalQueue.Enqueue("65886058");
+//            terminalQueue.Enqueue("65886059");
+//            terminalQueue.Enqueue("65886060");
+//            terminalQueue.Enqueue("65886061");
+//            terminalQueue.Enqueue("65886062");
         }
 
         private void 载入ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            chromeWebBrowser1.OpenUrl("https://119.4.99.217:7300/mcrm/login.jsp");
+			openLogin ();
         }
+
+		private void openLogin(){
+			chromeWebBrowser1.OpenUrl("https://119.4.99.217:7300/mcrm/login.jsp");
+		}
 
         private void 触发登录ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -66,27 +78,27 @@ namespace WinFormDemo
         }
 
         private void loadFrame()
-        {
-              CwbElement leftMenuUl = chromeWebBrowser1.Document.GetElementById("resTree");
-              if (leftMenuUl == null)
-              {
-                  MessageBox.Show("请先载入！");
-                  return;
-              }
-             foreach(CwbElement ele in leftMenuUl.ChildElements){
-                 if (ele.ChildElements[0].GetAttribute("node-id").Equals("8053"))
-                 {
-                     CwbElement subUl = ele.ChildElements[1];
-                     foreach (CwbElement subEle in subUl.ChildElements)
-                     {
-                         if (subEle.ChildElements[0].GetAttribute("node-id").Equals("10051"))
-                         {
-                             subEle.ChildElements[0].Click();  
-                         }
-                     }
-                 }
-             }
-        }
+		{			
+			if (waitQueryThread != null && waitQueryThread.IsAlive)
+				return;
+			CwbElement leftMenuUl = chromeWebBrowser1.Document.GetElementById ("resTree");
+			if (leftMenuUl == null) {
+				MessageBox.Show ("请先载入！");
+				return;
+			}
+			foreach (CwbElement ele in leftMenuUl.ChildElements) {
+				if (ele.ChildElements [0].GetAttribute ("node-id").Equals ("8053")) {
+					CwbElement subUl = ele.ChildElements [1];
+					foreach (CwbElement subEle in subUl.ChildElements) {
+						if (subEle.ChildElements [0].GetAttribute ("node-id").Equals ("10051")) {
+							subEle.ChildElements [0].Click ();  
+							waitQueryThread = new System.Threading.Thread (new System.Threading.ParameterizedThreadStart (watinFrameLoad));
+							waitQueryThread.Start ();
+						}
+					}
+				}
+			}
+		}
 
         System.Threading.Thread waitQueryThread;
         bool inQuery = false;
@@ -99,8 +111,8 @@ namespace WinFormDemo
                 MessageBox.Show("请先跳转到收单日志");
                 return;
             }
-            timer1.Start();
-            GoQuery();
+			GoQuery ();
+            timer1.Start();            
             tabControl1.SelectedIndex = 1;
             触发查询ToolStripMenuItem.Enabled = false;
         }
@@ -129,7 +141,6 @@ namespace WinFormDemo
                 else endDate = "找不到";
                string js=@"
 $(window.frames['收单日志'].document).find('#tid').val('" + termID + @"');
-$(window.frames['收单日志'].document).find('.pagination-page-list:eq(0)').find('option:last').attr('selected',true);
 window.frames['收单日志'].queryByCondition();";
                 chromeWebBrowser1.ExecuteScript(js);
                 //chromeWebBrowser1.ExecuteScript("");
@@ -146,6 +157,10 @@ window.frames['收单日志'].queryByCondition();";
             webBrowser1.Document.InvokeScript("setStatus", objects);
         }
 
+		public void OnFrameLoadFinish(){
+			chromeWebBrowser1.ExecuteScript ("$(window.frames['收单日志'].document).find('.pagination-page-list:eq(0)').find('option:last').attr('selected',true);");
+		}
+
         public void OnQueryFinish()
         {
             setStatus( termID+"终端"+beginDate+"到"+ endDate + "的刷卡情况:");
@@ -159,43 +174,46 @@ window.frames['收单日志'].queryByCondition();";
         }
 
         public delegate void QueryFinish();
+
+
+		private void watinFrameLoad(object o)
+		{
+			while (true)
+			{
+				object isFinish= chromeWebBrowser1.EvaluateScript("typeof( window.frames['收单日志'].queryByCondition) != 'undefined'");
+				if (isFinish != null && isFinish.Equals(true))
+				{
+					this.BeginInvoke(new QueryFinish(OnFrameLoadFinish));
+					return;
+				}
+				else System.Threading.Thread.Sleep(300);
+			}
+		}
+
+
         private void watinQuery(object o)
         {
             while (true)
             {
                object isViable= chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-mask-msg').is(':visible')");
-               if (isViable != null && isViable.Equals(false))
+				if (isViable != null && isViable.Equals(false))
                {
                    this.BeginInvoke(new QueryFinish(OnQueryFinish));
+					while (inQuery) {
+						System.Threading.Thread.Sleep(100);
+					}
                    return;
                }
-               else System.Threading.Thread.Sleep(100);
+               else System.Threading.Thread.Sleep(300);
             }
         }
 
         private void chromeWebBrowser1_PageLoadFinishEventhandler(object sender, EventArgs e)
-        {
-            //if (chromeWebBrowser1.Document == null) return;
-            //int pos = chromeWebBrowser1.Url.LastIndexOf("/");
-            //string pageName = chromeWebBrowser1.Url.Substring(pos + 1).ToLower();
-            //switch (pageName)
-            //{
-            //    case "login.jsp":
-            //        //还要有登录失败的判断
-            //        goLogin();
-            //        break;
-            //}
-           // MessageBox.Show(pageName);
+        { 
         }
 
         private void goLogin()
-        {
-            //if (chromeWebBrowser1.Document == null) return;
-            //CwbElement userNameEle = chromeWebBrowser1.Document.GetElementById("username");
-            //if (userNameEle!=null) userNameEle.Value = userName;
-
-            //CwbElement passwordEle = chromeWebBrowser1.Document.GetElementById("password");
-            //if(passwordEle!=null)passwordEle.Value = password;
+        {        
             chromeWebBrowser1.ExecuteScript("$('#username').val('"+userName+"')");
             chromeWebBrowser1.ExecuteScript("$('#password').val('" + password + "')");
             chromeWebBrowser1.ExecuteScript("$('input[name=codeVal]').focus()");
@@ -208,27 +226,26 @@ window.frames['收单日志'].queryByCondition();";
         }
 
         private void chromeWebBrowser1_BrowserDocumentCompleted(object sender, EventArgs e)
-        {
-            if (chromeWebBrowser1.Document == null) return;
-            int pos = chromeWebBrowser1.Url.LastIndexOf("/");
-            string pageName = chromeWebBrowser1.Url.Substring(pos + 1).ToLower();
-            switch (pageName)
-            {
-                case "login.jsp":
-                case "j_spring_security_check":
+		{
+			if (chromeWebBrowser1.Document == null)
+				return;
+			int pos = chromeWebBrowser1.Url.LastIndexOf ("/");
+			string pageName = chromeWebBrowser1.Url.Substring (pos + 1).ToLower ();
+			switch (pageName) {
+			case "default.html":
+				openLogin ();
+				break;
+			case "login.jsp":
+			case "j_spring_security_check":
                     //还要有登录失败的判断
-                    goLogin();
-                    break;
-                case "index":
-                    string jsPath = "http://localhost:22163/scripts/main.js";//file:///" + Application.StartupPath.Replace("\\","/") + "/main.js";
-                    string jsScript = @"$('<div></div>').attr('id','hidden_div').appendTo(document.body)";
-                    //chromeWebBrowser1.ExecuteScript(" $(\"" + jsScript + "\")appendTo(document.body)");
-                    //loadFrame();
-                    chromeWebBrowser1.ExecuteScript(jsScript);
-                    break;
+				goLogin ();
+				break;
+			case "index":                    
+				loadFrame();
+				break;
 
-            } 
-        }
+			} 
+		}
 
         private void chromeWebBrowser1_BrowserFrameLoadEnd(object sender, EventArgs e)
         {
@@ -237,12 +254,15 @@ window.frames['收单日志'].queryByCondition();";
 
         private void chromeWebBrowser1_BrowserCreated(object sender, EventArgs e)
         {
-            chromeWebBrowser1.LoadHtml("点击菜单 文件->载入");
+			chromeWebBrowser1.LoadHtml("点击菜单 文件->载入");
+			string url = "file:///" + Application.StartupPath.Replace ('\\', '/') + "/default.html";
+			chromeWebBrowser1.OpenUrl (url);
+           
         }
 
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            chromeWebBrowser1.ExecuteScript("test()");
+            
         }
 
 
@@ -251,6 +271,150 @@ window.frames['收单日志'].queryByCondition();";
             if (!inQuery) GoQuery();
         }
 
-     
+
+        #region mysql
+        public string GetTableName(string table)
+        {
+            return table+table_Suffix;
+        }
+        string table_Suffix="";
+        
+        MySqlConnection conn;
+        MySqlCommand cmd;
+        
+
+        private void OpenMysql(){
+            if (System.Configuration.ConfigurationManager.AppSettings["connstr"] == null)
+            {
+                MessageBox.Show("配置文件不正确！");
+                Application.Exit();
+            }
+            string conStr = System.Configuration.ConfigurationManager.AppSettings["connstr"].ToString();
+            if (conn == null) conn = new MySqlConnection(conStr);
+            if(conn.State== ConnectionState.Closed) conn.Open();
+        }
+
+        private void setCommand(string sql){
+            if(conn==null) OpenMysql();
+            if(cmd==null) cmd= new MySqlCommand(sql,conn);
+            else cmd.CommandText = sql;
+        }
+
+        private void ExecuteCommand(string sql){
+            setCommand(sql);
+            cmd.ExecuteNonQuery();
+        }
+
+        private DataTable QueryTable(string sql){
+            setCommand(sql);
+            System.Data.DataTable dt =new DataTable();
+            MySqlDataAdapter da =new MySqlDataAdapter(cmd);
+            da.Fill(dt);
+            return dt;
+        }
+
+        private object QueryScalar(string sql){
+            setCommand(sql);
+          return  cmd.ExecuteScalar();
+        }
+
+        public string GetNextVal(string table)
+        {
+            if (table == null) throw new Exception("table parameter error");
+            table = GetTableName(table);
+            OpenMysql();
+
+            object nextVal = QueryScalar("select val from erp_sequence where tableName='" + table + "'");
+            if (nextVal == null || nextVal == DBNull.Value)
+            {
+                nextVal = 1;
+				ExecuteCommand("insert into erp_sequence (tableName,val) values('" + table + "','" + nextVal + "')");
+            }
+            else
+            {
+                nextVal = Convert.ToInt32(nextVal) + 1;
+                ExecuteCommand("update erp_sequence set val ='" + nextVal + "' where tableName=  '" + table + "'");
+            }
+
+            return nextVal.ToString();
+        }
+
+        public string execQuery(string table,string fields,string where,string order){
+			try{
+            string sql = "select " + fields + " from " + table;
+            if (where != null && where.Length > 0) sql += " where " + where;
+            if (order != null && order.Length > 0) sql += " order by " + order;
+            DataTable dt= QueryTable(sql);
+			return Newtonsoft.Json.JsonConvert.SerializeObject(dt);
+			}catch(Exception ex){
+				MessageBox.Show (ex.Message);
+				return null;
+			}
+        }
+
+        public void execDb(string jsonArrStr){
+			try {
+				QueryItem[] queryItems = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryItem[]> (jsonArrStr);
+				if (queryItems == null)
+					throw new Exception ("json error");
+				foreach (QueryItem item in queryItems) {
+					string sql;
+					string table = GetTableName (item.table);
+					switch (item.action) {
+					case DBAction.Add:
+						if (item.fields == null || item.fields.Length == 0)
+							throw new Exception ("没有要插入的字段");
+						sql = "insert into " + table + " (";
+						for (int i = 0; i < item.fields.Length; i++)
+							sql += item.fields [i] + ",";
+						sql = sql.Substring (0, sql.Length - 1) + " ) values(";
+						for (int i = 0; i < item.fields.Length; i++) {
+							if (item.values [i] != null && item.values [i].ToUpper () != "NULL") {
+								sql += "'" + item.values [i].Replace ('\'', '\"') + "',";
+							} else {
+								sql += "null,";
+							}
+						}
+						sql = sql.Substring (0, sql.Length - 1) + ")";
+						ExecuteCommand (sql);
+						break;
+					case DBAction.Update:
+						if (item.fields == null || item.fields.Length == 0)
+							throw new Exception ("没有要更新的字段");
+						sql = "update " + table + " set ";
+						for (int i = 0; i < item.fields.Length; i++) {                           
+							if (item.values [i] != null && item.values [i].ToUpper () != "NULL") {
+								sql += item.fields [i] + " = '" + item.values [i].Replace ('\'', '\"') + "',";
+							}
+                           
+						}
+						sql = sql.Substring (0, sql.Length - 1) + " where " + item.where;
+						ExecuteCommand (sql);
+						break;
+					case DBAction.Delete:
+						sql = "delete from " + table + " where " + item.where;
+						ExecuteCommand (sql);
+						break;
+					}
+				}
+			} catch (Exception ex) {
+				MessageBox.Show (ex.Message);
+			}
+		}
+	
+
+        #endregion
+
+	}
+
+    public enum DBAction { Add = 0, Delete = 2, Update = 1 }
+
+    public class QueryItem
+    {        
+        public String table;
+        public DBAction action;
+        public String[] fields;
+        public String[] values;
+        public String where;
     }
 }

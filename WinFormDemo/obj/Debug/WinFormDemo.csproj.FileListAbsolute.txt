@@ -18,9 +18,7 @@ C:\搜狗高速下载\ChromeWebBrowser.net-realse-1.1.0.0\ChromeWebBrowser.net-r
 C:\搜狗高速下载\ChromeWebBrowser.net-realse-1.1.0.0\ChromeWebBrowser.net-realse-1.1.0.0\source\cwber\output\main.js
 C:\搜狗高速下载\ChromeWebBrowser.net-realse-1.1.0.0\ChromeWebBrowser.net-realse-1.1.0.0\source\cwber\output\main.html
 C:\搜狗高速下载\ChromeWebBrowser.net-realse-1.1.0.0\ChromeWebBrowser.net-realse-1.1.0.0\source\cwber\output\jquery.json-2.2.js
-C:\QuickDisk\MyWork\yiletong\output\jquery.json-2.2.js
 C:\QuickDisk\MyWork\yiletong\output\main.html
-C:\QuickDisk\MyWork\yiletong\output\main.js
 C:\QuickDisk\MyWork\yiletong\output\WinFormDemo.exe
 C:\QuickDisk\MyWork\yiletong\output\WinFormDemo.pdb
 C:\QuickDisk\MyWork\yiletong\WinFormDemo\obj\Debug\WinFormDemo.csprojResolveAssemblyReference.cache
@@ -31,3 +29,12 @@ C:\QuickDisk\MyWork\yiletong\WinFormDemo\obj\Debug\WinFormDemo.Properties.Resour
 C:\QuickDisk\MyWork\yiletong\WinFormDemo\obj\Debug\WinFormDemo.csproj.GenerateResource.Cache
 C:\QuickDisk\MyWork\yiletong\WinFormDemo\obj\Debug\WinFormDemo.exe
 C:\QuickDisk\MyWork\yiletong\WinFormDemo\obj\Debug\WinFormDemo.pdb
+C:\QuickDisk\MyWork\yiletong\output\WinFormDemo.exe.config
+C:\QuickDisk\MyWork\yiletong\output\default.html
+C:\QuickDisk\MyWork\yiletong\output\frmMain.cs
+C:\QuickDisk\MyWork\yiletong\output\js\jquery.json-2.2.js
+C:\QuickDisk\MyWork\yiletong\output\js\main.js
+C:\QuickDisk\MyWork\yiletong\output\css\bootstrap.min.css
+C:\QuickDisk\MyWork\yiletong\output\js\bootstrap.js
+C:\QuickDisk\MyWork\yiletong\output\js\jquery.min.js
+C:\QuickDisk\MyWork\yiletong\output\js\erp.public.js
