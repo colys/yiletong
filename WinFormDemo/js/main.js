@@ -45,7 +45,7 @@ function init(){
 	var today =new Date();
 	var date= today.Format("yyyyMMdd");
 	var prevdate=  today.AddDays(-1).Format("yyyyMMdd");
-	var where= " time between '"+prevdate+" 230000' and '"+date+" 229999' ";//前一天11到今天11点
+	var where= " time between '"+prevdate+" 230000' and '"+date+" 999999' ";//前一天11到今天11点
 	var todayAllData=clientEx.execQuery("*","transaction_log",where,null);
 	if(todayAllData==null || todayAllData.length ==0) return;
 	for(var i=0;i< todayAllData.length;i++){
@@ -81,8 +81,31 @@ function addTerminalView(item){
 	
 }
 
+$.customers = function (options) {
+    var settings = $.extend({ viewOnly: null, reportType: 1, defaultSize: 10, viewMore: 5, personCode: null }, options);
+    var entityTable_ops = {
+        table: "customer_info"
+        , editCols: [
+            {
+                group: "基础属性", fields: [
+                   { display: '终端', colName: "terminal" },
+                   { display: '法人', colName: "faren" },
+                   { display: '商户名称', colName: "shanghu_name" },
+                   { display: '利率', colName: "discount" },
+                   { display: '提现费', colName: "tixianfei" }
+                ]
+            }]
+        , defaults: { status: 1 }
+        , markDelete: true
+        , markColName: "status"
+    };
+    var entityTable = $("#listTable").entityTable(entityTable_ops);
+    entityTable.Query(null, null, true);
 
 
-$(function(){
-	init();
-});
+    $("#addnew").click(function () {
+        entityTable.ShowCreateDialog();
+    })
+
+    return this;
+}

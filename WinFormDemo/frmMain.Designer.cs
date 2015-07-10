@@ -41,14 +41,17 @@
             this.客户列表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.chromeWebBrowser1 = new Sashulin.ChromeWebBrowser();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.myPage = new System.Windows.Forms.TabPage();
+            this.myBrowser = new System.Windows.Forms.WebBrowser();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.myPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -77,21 +80,21 @@
             // 跳转到ToolStripMenuItem
             // 
             this.跳转到ToolStripMenuItem.Name = "跳转到ToolStripMenuItem";
-            this.跳转到ToolStripMenuItem.Size = new System.Drawing.Size(198, 28);
+            this.跳转到ToolStripMenuItem.Size = new System.Drawing.Size(152, 28);
             this.跳转到ToolStripMenuItem.Text = "跳转到";
             this.跳转到ToolStripMenuItem.Click += new System.EventHandler(this.跳转到ToolStripMenuItem_Click);
             // 
             // 触发查询ToolStripMenuItem
             // 
             this.触发查询ToolStripMenuItem.Name = "触发查询ToolStripMenuItem";
-            this.触发查询ToolStripMenuItem.Size = new System.Drawing.Size(198, 28);
+            this.触发查询ToolStripMenuItem.Size = new System.Drawing.Size(152, 28);
             this.触发查询ToolStripMenuItem.Text = "开始监控";
             this.触发查询ToolStripMenuItem.Click += new System.EventHandler(this.触发查询ToolStripMenuItem_Click);
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(198, 28);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(152, 28);
             this.testToolStripMenuItem.Text = "test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
@@ -106,7 +109,7 @@
             // 载入ToolStripMenuItem
             // 
             this.载入ToolStripMenuItem.Name = "载入ToolStripMenuItem";
-            this.载入ToolStripMenuItem.Size = new System.Drawing.Size(198, 28);
+            this.载入ToolStripMenuItem.Size = new System.Drawing.Size(116, 28);
             this.载入ToolStripMenuItem.Text = "载入";
             this.载入ToolStripMenuItem.Click += new System.EventHandler(this.载入ToolStripMenuItem_Click);
             // 
@@ -130,11 +133,13 @@
             this.客户列表ToolStripMenuItem.Name = "客户列表ToolStripMenuItem";
             this.客户列表ToolStripMenuItem.Size = new System.Drawing.Size(198, 28);
             this.客户列表ToolStripMenuItem.Text = "客户列表";
+            this.客户列表ToolStripMenuItem.Click += new System.EventHandler(this.客户列表ToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.myPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 32);
             this.tabControl1.Name = "tabControl1";
@@ -150,19 +155,8 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1167, 527);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "现代金控";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.webBrowser1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1167, 527);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // chromeWebBrowser1
             // 
@@ -179,6 +173,17 @@
             this.chromeWebBrowser1.BrowserFrameLoadEnd += new System.EventHandler(this.chromeWebBrowser1_BrowserFrameLoadEnd);
             this.chromeWebBrowser1.PageLoadFinishEventhandler += new System.EventHandler(this.chromeWebBrowser1_PageLoadFinishEventhandler);
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.webBrowser1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1167, 527);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "监控中心";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // webBrowser1
             // 
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -193,6 +198,27 @@
             // 
             this.timer1.Interval = 10000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
+            // 
+            // myPage
+            // 
+            this.myPage.Controls.Add(this.myBrowser);
+            this.myPage.Location = new System.Drawing.Point(4, 29);
+            this.myPage.Name = "myPage";
+            this.myPage.Padding = new System.Windows.Forms.Padding(3);
+            this.myPage.Size = new System.Drawing.Size(1167, 527);
+            this.myPage.TabIndex = 2;
+            this.myPage.Text = "tabPage3";
+            this.myPage.UseVisualStyleBackColor = true;
+            // 
+            // myBrowser
+            // 
+            this.myBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.myBrowser.Location = new System.Drawing.Point(3, 3);
+            this.myBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.myBrowser.Name = "myBrowser";
+            this.myBrowser.Size = new System.Drawing.Size(1161, 521);
+            this.myBrowser.TabIndex = 1;
+            this.myBrowser.Url = new System.Uri("", System.UriKind.Relative);
             // 
             // frmMain
             // 
@@ -210,6 +236,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.myPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,5 +260,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TabPage myPage;
+        private System.Windows.Forms.WebBrowser myBrowser;
     }
 }

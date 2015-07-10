@@ -33,7 +33,8 @@ namespace WinFormDemo
             chromeWebBrowser1.Initialize(settings);
 			webBrowser1.Url = url;
             webBrowser1.ObjectForScripting = this;
-
+            myBrowser.ObjectForScripting = this;
+            myPage.Hide();
         }
 
         private string getNextTerminal()
@@ -406,6 +407,19 @@ window.frames['收单日志'].queryByCondition();";
 	
 
         #endregion
+
+        private void 客户列表ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GoToMyUrl("customers.html", 客户列表ToolStripMenuItem.Text);
+        }
+
+        private void GoToMyUrl(string pageName,string title)
+        {
+            myPage.Text = title;
+            myPage.Show();
+            tabControl1.SelectedTab = myPage;
+            myBrowser.Url = new Uri(Application.StartupPath + "\\"+ pageName);            
+        }
 
 	}
 

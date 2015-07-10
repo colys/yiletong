@@ -477,3 +477,11 @@ Date.prototype.Format = function (fmt) { //author: meizz
 String.prototype.replaceAll = function (str1, str2) {
     return this.replace(new RegExp(str1, 'gm'), str2);
 }
+
+String.prototype.trim = function () {
+    return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+}
+
+function showTip(str) {
+    alert(str);
+}
