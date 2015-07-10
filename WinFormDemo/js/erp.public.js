@@ -383,6 +383,7 @@ var clientHttp = {
 	        if (res.error) { showTip(res.error); return; }
 	        nextVal = res.result;
 	    });
+	    return nextVal;
 	},
 	execQuery: function (fields,table,where,order) {
 	    var jsonStr = 0;

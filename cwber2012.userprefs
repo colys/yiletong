@@ -1,17 +1,15 @@
 ﻿<Properties StartupItem="WinFormDemo\WinFormDemo.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="WinFormDemo\main.html">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WinFormDemo\js\main.js">
     <Files>
-      <File FileName="WinFormDemo\js\erp.public.js" Line="344" Column="46" />
-      <File FileName="WinFormDemo\main.html" Line="16" Column="17" />
-      <File FileName="WinFormDemo\frmMain.cs" Line="37" Column="27" />
-      <File FileName="WinFormDemo\js\main.js" Line="9" Column="12" />
-      <File FileName="WinFormDemo\Program.cs" Line="1" Column="1" />
+      <File FileName="WinFormDemo\main.html" Line="6" Column="52" />
+      <File FileName="WinFormDemo\frmMain.cs" Line="333" Column="22" />
+      <File FileName="WinFormDemo\js\main.js" Line="24" Column="57" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\QuickDisk\MyWork\yiletong\WinFormDemo\frmMain.cs" line="413" column="1" />
+      <Breakpoint file="C:\QuickDisk\MyWork\yiletong\WinFormDemo\frmMain.cs" line="414" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

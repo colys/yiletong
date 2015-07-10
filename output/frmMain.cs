@@ -362,6 +362,7 @@ window.frames['收单日志'].queryByCondition();";
 				} 
 				return null;
 			}
+			if(conn.State== ConnectionState.Open) conn.Close ();
         }
 
         public void execDb(string jsonArrStr){
@@ -412,6 +413,7 @@ window.frames['收单日志'].queryByCondition();";
 			} catch (Exception ex) {
 				MessageBox.Show (ex.Message);
 			}
+			if(conn.State== ConnectionState.Open) conn.Close ();
 		}
 	
 

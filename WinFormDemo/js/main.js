@@ -21,6 +21,7 @@
 	    	var existCount = clientEx.execQuery("count(0) cc","transactionLogs","terminal='"+ item.tid +"' and time='"+item.tdate+"' and tradeName='"+item.trname+"' and tradeMoney="+ item.amt +" ",null);
 	    	if(existCount[0].cc > 0) continue;
 	    	var localItem = convertToLocal(item);
+	    	localItem.id= clientEx.getNexVal("transactionLogs");
 	    	var inserDBJson=[{ table:"transactionLogs" ,action: 0 ,fields:localItem}];
 	    	clientEx.execDb(inserDBJson);
 	    	newJson[newJson.length]=item;
