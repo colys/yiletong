@@ -35,17 +35,21 @@ namespace WinFormDemo
             webBrowser1.ObjectForScripting = this;
             myBrowser.ObjectForScripting = this;
             myPage.Hide();
+			timer1.Interval = Convert.ToInt32 (getSetting ("listenInterval"));
+
         }
 
         private string getNextTerminal()
         {
             if (terminalQueue.Count == 0) { FillQueue(); }
+			if (terminalQueue.Count == 0)
+				return null;
             return terminalQueue.Dequeue();
         }
 
         private void FillQueue()
         {
-			DataTable dt = QueryTable ("select terminal from " + GetTableName ("customer_info") + " where status = 1");
+			DataTable dt = QueryTable ("select terminal from " + GetTableName ("customers") + " where status = 1");
 			foreach (DataRow dr in dt.Rows) {				
 				terminalQueue.Enqueue (dr[0].ToString());
 			}
@@ -60,6 +64,7 @@ namespace WinFormDemo
         private void 载入ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 			openLogin ();
+			tabControl1.SelectedIndex = 0;
         }
 
 		private void openLogin(){
@@ -82,23 +87,16 @@ namespace WinFormDemo
 		{			
 			if (waitQueryThread != null && waitQueryThread.IsAlive)
 				return;
-			CwbElement leftMenuUl = chromeWebBrowser1.Document.GetElementById ("resTree");
-			if (leftMenuUl == null) {
-				MessageBox.Show ("请先载入！");
+			object length = chromeWebBrowser1.EvaluateScript ("$('#resTree .tree-node[node-id=10051]').length");
+			if (length.Equals( 0)) {
+				MessageBox.Show ("请先载入");
 				return;
-			}
-			foreach (CwbElement ele in leftMenuUl.ChildElements) {
-				if (ele.ChildElements [0].GetAttribute ("node-id").Equals ("8053")) {
-					CwbElement subUl = ele.ChildElements [1];
-					foreach (CwbElement subEle in subUl.ChildElements) {
-						if (subEle.ChildElements [0].GetAttribute ("node-id").Equals ("10051")) {
-							subEle.ChildElements [0].Click ();  
-							waitQueryThread = new System.Threading.Thread (new System.Threading.ParameterizedThreadStart (watinFrameLoad));
-							waitQueryThread.Start ();
-						}
-					}
-				}
-			}
+			}				
+			string js= "$('#resTree .tree-node[node-id=10051].trigger(\"click\")')";
+			chromeWebBrowser1.ExecuteScript (js);
+			waitQueryThread = new System.Threading.Thread (new System.Threading.ParameterizedThreadStart (watinFrameLoad));
+			waitQueryThread.Start ();
+
 		}
 
         System.Threading.Thread waitQueryThread;
@@ -112,16 +110,17 @@ namespace WinFormDemo
                 MessageBox.Show("请先跳转到收单日志");
                 return;
             }
-			GoQuery ();
+			if (!GoQuery ())
+				return;
             timer1.Start();            
             tabControl1.SelectedIndex = 1;
             触发查询ToolStripMenuItem.Enabled = false;
         }
         string termID,beginDate,endDate;
-        private void GoQuery()
+		private bool GoQuery()
         {
-            if (waitQueryThread != null && waitQueryThread.IsAlive) return;
-            if (inQuery) return;
+			if (waitQueryThread != null && waitQueryThread.IsAlive) return false;
+			if (inQuery) return false;
             inQuery = true;
             //CwbElement tabFrame = chromeWebBrowser1.Document.GetElementById("tab1");
             //if(tabFrame==null) return;
@@ -129,11 +128,16 @@ namespace WinFormDemo
             if (notFunction != null && notFunction.Equals(true))
             {
                 MessageBox.Show("完蛋了，查询方法被修改了！");
+				return false;
             }
             else
             {
 
                 termID = getNextTerminal();
+				if (termID == null) {
+					MessageBox.Show ("没有终端，请先添加客户");
+					return false;
+				}
                 object date1 = chromeWebBrowser1.EvaluateScript(" $(window.frames['收单日志'].document).find('#beginstdate').next().find('.combo-value').val()");
                 object date2 = chromeWebBrowser1.EvaluateScript(" $(window.frames['收单日志'].document).find('#endstdate').next().find('.combo-value').val()");
                 if (date1!=null) beginDate = date1.ToString();
@@ -149,6 +153,7 @@ window.frames['收单日志'].queryByCondition();";
                 waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
                 waitQueryThread.Start();
             }
+			return true;
         }
 
         private void setStatus(string str)
@@ -284,16 +289,20 @@ window.frames['收单日志'].queryByCondition();";
         MySqlCommand cmd;
         
 
-        private void OpenMysql(){
-            if (System.Configuration.ConfigurationManager.AppSettings["connstr"] == null)
-            {
-                MessageBox.Show("配置文件不正确！");
-                Application.Exit();
-            }
-            string conStr = System.Configuration.ConfigurationManager.AppSettings["connstr"].ToString();
+        private void OpenMysql(){           
+			string conStr = getSetting ("connstr");
             if (conn == null) conn = new MySqlConnection(conStr);
             if(conn.State== ConnectionState.Closed) conn.Open();
         }
+
+		private string getSetting(string name){
+			if (System.Configuration.ConfigurationManager.AppSettings[name] == null)
+			{
+				MessageBox.Show("配置文件不正确！");
+				Application.Exit();
+			}
+			return System.Configuration.ConfigurationManager.AppSettings[name].ToString();
+		}
 
         private void setCommand(string sql){
             if(conn==null) OpenMysql();

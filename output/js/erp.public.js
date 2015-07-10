@@ -485,3 +485,17 @@ String.prototype.trim = function () {
 function showTip(str) {
     alert(str);
 }
+
+function showTipNew(str) {
+    alert(str);
+}
+
+
+var hightlightObj = null;
+function highlight(obj, times) {
+    hightlightObj = obj;
+    if (!times) times = 4
+    hightlightObj.toggleClass("hightlight_border");
+    times = times - 1;
+    if (times > 0) setTimeout("highlight(hightlightObj," + times + ")", 250);
+}

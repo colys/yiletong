@@ -18,10 +18,10 @@
 	    for(var i=0;i<json.length;i++){
 	    	var item =json[i];
 	    	//判断记录是否存在,存在的话忽略,不存在则插入
-	    	var existCount = clientEx.execQuery("count(0) cc","transaction_log","terminal='"+ item.tid +"' and time='"+item.tdate+"' and trade_name='"+item.trname+"' and money='"+ item.amt +"' ",null);
+	    	var existCount = clientEx.execQuery("count(0) cc","transactionLogs","terminal='"+ item.tid +"' and time='"+item.tdate+"' and tradeName='"+item.trname+"' and tradeMoney="+ item.amt +" ",null);
 	    	if(existCount[0].cc > 0) continue;
 	    	var localItem = convertToLocal(item);
-	    	var inserDBJson=[{ table:"transaction_log" ,action: 0 ,fields:localItem}];
+	    	var inserDBJson=[{ table:"transactionLogs" ,action: 0 ,fields:localItem}];
 	    	clientEx.execDb(inserDBJson);
 	    	newJson[newJson.length]=item;
 	    	$("<div>" + item.tdate + " , " + item.trname + " : " + item.amt + "</div>").appendTo(status_list);
@@ -41,12 +41,13 @@ function setStatus(str) {
 }
 
 
-function init(){
+function init(){	
 	var today =new Date();
 	var date= today.Format("yyyyMMdd");
 	var prevdate=  today.AddDays(-1).Format("yyyyMMdd");
 	var where= " time between '"+prevdate+" 230000' and '"+date+" 999999' ";//前一天11到今天11点
-	var todayAllData=clientEx.execQuery("*","transaction_log",where,null);
+	var todayAllData=clientEx.execQuery("*","transactionLogs",where,null);
+	setStatus("未开启监控！");
 	if(todayAllData==null || todayAllData.length ==0) return;
 	for(var i=0;i< todayAllData.length;i++){
 		addTerminalView(todayAllData[i]);
@@ -54,7 +55,7 @@ function init(){
 }
 
 function convertToLocal(netLog){
-	return { terminal: netLog.tid ,time:netLog.tdate,trade_name:netLog.trname, money:netLog.amt ,results:netLog.rap, faren:netLog.lpName };
+	return { terminal: netLog.tid ,time:netLog.tdate,tradeName:netLog.trname, tradeMoney:netLog.amt ,results:netLog.rap, faren:netLog.lpName };
 }
 
 function addTerminalView(item){
@@ -62,7 +63,7 @@ function addTerminalView(item){
     var tview=$("#termianls").find("#view_"+ item.terminal);
 
 	if(tview.length ==0){		
-		 tview=$('<div class="col-sm-4">'+
+		 tview=$('<div class="col-sm-6">'+
 	        	 '<div id="view_'+ item.terminal +'" class="panel panel-default">'+
 			     '       <div class="panel-heading">'+
 			     '         <h3 class="panel-title">['+ item.terminal +"] "+ item.faren +'</h3>'+
@@ -74,25 +75,29 @@ function addTerminalView(item){
       var viewTableBody = tview.find(".panel-body table tbody");
       if(viewTableBody.length ==0){
       	var  panelBody = tview.find(".panel-body").empty();
-      	var viewTable=$('<table><thead><th>时间</th><th>交易名称</th><th>金额</th><th>结果</th></thead></table>').appendTo(panelBody);
+      	var viewTable=$('<table class="table table-striped"><thead><th>时间</th><th>交易名称</th><th>金额</th><th>结果</th></thead></table>').appendTo(panelBody);
       	viewTableBody=$('<tbody></tbody>').appendTo(viewTable);
       }
-      var newRow= $('<tr><td>'+ item.time +'</td><td>'+ item.trade_name +'</td><td>'+ item.money +'</td><td>'+ item.results +'</td></tr>').appendTo(viewTableBody);
+      var newRow= $('<tr><td>'+ item.time +'</td><td>'+ item.tradeName +'</td><td>'+ item.tradeMoney +'</td><td>'+ item.results +'</td></tr>').appendTo(viewTableBody);
 	
 }
 
 $.customers = function (options) {
     var settings = $.extend({ viewOnly: null, reportType: 1, defaultSize: 10, viewMore: 5, personCode: null }, options);
     var entityTable_ops = {
-        table: "customer_info"
+        table: "customers"
         , editCols: [
             {
                 group: "基础属性", fields: [
                    { display: '终端', colName: "terminal" },
                    { display: '法人', colName: "faren" },
-                   { display: '商户名称', colName: "shanghu_name" },
-                   { display: '利率', colName: "discount" },
-                   { display: '提现费', colName: "tixianfei" }
+                   { display: '商户号', colName: "shanghuNo" },
+                   { display: '商户名称', colName: "shanghuName" },
+                   { display: '联系电话', colName: "tel" },
+                   { display: 'MCC码', colName: "mcc" },
+                   { display: '扣率', colName: "discount" },
+                   { display: '提现费', colName: "tixianfei" },
+                   { display: '封顶', colName: "fengding" }
                 ]
             }]
         , defaults: { status: 1 }
