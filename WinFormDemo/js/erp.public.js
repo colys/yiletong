@@ -419,3 +419,61 @@ var clientAndroid = {
 
 if (clientEx == null) clientEx = clientPc;
 
+//日期扩展
+Date.prototype.AddMonths = function (n) {
+    if (n == 0) return this;
+    var dtstr = this.Format("yyyy-MM-dd");
+    var s = dtstr.split("-");
+    var yy = parseInt(s[0]); var mm = parseInt(s[1] - 1); var dd = parseInt(s[2]);
+    var dt = new Date(yy, mm, dd);
+    dt.setMonth(dt.getMonth() + n);
+    if ((dt.getYear() * 12 + dt.getMonth()) > (yy * 12 + mm + n)) {
+        dt = new Date(dt.getYear(), dt.getMonth(), 0);
+    }
+    return dt;
+
+}
+
+Date.prototype.AddDays = function (n) {
+    return new Date(this.getTime() + n * 24 * 60 * 60 * 1000);
+}
+
+
+function strToDate(str) {
+    if (str == null) { alert("要转换的日期为空"); return; }
+    if (str.length < 18) str = str + " 00:00:00"
+    var tempStrs = str.split(" ");
+    var dateStrs = tempStrs[0].split("-");
+    var year = parseInt(dateStrs[0], 10);
+    var month = parseInt(dateStrs[1], 10) - 1;
+    var day = parseInt(dateStrs[2], 10);
+    var timeStrs = tempStrs[1].split(":");
+    var hour = parseInt(timeStrs[0], 10);
+    var minute = parseInt(timeStrs[1], 10);
+    var second = parseInt(timeStrs[2], 10);
+    var date = new Date(year, month, day, hour, minute, second);
+    return date;
+}
+
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1,                 //月份 
+        "d+": this.getDate(),                    //日 
+        "h+": this.getHours(),                   //小时 
+        "m+": this.getMinutes(),                 //分 
+        "s+": this.getSeconds(),                 //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds()             //毫秒 
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+//字符串扩展
+String.prototype.replaceAll = function (str1, str2) {
+    return this.replace(new RegExp(str1, 'gm'), str2);
+}

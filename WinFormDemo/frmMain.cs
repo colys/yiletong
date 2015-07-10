@@ -341,13 +341,15 @@ window.frames['收单日志'].queryByCondition();";
 
         public string execQuery(string table,string fields,string where,string order){
 			try{
-            string sql = "select " + fields + " from " + table;
+				string sql = "select " + fields + " from " + GetTableName(table);
             if (where != null && where.Length > 0) sql += " where " + where;
             if (order != null && order.Length > 0) sql += " order by " + order;
             DataTable dt= QueryTable(sql);
 			return Newtonsoft.Json.JsonConvert.SerializeObject(dt);
 			}catch(Exception ex){
-				MessageBox.Show (ex.Message);
+				if (MessageBox.Show (ex.Message, "错误", MessageBoxButtons.RetryCancel) == DialogResult.Retry) {
+					return execQuery (table, fields, where, order);
+				} 
 				return null;
 			}
         }

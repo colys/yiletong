@@ -1,9 +1,11 @@
 ﻿<Properties StartupItem="WinFormDemo\WinFormDemo.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="WinFormDemo\Form2.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WinFormDemo\js\main.js">
     <Files>
-      <File FileName="WinFormDemo\Form1.cs" Line="23" Column="56" />
-      <File FileName="WinFormDemo\Form2.cs" Line="43" Column="10" />
+      <File FileName="WinFormDemo\js\erp.public.js" Line="424" Column="29" />
+      <File FileName="WinFormDemo\main.html" Line="20" Column="33" />
+      <File FileName="WinFormDemo\frmMain.cs" Line="343" Column="8" />
+      <File FileName="WinFormDemo\js\main.js" Line="60" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
