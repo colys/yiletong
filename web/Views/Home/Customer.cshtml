@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "客户信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="body">
+   
+    <section class="container  clear-fix">
+        <div class="row">
+
+            <div class="col-md-12">
+                <table class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th>终端号</th>
+                            <th>法人</th>
+                            <th>商户名称</th>
+                            <th>商户号码</th>
+                            <th>扣费</th>
+                            <th>T+0</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerBody">
+                        <tr><td colspan="6">正在加载......</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+
+
+    </section>
+</div>
+
+<script>
+
+    $(function () {
+        $.getJSON("GetCustomers", null, function (res) {
+            var customerBody = $("#customerBody").empty();
+            if (res) {
+                $(res).each(function () {
+                    var tr = $("<tr><td>" + this.terminal + "</td><td>" + this.faren + "</td><td>" + this.shanghuName + "</td><td>" + this.shanghuNo + "</td><td>" + this.discount + "</td><td>" + this.tixianfei + "</td></tr>");
+                    customerBody.append(tr);
+                })
+            }
+        })
+    })
+</script>
+

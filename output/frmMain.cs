@@ -10,7 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
-namespace WinFormDemo
+namespace WinForm
 {
 
     [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
@@ -27,7 +27,7 @@ namespace WinFormDemo
             CSharpBrowserSettings settings = new CSharpBrowserSettings();
 //			Uri url = new Uri ("file:///" + Application.StartupPath.Replace ('\\', '/') + "/main.html");
 			Uri url = new Uri (Application.StartupPath + "\\main.html");
-			settings.DefaultUrl = url.ToString ();
+            settings.DefaultUrl = "http://teaerp.sinaapp.com/";
             //settings.UserAgent = "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 4 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19";
             settings.CachePath = @"C:\temp\caches";
             chromeWebBrowser1.Initialize(settings);

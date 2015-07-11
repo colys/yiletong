@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "交易查询";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="body">
+  <p></p>
+
+
+    <section class="container">
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">交易查询</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-2"><input type="text" placeholder="终端号" id="termId" /></div>                   
+                    <div class="col-sm-2"><input type="text" placeholder="起始日期" id="startDate" /> </div>                                                        
+                    <div class="col-sm-2"><input type="text" placeholder="结束日期" id="endDate" /></div>              
+                    <div class="col-sm-2" ><button type="button" class="btn btn-default">查询</button></div>
+                    
+                    
+                    </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <table class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th>交易时间</th>
+                            <th>终端号</th>
+                            <th>交易类型</th>
+                            <th>金额</th>
+                            <th>结果</th>
+                            <th>法人</th>
+                            <th>商户名称</th>                         
+                            <th>结单标志</th>                            
+                            <th>结单时间</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerBody">
+                        
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+    </section>
+</div>
+
+<script>
+
+    $(function () {
+        goQuery();
+    })
+
+    $(".btn-default").click(function () {
+        goQuery();
+    })
+    var customerBody = $("#customerBody");
+    function goQuery() {
+        customerBody.empty();
+        customerBody.append('<tr><td colspan="'+($("table th").length)+'">正在加载......</td></tr>');
+        $.getJSON("GetTransactions", { "startDate": $("#startDate").val(), "endDate": $("#endDate").val(), "termid": $("#termId").val(), "cusName": "", "company": "" }, function (res) {
+            
+            
+            if (res) {
+                if (res.length > 0) {
+                    customerBody.empty();
+                    $(res).each(function () {
+                        var tr = $("<tr><td>" + this.time + "</td><td>" + this.terminal + "</td><td>" + this.tradeName + "</td><td>" + this.tradeMoney + "</td><td>" + this.results + "</td><td>" + this.faren + "</td><td>" + this.shanghuName + "</td><td>未结单</td><td></td></tr>");
+                        customerBody.append(tr);
+                    })
+                } else {
+                    customerBody.find("td").html("没有数据!");
+                }
+                
+            }
+        })
+    }
+</script>

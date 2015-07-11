@@ -1,4 +1,0 @@
-[0708/161935:WARNING:resource_bundle.cc(269)] locale_file_path.empty()
-[0708/161935:FATAL:main_delegate.cc(449)] Check failed: !loaded_locale.empty(). Locale could not be found for en-US
-[0708/161941:WARNING:resource_bundle.cc(269)] locale_file_path.empty()
-[0708/161941:FATAL:main_delegate.cc(449)] Check failed: !loaded_locale.empty(). Locale could not be found for en-US

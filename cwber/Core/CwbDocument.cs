@@ -93,7 +93,7 @@ namespace Sashulin.Core
         {
             foreach (CwbElement e in parent.ChildElements)
             {
-                if (e.Id!=null && e.Id.ToUpper() == id.ToUpper())
+                if (e.Id.ToUpper() == id.ToUpper())
                 {
                     return e;
                 }

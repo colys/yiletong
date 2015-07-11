@@ -45,9 +45,10 @@ namespace Sashulin.common
                 }
                 case "EvaluateScript":
                 {
-                    CefV8Value value = CefV8Value.CreateString("t");
+                    CefV8Value value = CefV8Value.CreateString("t");                    
                     CefV8Exception exp;
                     browser.GetMainFrame().V8Context.TryEval(items[1], out value, out exp);
+                    if (value == null) return false;
                     Global.JsEvaResult = null;
                     if (value.IsString)
                     {
