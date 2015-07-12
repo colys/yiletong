@@ -1,12 +1,6 @@
-﻿<Properties StartupItem="WinFormDemo\WinFormDemo.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="WinFormDemo\js\main.js">
-    <Files>
-      <File FileName="WinFormDemo\main.html" Line="6" Column="52" />
-      <File FileName="WinFormDemo\frmMain.cs" Line="333" Column="22" />
-      <File FileName="WinFormDemo\js\main.js" Line="24" Column="57" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+﻿<Properties StartupItem="web\web.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="SogouExplorerHTML" />
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\QuickDisk\MyWork\yiletong\WinFormDemo\frmMain.cs" line="414" column="1" />

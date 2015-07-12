@@ -149,13 +149,28 @@ $(window.frames['收单日志'].document).find('#tid').val('" + termID + @"');
 window.frames['收单日志'].queryByCondition();";
                 chromeWebBrowser1.ExecuteScript(js);
                 //chromeWebBrowser1.ExecuteScript("");
-                setStatus("正在查询" + termID + "的刷卡情况");
+                setStatus(DateTime.Now.ToString("hhh:mm:ss")+ "：正在查询" + termID + "的刷卡情况");
                 waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
                 waitQueryThread.Start();
             }
 			return true;
         }
-
+        public void OnQueryFinish()
+        {
+            setStatus(DateTime.Now.ToString("hhh:mm:ss") + "：" + termID + "终端" + beginDate + "到" + endDate + "的刷卡情况:");
+            object table = chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-btable:eq(1)')[0].outerHTML");
+            HtmlElement hidden_div = webBrowser1.Document.GetElementById("hidden_div");
+            hidden_div.InnerHtml = table.ToString();
+            object[] objects = new object[1];
+            object jsonStr = webBrowser1.Document.InvokeScript("parseTableJson", objects);
+            //            if(jsonStr!=null) MessageBox.Show(jsonStr.ToString());
+            inQuery = false;
+            while (waitQueryThread != null && waitQueryThread.IsAlive)
+            {
+                System.Threading.Thread.Sleep(100);
+            }
+            if (terminalQueue.Count > 0) GoQuery();
+        }
         private void setStatus(string str)
         {
             object[] objects = new object[1];
@@ -167,17 +182,7 @@ window.frames['收单日志'].queryByCondition();";
 			chromeWebBrowser1.ExecuteScript ("$(window.frames['收单日志'].document).find('.pagination-page-list:eq(0)').find('option:last').attr('selected',true);");
 		}
 
-        public void OnQueryFinish()
-        {
-            setStatus( termID+"终端"+beginDate+"到"+ endDate + "的刷卡情况:");
-            object table= chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-btable:eq(1)')[0].outerHTML");            
-            HtmlElement hidden_div = webBrowser1.Document.GetElementById("hidden_div");
-            hidden_div.InnerHtml = table.ToString();
-            object[] objects = new object[1];             
-            object jsonStr = webBrowser1.Document.InvokeScript("parseTableJson", objects);
-//            if(jsonStr!=null) MessageBox.Show(jsonStr.ToString());
-            inQuery = false;
-        }
+     
 
         public delegate void QueryFinish();
 
@@ -430,6 +435,17 @@ window.frames['收单日志'].queryByCondition();";
             myPage.Show();
             tabControl1.SelectedTab = myPage;
             myBrowser.Url = new Uri(Application.StartupPath + "\\"+ pageName);            
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (inQuery)
+            {
+                MessageBox.Show("正在查询，请稍候。。。");
+                e.Cancel = true;
+                return;
+            }
+            timer1.Enabled = false;
         }
 
 	}
