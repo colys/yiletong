@@ -7,8 +7,8 @@
     <ProjectGuid>{AFF9F132-202C-4C48-B52F-FD1FF4AD29F9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WinFormDemo</RootNamespace>
-    <AssemblyName>WinFormDemo</AssemblyName>
+    <RootNamespace>WinForm</RootNamespace>
+    <AssemblyName>WinForm</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -92,6 +92,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config">
       <SubType>Designer</SubType>
