@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using Common;
 
 namespace WinForm
 {
@@ -20,6 +21,8 @@ namespace WinForm
         string userName="福州易乐通";
         string password = "Ylt123456";
         Queue<string> terminalQueue = new Queue<string>();
+        string ActionUrl;
+        EncryptionUtility encryption;
         public frmMain()
         {
             InitializeComponent();
@@ -36,7 +39,10 @@ namespace WinForm
             myBrowser.ObjectForScripting = this;
             myPage.Hide();
 			timer1.Interval = Convert.ToInt32 (getSetting ("listenInterval"));
-
+            string host = getSetting("webHost");
+            if (host[host.Length - 1] != '/') host += "/";
+            ActionUrl = host + "Home/Eval";
+            encryption = new EncryptionUtility(Application.StartupPath + "\\yiletong.key");
         }
 
         private string getNextTerminal()
@@ -47,11 +53,20 @@ namespace WinForm
             return terminalQueue.Dequeue();
         }
 
+      private void onError(string msg){
+          MessageBox.Show(msg);
+      }
+
         private void FillQueue()
         {
-			DataTable dt = QueryTable ("select terminal from " + GetTableName ("customers") + " where status = 1");
-			foreach (DataRow dr in dt.Rows) {				
-				terminalQueue.Enqueue (dr[0].ToString());
+            string str= execQuery("customers", "terminal", "status = 1", null);
+            JsonMessage<Customer[]> jm = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<Customer[]>>(str);
+            if (jm.Message!=null) { 
+                onError(jm.Message);
+            }
+            foreach (Customer ter in jm.Result)
+            {
+				terminalQueue.Enqueue (ter.terminal);
 			}
 //            terminalQueue.Enqueue("65886057");
 //            terminalQueue.Enqueue("65886058");
@@ -127,7 +142,7 @@ namespace WinForm
             object notFunction = chromeWebBrowser1.EvaluateScript("typeof( window.frames['收单日志'].queryByCondition) == 'undefined'");
             if (notFunction != null && notFunction.Equals(true))
             {
-                MessageBox.Show("完蛋了，查询方法被修改了！");
+                onError("完蛋了，查询方法被修改了！");
 				return false;
             }
             else
@@ -149,7 +164,7 @@ $(window.frames['收单日志'].document).find('#tid').val('" + termID + @"');
 window.frames['收单日志'].queryByCondition();";
                 chromeWebBrowser1.ExecuteScript(js);
                 //chromeWebBrowser1.ExecuteScript("");
-                setStatus(DateTime.Now.ToString("hhh:mm:ss")+ "：正在查询" + termID + "的刷卡情况");
+                setStatus(DateTime.Now.ToString("HH:mm:ss")+ "：正在查询" + termID + "的刷卡情况");
                 waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
                 waitQueryThread.Start();
             }
@@ -157,7 +172,7 @@ window.frames['收单日志'].queryByCondition();";
         }
         public void OnQueryFinish()
         {
-            setStatus(DateTime.Now.ToString("hhh:mm:ss") + "：" + termID + "终端" + beginDate + "到" + endDate + "的刷卡情况:");
+            setStatus(DateTime.Now.ToString("HH:mm:ss") + "：" + termID + "终端" + beginDate + "到" + endDate + "的刷卡情况:");
             object table = chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-btable:eq(1)')[0].outerHTML");
             HtmlElement hidden_div = webBrowser1.Document.GetElementById("hidden_div");
             hidden_div.InnerHtml = table.ToString();
@@ -286,139 +301,160 @@ window.frames['收单日志'].queryByCondition();";
         #region mysql
         public string GetTableName(string table)
         {
-            return table+table_Suffix;
+            return RunHttp("GetTableName", table);           
         }
-        string table_Suffix="";
+        //string table_Suffix="";
         
-        MySqlConnection conn;
-        MySqlCommand cmd;
+        //MySqlConnection conn;
+        //MySqlCommand cmd;
         
 
-        private void OpenMysql(){           
-			string conStr = getSetting ("connstr");
-            if (conn == null) conn = new MySqlConnection(conStr);
-            if(conn.State== ConnectionState.Closed) conn.Open();
+        //private void OpenMysql(){           
+        //    string conStr = getSetting ("connstr");
+        //    if (conn == null) conn = new MySqlConnection(conStr);
+        //    if(conn.State== ConnectionState.Closed) conn.Open();
+        //}
+
+        private string getSetting(string name)
+        {
+            if (System.Configuration.ConfigurationManager.AppSettings[name] == null)
+            {
+                MessageBox.Show("配置文件不正确！");
+                Application.Exit();
+            }
+            return System.Configuration.ConfigurationManager.AppSettings[name].ToString();
         }
 
-		private string getSetting(string name){
-			if (System.Configuration.ConfigurationManager.AppSettings[name] == null)
-			{
-				MessageBox.Show("配置文件不正确！");
-				Application.Exit();
-			}
-			return System.Configuration.ConfigurationManager.AppSettings[name].ToString();
-		}
+        //private void setCommand(string sql){
+        //    if(conn==null) OpenMysql();
+        //    if(cmd==null) cmd= new MySqlCommand(sql,conn);
+        //    else cmd.CommandText = sql;
+        //}
 
-        private void setCommand(string sql){
-            if(conn==null) OpenMysql();
-            if(cmd==null) cmd= new MySqlCommand(sql,conn);
-            else cmd.CommandText = sql;
-        }
+        //private void ExecuteCommand(string sql){
+        //    setCommand(sql);
+        //    cmd.ExecuteNonQuery();
+        //}
 
-        private void ExecuteCommand(string sql){
-            setCommand(sql);
-            cmd.ExecuteNonQuery();
-        }
+        //private DataTable QueryTable(string sql){
+        //    setCommand(sql);
+        //    System.Data.DataTable dt =new DataTable();
+        //    MySqlDataAdapter da =new MySqlDataAdapter(cmd);
+        //    da.Fill(dt);
+        //    return dt;
+        //}
 
-        private DataTable QueryTable(string sql){
-            setCommand(sql);
-            System.Data.DataTable dt =new DataTable();
-            MySqlDataAdapter da =new MySqlDataAdapter(cmd);
-            da.Fill(dt);
-            return dt;
-        }
-
-        private object QueryScalar(string sql){
-            setCommand(sql);
-          return  cmd.ExecuteScalar();
-        }
+        //private object QueryScalar(string sql){
+        //    setCommand(sql);
+        //  return  cmd.ExecuteScalar();
+        //}
 
         public string GetNextVal(string table)
         {
-            if (table == null) throw new Exception("table parameter error");
-            table = GetTableName(table);
-            OpenMysql();
 
-            object nextVal = QueryScalar("select val from erp_sequence where tableName='" + table + "'");
-            if (nextVal == null || nextVal == DBNull.Value)
-            {
-                nextVal = 1;
-				ExecuteCommand("insert into erp_sequence (tableName,val) values('" + table + "','" + nextVal + "')");
-            }
-            else
-            {
-                nextVal = Convert.ToInt32(nextVal) + 1;
-                ExecuteCommand("update erp_sequence set val ='" + nextVal + "' where tableName=  '" + table + "'");
-            }
+            return RunHttp("GetNextVal", table);
+           // return http.DoPost(ActionUrl, "action=" + encryption.EncryptData("GetNextVal") + "&dataArrStr=" + encryption.EncryptData(table));
+            //if (table == null) throw new Exception("table parameter error");
+            //table = GetTableName(table);
+            //OpenMysql();
 
-            return nextVal.ToString();
+            //object nextVal = QueryScalar("select val from erp_sequence where tableName='" + table + "'");
+            //if (nextVal == null || nextVal == DBNull.Value)
+            //{
+            //    nextVal = 1;
+            //    ExecuteCommand("insert into erp_sequence (tableName,val) values('" + table + "','" + nextVal + "')");
+            //}
+            //else
+            //{
+            //    nextVal = Convert.ToInt32(nextVal) + 1;
+            //    ExecuteCommand("update erp_sequence set val ='" + nextVal + "' where tableName=  '" + table + "'");
+            //}
+
+            //return nextVal.ToString();
+        }
+
+        private string RunHttp(string action,params string[] paraStrArr)
+        {
+            MyHttpUtility http = new MyHttpUtility();
+            string content = "action=" + action + "&dataArrStr=";
+           
+            if(paraStrArr!=null){
+                foreach (string str in paraStrArr)
+                {
+                    content += System.Web.HttpUtility.UrlEncode(str) + ",";
+                }
+                content = content.Substring(0,content.Length - 1);
+            }            
+            return http.DoPost(ActionUrl, encryption.EncryptData(content));
         }
 
         public string execQuery(string table,string fields,string where,string order){
-			try{
-				string sql = "select " + fields + " from " + GetTableName(table);
-            if (where != null && where.Length > 0) sql += " where " + where;
-            if (order != null && order.Length > 0) sql += " order by " + order;
-            DataTable dt= QueryTable(sql);
-			return Newtonsoft.Json.JsonConvert.SerializeObject(dt);
-			}catch(Exception ex){
-				if (MessageBox.Show (ex.Message, "错误", MessageBoxButtons.RetryCancel) == DialogResult.Retry) {
-					return execQuery (table, fields, where, order);
-				} 
-				return null;
-			}
-			if(conn.State== ConnectionState.Open) conn.Close ();
+            return RunHttp("ExecQuery", table, fields, where, order);
+            //try{
+            //    string sql = "select " + fields + " from " + GetTableName(table);
+            //if (where != null && where.Length > 0) sql += " where " + where;
+            //if (order != null && order.Length > 0) sql += " order by " + order;
+            //DataTable dt= QueryTable(sql);
+            //return Newtonsoft.Json.JsonConvert.SerializeObject(dt);
+            //}catch(Exception ex){
+            //    if (MessageBox.Show (ex.Message, "错误", MessageBoxButtons.RetryCancel) == DialogResult.Retry) {
+            //        return execQuery (table, fields, where, order);
+            //    } 
+            //    return null;
+            //}
+            //if(conn.State== ConnectionState.Open) conn.Close ();
         }
 
-        public void execDb(string jsonArrStr){
-			try {
-				QueryItem[] queryItems = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryItem[]> (jsonArrStr);
-				if (queryItems == null)
-					throw new Exception ("json error");
-				foreach (QueryItem item in queryItems) {
-					string sql;
-					string table = GetTableName (item.table);
-					switch (item.action) {
-					case DBAction.Add:
-						if (item.fields == null || item.fields.Length == 0)
-							throw new Exception ("没有要插入的字段");
-						sql = "insert into " + table + " (";
-						for (int i = 0; i < item.fields.Length; i++)
-							sql += item.fields [i] + ",";
-						sql = sql.Substring (0, sql.Length - 1) + " ) values(";
-						for (int i = 0; i < item.fields.Length; i++) {
-							if (item.values [i] != null && item.values [i].ToUpper () != "NULL") {
-								sql += "'" + item.values [i].Replace ('\'', '\"') + "',";
-							} else {
-								sql += "null,";
-							}
-						}
-						sql = sql.Substring (0, sql.Length - 1) + ")";
-						ExecuteCommand (sql);
-						break;
-					case DBAction.Update:
-						if (item.fields == null || item.fields.Length == 0)
-							throw new Exception ("没有要更新的字段");
-						sql = "update " + table + " set ";
-						for (int i = 0; i < item.fields.Length; i++) {                           
-							if (item.values [i] != null && item.values [i].ToUpper () != "NULL") {
-								sql += item.fields [i] + " = '" + item.values [i].Replace ('\'', '\"') + "',";
-							}
+        public string execDb(string jsonArrStr){
+            return RunHttp("ExecDb", jsonArrStr);
+            //try {
+            //    QueryItem[] queryItems = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryItem[]> (jsonArrStr);
+            //    if (queryItems == null)
+            //        throw new Exception ("json error");
+            //    foreach (QueryItem item in queryItems) {
+            //        string sql;
+            //        string table = GetTableName (item.table);
+            //        switch (item.action) {
+            //        case DBAction.Add:
+            //            if (item.fields == null || item.fields.Length == 0)
+            //                throw new Exception ("没有要插入的字段");
+            //            sql = "insert into " + table + " (";
+            //            for (int i = 0; i < item.fields.Length; i++)
+            //                sql += item.fields [i] + ",";
+            //            sql = sql.Substring (0, sql.Length - 1) + " ) values(";
+            //            for (int i = 0; i < item.fields.Length; i++) {
+            //                if (item.values [i] != null && item.values [i].ToUpper () != "NULL") {
+            //                    sql += "'" + item.values [i].Replace ('\'', '\"') + "',";
+            //                } else {
+            //                    sql += "null,";
+            //                }
+            //            }
+            //            sql = sql.Substring (0, sql.Length - 1) + ")";
+            //            ExecuteCommand (sql);
+            //            break;
+            //        case DBAction.Update:
+            //            if (item.fields == null || item.fields.Length == 0)
+            //                throw new Exception ("没有要更新的字段");
+            //            sql = "update " + table + " set ";
+            //            for (int i = 0; i < item.fields.Length; i++) {                           
+            //                if (item.values [i] != null && item.values [i].ToUpper () != "NULL") {
+            //                    sql += item.fields [i] + " = '" + item.values [i].Replace ('\'', '\"') + "',";
+            //                }
                            
-						}
-						sql = sql.Substring (0, sql.Length - 1) + " where " + item.where;
-						ExecuteCommand (sql);
-						break;
-					case DBAction.Delete:
-						sql = "delete from " + table + " where " + item.where;
-						ExecuteCommand (sql);
-						break;
-					}
-				}
-			} catch (Exception ex) {
-				MessageBox.Show (ex.Message);
-			}
-			if(conn.State== ConnectionState.Open) conn.Close ();
+            //            }
+            //            sql = sql.Substring (0, sql.Length - 1) + " where " + item.where;
+            //            ExecuteCommand (sql);
+            //            break;
+            //        case DBAction.Delete:
+            //            sql = "delete from " + table + " where " + item.where;
+            //            ExecuteCommand (sql);
+            //            break;
+            //        }
+            //    }
+            //} catch (Exception ex) {
+            //    MessageBox.Show (ex.Message);
+            //}
+            //if(conn.State== ConnectionState.Open) conn.Close ();
 		}
 	
 
@@ -450,14 +486,9 @@ window.frames['收单日志'].queryByCondition();";
 
 	}
 
-    public enum DBAction { Add = 0, Delete = 2, Update = 1 }
 
-    public class QueryItem
-    {        
-        public String table;
-        public DBAction action;
-        public String[] fields;
-        public String[] values;
-        public String where;
+    public class Customer{
+        public string terminal;
     }
+
 }

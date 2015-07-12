@@ -88,6 +88,7 @@ C:\QuickDisk\MyWork\yiletong\web\bin\web.dll.config
 C:\QuickDisk\MyWork\yiletong\web\bin\web.dll
 C:\QuickDisk\MyWork\yiletong\web\bin\web.pdb
 C:\QuickDisk\MyWork\yiletong\web\bin\Antlr3.Runtime.dll
+C:\QuickDisk\MyWork\yiletong\web\bin\Common.dll
 C:\QuickDisk\MyWork\yiletong\web\bin\EntityFramework.dll
 C:\QuickDisk\MyWork\yiletong\web\bin\Microsoft.Data.Edm.dll
 C:\QuickDisk\MyWork\yiletong\web\bin\Microsoft.Data.OData.dll
@@ -109,6 +110,7 @@ C:\QuickDisk\MyWork\yiletong\web\bin\System.Web.WebPages.Deployment.dll
 C:\QuickDisk\MyWork\yiletong\web\bin\System.Web.WebPages.dll
 C:\QuickDisk\MyWork\yiletong\web\bin\System.Web.WebPages.Razor.dll
 C:\QuickDisk\MyWork\yiletong\web\bin\WebGrease.dll
+C:\QuickDisk\MyWork\yiletong\web\bin\Common.pdb
 C:\QuickDisk\MyWork\yiletong\web\bin\EntityFramework.xml
 C:\QuickDisk\MyWork\yiletong\web\bin\Newtonsoft.Json.xml
 C:\QuickDisk\MyWork\yiletong\web\bin\System.Net.Http.Formatting.xml

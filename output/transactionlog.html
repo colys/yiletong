@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title></title>
+    <link href="http://teaerp.sinaapp.com/MyJS/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://teaerp.sinaapp.com/MyJS/css/bootstrap-theme.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">交易查询</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-2"><input type="text" placeholder="终端号" id="termId" /></div>
+                <div class="col-sm-2"><input type="text" placeholder="起始日期" id="startDate" /> </div>
+                <div class="col-sm-2"><input type="text" placeholder="结束日期" id="endDate" /></div>
+                <div class="col-sm-2"><button type="button" class="btn btn-default" id="btnQuery">查询</button></div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped " id="listTable">
+            <thead>
+                <tr>
+                    <th colname="time">交易时间</th>
+                    <th colname ="terminal">终端号</thcolname>
+                    <th colname="tradeName">交易类型</th>
+                    <th colname="tradeMoney">金额</th>
+                    <th colname="results">结果</th>
+                    <th colname="faren">法人</th>
+                    <th colname="shanghuName">商户名称</th>
+                    <!--<th colname="terminal">结单标志</th>
+                    <th colname="terminal">结单时间</th>-->
+                </tr>
+            </thead>
+            <tbody id="customerBody"></tbody>
+        </table>
+    </div>
+    <script type="text/javascript" src="http://teaerp.sinaapp.com/MyJS/js/jquery.min.js"></script>
+    <script src="http://teaerp.sinaapp.com/MyJS/js/bootstrap.js"></script>
+    <script src="http://teaerp.sinaapp.com/MyJS/js/json.js"></script>
+    <script src="http://teaerp.sinaapp.com/MyJS/js/erp.public.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script type="text/javascript">
+       
+        $.transactionLog();
+        
+        
+       
+    </script>
+</body>
+</html>

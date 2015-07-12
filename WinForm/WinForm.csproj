@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -106,6 +107,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{78ee8491-c19f-40ba-83ef-e969dd0c2791}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\cwber\cwber.csproj">
       <Project>{0662C0B7-3F67-4831-B09B-6C67A212DCBE}</Project>
       <Name>cwber</Name>

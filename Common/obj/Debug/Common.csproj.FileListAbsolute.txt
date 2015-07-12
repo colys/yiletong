@@ -1,0 +1,6 @@
+C:\QuickDisk\MyWork\yiletong\Common\bin\Debug\Common.dll
+C:\QuickDisk\MyWork\yiletong\Common\bin\Debug\Common.pdb
+C:\QuickDisk\MyWork\yiletong\Common\bin\Debug\Newtonsoft.Json.dll
+C:\QuickDisk\MyWork\yiletong\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+C:\QuickDisk\MyWork\yiletong\Common\obj\Debug\Common.dll
+C:\QuickDisk\MyWork\yiletong\Common\obj\Debug\Common.pdb

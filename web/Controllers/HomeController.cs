@@ -6,12 +6,19 @@ using System.Web;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using Common;
 
 namespace web.Controllers
 {
     public class HomeController : Controller
     {
        static string  connStr = System.Configuration.ConfigurationManager.ConnectionStrings["connstr"].ToString();
+       EncryptionUtility encryption;
+
+       public HomeController()
+       {
+           encryption = new EncryptionUtility(System.Web.HttpContext.Current.Server.MapPath("~/Content/yiletong.key"));
+       }
 
 
        private string UserName {
@@ -138,12 +145,52 @@ namespace web.Controllers
         {
             if (string.IsNullOrEmpty(startDate)) startDate = DateTime.Today.ToString("yyyy-MM-dd");
             if (string.IsNullOrEmpty(endDate )) endDate = DateTime.Today.ToString("yyyy-MM-dd");
-            string sql = "select a.*,b.shanghuName from transactionLogs a left join customers b on b.terminal=a.terminal where time between '" + Convert.ToDateTime(startDate).AddDays(-1).ToString("yyyyMMdd") + "230000'" + " and '" + endDate.Replace("-", "") + " 999999'";
+            string sql = "select a.*,b.shanghuName from transactionLogs a left join customers b on b.terminal=a.terminal where time between '" + Convert.ToDateTime(startDate).AddDays(-1).ToString("yyyy-MM-dd") + "23:00:00'" + " and '" + endDate.Replace("-", "") + " 23:59:59'";
             if (!string.IsNullOrEmpty(termid)) sql += " and b.terminal ='" + FormatString(termid) + "' ";
             if (!string.IsNullOrEmpty(cusName)) sql += " and b.faren ='" + FormatString(cusName) + "' ";
             DataTable dt = QueryTable(sql, true);
             return JsonConvert.SerializeObject(dt);
         }
+
+        MySqlExecute mysql;
+
+        /// <summary>
+        /// 执行服务器内容
+        /// </summary>     
+        public string Eval()
+        {
+            JsonMessage jr = new JsonMessage();
+            byte[] bs = Request.BinaryRead(Request.ContentLength);
+            string data ="null";
+            try
+            {
+                data = encryption.DecryptData(bs);
+                string[] arr1 = data.Split('&');
+
+                string actionName = arr1[0].Split('=')[1];
+                string dataArrStr = arr1.Length > 0 ? arr1[1].Split('=')[1] : "";
+                string[] arr = dataArrStr.Split(',');
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    arr[i] = HttpUtility.UrlDecode(arr[i]);
+                }
+                if (mysql == null) mysql = new MySqlExecute("", connStr);
+
+                jr.Result = mysql.GetType().InvokeMember(actionName, System.Reflection.BindingFlags.InvokeMethod, null, mysql, arr);
+            }
+            catch (Exception ex)
+            {
+                if (mysql != null)
+                {
+                    mysql.Dispose();
+                    mysql = null;
+                }
+                jr.LogException(ex, " 请求内容:" + data);
+            }
+            return JsonConvert.SerializeObject(jr);
+        }
+
+
 
         private string FormatString(string str)
         {
