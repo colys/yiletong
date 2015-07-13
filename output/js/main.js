@@ -1,6 +1,8 @@
-﻿function parseTableJson() {    
+﻿var status_list;
+function parseTableJson() {    
     var json = [];
-    var status_list = $("#status_list").empty();
+    status_list.empty();
+    var terminal = null;
     $("#hidden_div table tbody tr").each(function () {
         var item = {};
         $(this).find("td").each(function () {
@@ -8,19 +10,33 @@
             item[fieldName] = this.innerText;
         });
         json[json.length] = item;
-
+        terminal = item.tid;
     })
     if (json.length == 0) {
         status_list.html("没有刷卡数据！");
+        return;
     }
     var newJson =[];
     try{
+    	/*获取客户信息
+    	var customerInfo = null;
+    	var queryData=clientEx.execQuery("*","customers","terminal='"+ terminal +"'",null);
+    	if(queryData.length == 1)  customerInfo = queryData[0];
+    	if(customerInfo==null){ throw("获取客户信息is null, terminal："+terminal); }
+    	if(!customerInfo.discount || isNaN(customerInfo.discount)) { throw("获取客户信息discount is null or NaN,terminal："+terminal); }
+    	if(!customerInfo.tixianfei || isNaN(customerInfo.tixianfei)){ throw("获取客户信息tixianfei is null or NaN, terminal："+terminal); }
+    	if(!customerInfo.tixianfeiEles || isNaN(customerInfo.tixianfeiEles)){ throw("获取客户信息tixianfeiEles is null or NaN, terminal："+terminal); }
+    	*/
 	    for(var i=0;i<json.length;i++){
 	    	var item =json[i];
 	    	//判断记录是否存在,存在的话忽略,不存在则插入
 	    	var existCount = clientEx.execQuery("count(0) cc", "transactionLogs", "terminal='" + item.tid + "' and timeStr='" + item.tdate + "' and tradeName='" + item.trname + "' and tradeMoney=" + item.amt + " ", null);
+	    	if(existCount==null) return;//winform会处理异常
 	    	if(existCount[0].cc > 0) continue;
 	    	var localItem = convertToLocal(item);
+	    	//计算手续费
+	    	//localItem[discountMoney] =( localItem.tradeMoney * customerInfo.discount * 0.01).toFixed(2);
+	    	//localItem[tixianfeiMoney] =( localItem.tradeMoney * customerInfo.tixianfei * 0.01).toFixed(2);
 	    	localItem.id= clientEx.getNexVal("transactionLogs");
 	    	var inserDBJson=[{ table:"transactionLogs" ,action: 0 ,fields:localItem}];
 	    	clientEx.execDb(inserDBJson);
@@ -29,12 +45,12 @@
 	    	addTerminalView(localItem);
 	    }
 	}catch(e){
-		status_list.html("保存数据时发生异常,请赶快处理！"+ e.message);
+		onError("保存数据时发生异常,请赶快处理！"+ e.message);
 	}
 	if(newJson.length > 0){
 		//触发通知
 	}
-    return JSON.stringify(newJson);
+    //return JSON.stringify(newJson);
 }
 
 function setStatus(str) {
@@ -43,6 +59,7 @@ function setStatus(str) {
 
 
 function init(){	
+	status_list = $("#status_list");
 	var today =new Date();
 	var date= today.Format("yyyy-MM-dd");
 	var prevdate=  today.AddDays(-1).Format("yyyy-MM-dd");
@@ -53,6 +70,13 @@ function init(){
 	for(var i=0;i< todayAllData.length;i++){
 		addTerminalView(todayAllData[i]);
 	}
+
+}
+
+function onError(msg){	
+	status_list.html(msg);
+	window.external.onError(msg);
+
 }
 
 function convertToLocal(netLog) {
@@ -65,7 +89,15 @@ function convertToLocal(netLog) {
     var second= timeStr.substr(4, 2);
     if (second > 59) second = 59;
     time = dayStr.substr(0, 4) + '-' + dayStr.substr(4, 2) + '-' + dayStr.substr(6, 2) + " " + timeStr.substr(0, 2) + ":" + minute + ":" + second;
-    return { terminal: netLog.tid, time: time, tradeName: netLog.trname, tradeMoney: netLog.amt, results: netLog.rap, faren: netLog.lpName, timeStr: netLog.tdate };
+    //交易结果代码
+    var pos = netLog.rap.indexOf('(');
+    var resultCode = null;
+    if(pos!=-1){
+    	var endPos= netLog.rap.indexOf(')');
+    	if(endPos>0) resultCode = netLog.rap.substr(pos+1,endPos-1);
+    }
+	if(!resultCode){ throw "交易结果代码获取方式有变！"; }
+    return { terminal: netLog.tid, time: time, tradeName: netLog.trname, tradeMoney: netLog.amt, results: netLog.rap,resultCode: resultCode, faren: netLog.lpName, timeStr: netLog.tdate };
 }
 
 function addTerminalView(item){

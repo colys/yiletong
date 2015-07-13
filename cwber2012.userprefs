@@ -1,6 +1,13 @@
-﻿<Properties StartupItem="web\web.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="SogouExplorerHTML" />
-  <MonoDevelop.Ide.Workbench />
+﻿<Properties StartupItem="WinForm\WinForm.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="output\js\main.js">
+    <Files>
+      <File FileName="d:\yiletong\yiletong\Common\EncryptionUtility.cs" Line="117" Column="1" />
+      <File FileName="d:\yiletong\yiletong\Common\Utility.cs" Line="161" Column="1" />
+      <File FileName="output\js\main.js" Line="96" Column="35" />
+      <File FileName="output\main.html" Line="54" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\QuickDisk\MyWork\yiletong\WinFormDemo\frmMain.cs" line="414" column="1" />

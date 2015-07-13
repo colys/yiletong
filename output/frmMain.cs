@@ -53,9 +53,9 @@ namespace WinForm
             return terminalQueue.Dequeue();
         }
 
-      private void onError(string msg){
-          MessageBox.Show(msg);
-      }
+		public void onError(string msg){
+			MessageBox.Show (msg);
+		}
 
         private void FillQueue()
         {
@@ -107,7 +107,7 @@ namespace WinForm
 				MessageBox.Show ("请先载入");
 				return;
 			}				
-			string js= "$('#resTree .tree-node[node-id=10051].trigger(\"click\")')";
+			string js= "$('#resTree .tree-node[node-id=10051]').trigger('click')')";
 			chromeWebBrowser1.ExecuteScript (js);
 			waitQueryThread = new System.Threading.Thread (new System.Threading.ParameterizedThreadStart (watinFrameLoad));
 			waitQueryThread.Start ();
@@ -384,8 +384,13 @@ window.frames['收单日志'].queryByCondition();";
                     content += System.Web.HttpUtility.UrlEncode(str) + ",";
                 }
                 content = content.Substring(0,content.Length - 1);
-            }            
+            }
+			try{
             return http.DoPost(ActionUrl, encryption.EncryptData(content));
+			}catch(Exception ex){
+				onError (ex.Message);
+				return null;
+			}
         }
 
         public string execQuery(string table,string fields,string where,string order){

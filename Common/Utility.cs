@@ -134,7 +134,7 @@ namespace Common
             webReqst.ContentType = "application/x-www-form-urlencoded";
             webReqst.ContentLength = data.Length;
             webReqst.CookieContainer = CC;
-            webReqst.Timeout = 60000;
+            webReqst.Timeout = 30000;
             webReqst.ReadWriteTimeout = 30000;
 
             //byte[] data = Encoding.Default.GetBytes(Content);
