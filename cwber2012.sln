@@ -1,12 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cwber", "cwber\cwber.csproj", "{0662C0B7-3F67-4831-B09B-6C67A212DCBE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cef3", "Cef3\Cef3.csproj", "{703FF300-34B9-48D4-A5D6-E741F48D5F95}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "output", "output", "{209E7D23-68FA-4E72-A034-BCE8C25F1F48}"
 	ProjectSection(SolutionItems) = preProject
 		output\customers.html = output\customers.html
@@ -15,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "output", "output", "{209E7D
 		output\js\main.js = output\js\main.js
 		output\transactionlog.html = output\transactionlog.html
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cwber", "cwber\cwber.csproj", "{0662C0B7-3F67-4831-B09B-6C67A212DCBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cef3", "Cef3\Cef3.csproj", "{703FF300-34B9-48D4-A5D6-E741F48D5F95}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForm", "WinForm\WinForm.csproj", "{AFF9F132-202C-4C48-B52F-FD1FF4AD29F9}"
 EndProject
@@ -28,10 +28,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{006E39C0-CEC6-4ADF-9A79-C1637AE1C6EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{006E39C0-CEC6-4ADF-9A79-C1637AE1C6EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{006E39C0-CEC6-4ADF-9A79-C1637AE1C6EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{006E39C0-CEC6-4ADF-9A79-C1637AE1C6EF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0662C0B7-3F67-4831-B09B-6C67A212DCBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0662C0B7-3F67-4831-B09B-6C67A212DCBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0662C0B7-3F67-4831-B09B-6C67A212DCBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -40,16 +36,18 @@ Global
 		{703FF300-34B9-48D4-A5D6-E741F48D5F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{703FF300-34B9-48D4-A5D6-E741F48D5F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{703FF300-34B9-48D4-A5D6-E741F48D5F95}.Release|Any CPU.Build.0 = Release|Any CPU
-		{78EE8491-C19F-40BA-83EF-E969DD0C2791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78EE8491-C19F-40BA-83EF-E969DD0C2791}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78EE8491-C19F-40BA-83EF-E969DD0C2791}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78EE8491-C19F-40BA-83EF-E969DD0C2791}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AFF9F132-202C-4C48-B52F-FD1FF4AD29F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFF9F132-202C-4C48-B52F-FD1FF4AD29F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFF9F132-202C-4C48-B52F-FD1FF4AD29F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFF9F132-202C-4C48-B52F-FD1FF4AD29F9}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
+		{78EE8491-C19F-40BA-83EF-E969DD0C2791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78EE8491-C19F-40BA-83EF-E969DD0C2791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78EE8491-C19F-40BA-83EF-E969DD0C2791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78EE8491-C19F-40BA-83EF-E969DD0C2791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{006E39C0-CEC6-4ADF-9A79-C1637AE1C6EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{006E39C0-CEC6-4ADF-9A79-C1637AE1C6EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{006E39C0-CEC6-4ADF-9A79-C1637AE1C6EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{006E39C0-CEC6-4ADF-9A79-C1637AE1C6EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

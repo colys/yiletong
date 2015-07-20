@@ -1,11 +1,16 @@
 ﻿<Properties StartupItem="WinForm\WinForm.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="output\js\main.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WinForm\frmMain.cs">
     <Files>
-      <File FileName="d:\yiletong\yiletong\Common\EncryptionUtility.cs" Line="117" Column="1" />
-      <File FileName="d:\yiletong\yiletong\Common\Utility.cs" Line="161" Column="1" />
-      <File FileName="output\js\main.js" Line="96" Column="35" />
-      <File FileName="output\main.html" Line="54" Column="1" />
+      <File FileName="output\js\main.js" Line="1" Column="1" />
+      <File FileName="output\main.html" Line="44" Column="2" />
+      <File FileName="output\transactionlog.html" Line="70" Column="8" />
+      <File FileName="Common\Utility.cs" Line="127" Column="10" />
+      <File FileName="WinForm\frmMain.cs" Line="306" Column="41" />
+      <File FileName="WinForm\App.config" Line="8" Column="69" />
+      <File FileName="WinForm\Form2.cs" Line="31" Column="10" />
+      <File FileName="Common\EncryptionUtility.cs" Line="12" Column="35" />
+      <File FileName="Common\RongBao\RSACryptionClass.cs" Line="37" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

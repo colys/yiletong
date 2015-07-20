@@ -13,14 +13,21 @@ namespace web2.Controllers
 {
 	public class HomeController : Controller
 	{
-		static string  connStr = System.Configuration.ConfigurationManager.ConnectionStrings["connstr"].ToString();
+		static string  connStr =getSetting("connstr");
 		EncryptionUtility encryption;
 
 		public HomeController()
 		{
 			encryption = new EncryptionUtility(System.Web.HttpContext.Current.Server.MapPath("~/Content/yiletong.key"));
 		}
-
+		private static string getSetting(string name)
+		{
+			if (System.Configuration.ConfigurationManager.AppSettings[name] == null)
+			{
+				throw new Exception("配置文件不正确:"+name+"！");
+			}
+			return System.Configuration.ConfigurationManager.AppSettings[name].ToString();
+		}
 
 		private string UserName {
 			get
@@ -151,6 +158,61 @@ namespace web2.Controllers
 			if (!string.IsNullOrEmpty(cusName)) sql += " and b.faren ='" + FormatString(cusName) + "' ";
 			DataTable dt = QueryTable(sql, true);
 			return JsonConvert.SerializeObject(dt);
+		}
+
+
+		public JsonResult ToRongBao(){
+			var resultData = new { ErrorCode = 0, ErrorMsg = "" };
+			string errorItem = "";
+			System.Data.DataTable dt= null;
+			try
+			{
+				string cerFile = getSetting("publicCer");
+				if (cerFile.IndexOf(":") != 1) { 
+					//相对路径
+					if (cerFile[0] != '\\' && cerFile[0] != '/') { cerFile = "\\" + cerFile.Replace('/', '\\'); }
+					cerFile = Server.MapPath(cerFile);
+				}
+				errorItem="查询结算汇总表";
+				resultData.ErrorCode = 1;
+				string sql="";//查询结算汇总表
+				dt =QueryTable(sql,false);
+				if(dt.Columns.IndexOf("id")==-1){throw new Exception("查询送盘数据失败，没有ID列");}
+				errorItem="更新待上传标记";
+				resultData.ErrorCode = 1;
+				foreach(DataRow dr in dt.Rows){
+					if(dr["id"].Equals(DBNull.Value)){throw new Exception("ID列数据为空");}
+					if(dr["terminal"].Equals(DBNull.Value)){throw new Exception("terminal列数据为空");}
+					if(dr["tradeMoney"].Equals(DBNull.Value)){throw new Exception("tradeMoney列数据为空");}
+					sql="update transactionSum set status= 1,result='正在结算',uploadDate='"+ DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") +"' result where id="+ dr["id"];
+					ExecuteCommand(sql);//标记状态为待上传
+				}
+				errorItem="上传融宝处理";
+				resultData.ErrorCode = 1;
+				Common.RongBao.RSACryptionClass testClass = new Common.RongBao.RSACryptionClass(cerFile);
+				string returnStr = testClass.Test(dt);
+				errorItem="融宝执行成功,更新成功状态";
+				resultData.ErrorCode =3;
+				foreach(DataRow dr in dt.Rows){					
+					sql="update transactionSum set status= 2,result='成功' where id="+ dr["id"];
+					ExecuteCommand(sql);
+				}	
+				errorItem=null;
+				resultData.ErrorCode = 0;
+			}
+			catch (Exception ex) {
+				resultData.ErrorMsg = errorItem + "时发生异常：" + ex.Message;
+				if (dt != null) {
+					foreach (DataRow dr in dt.Rows) {					
+						string sql = "update transactionSum set status= -2 ,result = '" + resultData.ErrorMsg + "' where id=" + dr ["id"] + " and status= 1";	
+						ExecuteCommand (sql);
+					}
+				}
+			}
+			catch(MySqlException ex){
+				resultData.ErrorMsg+=" , 更新失败标记也失败！";	
+			}
+			return Json(resultData,JsonRequestBehavior.AllowGet);
 		}
 
 

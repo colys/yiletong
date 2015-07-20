@@ -288,7 +288,28 @@ window.frames['收单日志'].queryByCondition();";
 
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                string cerFile = getSetting("publicCer");
+                if (cerFile.IndexOf(":") != 1) { 
+                    //相对路径
+                    if (cerFile[0] != '\\' && cerFile[0] != '/') { cerFile = "\\" + cerFile.Replace('/', '\\'); }
+                    cerFile = Application.StartupPath + cerFile;
+                }
+
+				System.Data.DataTable dt =new System.Data.DataTable();
+				dt.Columns.Add("money");
+				DataRow dr1= dt.NewRow();
+				dr1[0] = 100.20F;
+				dt.Rows.Add(dr1);
+                Common.RongBao.RSACryptionClass testClass = new Common.RongBao.RSACryptionClass(cerFile);
+				string returnStr = testClass.Test(dt);
+                MessageBox.Show(returnStr);
+            }
+            catch (Exception ex)
+            {
+                onError(ex.Message);
+            }
         }
 
 
@@ -489,6 +510,24 @@ window.frames['收单日志'].queryByCondition();";
             timer1.Enabled = false;
         }
 
+        private void 结算记录ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 添加客户ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			GoToMyUrl("transactionlog.html", transactionlogToolStripMenuItem.Text);
+        }
+
+        private void sqlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			string json = execDb ("[{ table:\"transactionLogs\" ,action: 1,fields:[\"status\"],values:[1],where:\"1=1\"}]");
+			MessageBox.Show (json);
+            //string json = execQuery("transactionlogs", "*", null, null);
+            //string json = execQuery("customers", "*", null, null);
+           // JsonMessage<DataTable> dt = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<DataTable>>(json);
+        }
 	}
 
 

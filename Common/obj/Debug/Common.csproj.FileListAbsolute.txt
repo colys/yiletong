@@ -17,3 +17,10 @@ D:\yiletong\yiletong\Common\obj\Debug\Common.dll
 D:\yiletong\yiletong\Common\obj\Debug\Common.pdb
 D:\yiletong\yiletong\Common\bin\Debug\MySql.Data.dll
 D:\yiletong\yiletong\Common\bin\Debug\Newtonsoft.Json.dll
+D:\QuickDisk\MyWork\yiletong\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+D:\QuickDisk\MyWork\yiletong\Common\obj\Debug\Common.dll
+D:\QuickDisk\MyWork\yiletong\Common\bin\Debug\Common.dll
+D:\QuickDisk\MyWork\yiletong\Common\bin\Debug\Common.pdb
+D:\QuickDisk\MyWork\yiletong\Common\bin\Debug\MySql.Data.dll
+D:\QuickDisk\MyWork\yiletong\Common\bin\Debug\Newtonsoft.Json.dll
+D:\QuickDisk\MyWork\yiletong\Common\obj\Debug\Common.pdb

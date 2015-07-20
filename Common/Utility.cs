@@ -144,20 +144,18 @@ namespace Common
 
             HttpWebResponse webResponse = (HttpWebResponse)webReqst.GetResponse();
             BugFix_CookieDomain(CC);
-            if (webResponse.StatusCode == HttpStatusCode.OK && webResponse.ContentLength < 1024 * 1024)
-            {
-                stream = webResponse.GetResponseStream();
-                stream.ReadTimeout = 30000;
-                if (webResponse.ContentEncoding == "gzip")
-                {
-                    reader = new StreamReader(new GZipStream(stream, CompressionMode.Decompress), Encoding.UTF8);
-                }
-                else
-                {
-                    reader = new StreamReader(stream, Encoding.UTF8);
-                }
-                html = reader.ReadToEnd();
-            }
+			if (webResponse.StatusCode == HttpStatusCode.OK && webResponse.ContentLength < 1024 * 1024) {
+				stream = webResponse.GetResponseStream ();
+				stream.ReadTimeout = 30000;
+				if (webResponse.ContentEncoding == "gzip") {
+					reader = new StreamReader (new GZipStream (stream, CompressionMode.Decompress), Encoding.UTF8);
+				} else {
+					reader = new StreamReader (stream, Encoding.UTF8);
+				}
+				html = reader.ReadToEnd ();
+			} else {
+				throw new Exception ("server error:" + webResponse.StatusCode);
+			}
             return html;
         }
         #endregion

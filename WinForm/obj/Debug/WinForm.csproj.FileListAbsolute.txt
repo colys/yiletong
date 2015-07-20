@@ -7,17 +7,11 @@ D:\QuickDisk\MyWork\yiletong\WinFormDemo\obj\Debug\WinForm.csproj.GenerateResour
 D:\QuickDisk\MyWork\yiletong\WinFormDemo\obj\Debug\WinFormDemo.exe
 D:\QuickDisk\MyWork\yiletong\WinFormDemo\obj\Debug\WinFormDemo.pdb
 D:\QuickDisk\MyWork\yiletong\output\frmMain.cs
-D:\QuickDisk\MyWork\yiletong\output\WinFormDemo.exe.config
-D:\QuickDisk\MyWork\yiletong\output\WinFormDemo.exe
-D:\QuickDisk\MyWork\yiletong\output\WinFormDemo.pdb
 D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinForm.csprojResolveAssemblyReference.cache
 D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinForm.Form1.resources
 D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinForm.Form2.resources
 D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinForm.frmMain.resources
-D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinFormDemo.Properties.Resources.resources
 D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinForm.csproj.GenerateResource.Cache
-D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinFormDemo.exe
-D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinFormDemo.pdb
 C:\QuickDisk\MyWork\yiletong\output\frmMain.cs
 C:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinForm.csprojResolveAssemblyReference.cache
 C:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinForm.Form1.resources
@@ -42,3 +36,9 @@ D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.Properties.Resources.resources
 D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.csproj.GenerateResource.Cache
 D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.exe
 D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.pdb
+D:\QuickDisk\MyWork\yiletong\output\WinForm.exe.config
+D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinForm.exe
+D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinForm.pdb
+D:\QuickDisk\MyWork\yiletong\WinForm\obj\Debug\WinForm.Properties.Resources.resources
+D:\QuickDisk\MyWork\yiletong\output\WinForm.exe
+D:\QuickDisk\MyWork\yiletong\output\WinForm.pdb

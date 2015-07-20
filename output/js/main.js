@@ -18,7 +18,7 @@ function parseTableJson() {
     }
     var newJson =[];
     try{
-    	/*获取客户信息
+    	//获取客户信息
     	var customerInfo = null;
     	var queryData=clientEx.execQuery("*","customers","terminal='"+ terminal +"'",null);
     	if(queryData.length == 1)  customerInfo = queryData[0];
@@ -26,7 +26,7 @@ function parseTableJson() {
     	if(!customerInfo.discount || isNaN(customerInfo.discount)) { throw("获取客户信息discount is null or NaN,terminal："+terminal); }
     	if(!customerInfo.tixianfei || isNaN(customerInfo.tixianfei)){ throw("获取客户信息tixianfei is null or NaN, terminal："+terminal); }
     	if(!customerInfo.tixianfeiEles || isNaN(customerInfo.tixianfeiEles)){ throw("获取客户信息tixianfeiEles is null or NaN, terminal："+terminal); }
-    	*/
+
 	    for(var i=0;i<json.length;i++){
 	    	var item =json[i];
 	    	//判断记录是否存在,存在的话忽略,不存在则插入
@@ -35,9 +35,11 @@ function parseTableJson() {
 	    	if(existCount[0].cc > 0) continue;
 	    	var localItem = convertToLocal(item);
 	    	//计算手续费
-	    	//localItem[discountMoney] =( localItem.tradeMoney * customerInfo.discount * 0.01).toFixed(2);
-	    	//localItem[tixianfeiMoney] =( localItem.tradeMoney * customerInfo.tixianfei * 0.01).toFixed(2);
+	    	localItem[discountMoney] =( localItem.tradeMoney * customerInfo.discount * 0.01).toFixed(2);
+	    	localItem[tixianfeiMoney] =( localItem.tradeMoney * customerInfo.tixianfei * 0.01).toFixed(2);
 	    	localItem.id= clientEx.getNexVal("transactionLogs");
+	    	localItem.status=0; 
+
 	    	var inserDBJson=[{ table:"transactionLogs" ,action: 0 ,fields:localItem}];
 	    	clientEx.execDb(inserDBJson);
 	    	newJson[newJson.length]=item;
@@ -48,6 +50,22 @@ function parseTableJson() {
 		onError("保存数据时发生异常,请赶快处理！"+ e.message);
 	}
 	if(newJson.length > 0){
+		//是否有结算
+		var maxId=0;
+		$(newJson).each(function(){
+			if(this.tradeName == "结算"){
+				maxId= this.id;
+				try{
+					var transData= clientEx.execQuery("count(0) cc,sum(tradeMoney) tradeMoney,sum(tradeMoney) pos,sum(tradeMoney) t0", "transactionLogs", "terminal='"+ this.terminal +"' and Status=0", null);
+					if(transData ==0 || transData.length ==0) throw("查询transactionLogs数据为空");
+					transData = transData[0];
+					transData["finallyMoney"] = transData.tradeMoney - transData.pos- transData.t0;
+					var sumData={id:clientEx.getNexVal("transactionSum"),status:0, terminal= this.terminal,tradeMoney:transData.tradeMoney,finallyMoney:transData.finallyMoney   }
+				}catch(e){
+					onError("用户发起了结算，但汇总交易数据失败！"+ e.message);
+				}
+			}
+		});
 		//触发通知
 	}
     //return JSON.stringify(newJson);
@@ -97,7 +115,7 @@ function convertToLocal(netLog) {
     	if(endPos>0) resultCode = netLog.rap.substr(pos+1,endPos-1);
     }
 	if(!resultCode){ throw "交易结果代码获取方式有变！"; }
-    return { terminal: netLog.tid, time: time, tradeName: netLog.trname, tradeMoney: netLog.amt, results: netLog.rap,resultCode: resultCode, faren: netLog.lpName, timeStr: netLog.tdate };
+    return { terminal: netLog.tid, time: time, tradeName: netLog.trname, tradeMoney: netLog.amt, results: netLog.rap,resultCode: resultCode, faren: netLog.lpName, timeStr: netLog.tdate};
 }
 
 function addTerminalView(item){
@@ -167,27 +185,27 @@ $.transactionLog = function (options) {
         , markColName: "status"
     };
     var entityTable = $("#listTable").entityTable(entityTable_ops);
-    entityTable.Query(null, null, true);
-
-
-   
 
     $("#btnQuery").click(function () {
         var termId = $("#termId").val().trim();
         var startDate = $("#startDate").val().trim();
         var endDate = $("#endDate").val().trim();
         if (startDate == null || startDate.length < 10) {
-            if (endDate != null) startDate = endDate;
+            if (endDate != '') startDate = endDate;
             else startDate = (new Date()).Format("yyyy-MM-dd");
         }
         if (endDate == null|| endDate.length < 10) {
-            if (startDate != null) endDate = startDate;
+            if (startDate != '') endDate = startDate;
             else endDate = (new Date()).Format("yyyy-MM-dd");
         }
         startDate = strToDate(startDate).AddDays(-1).Format("yyyy-MM-dd");
-        var filter = "time between " + startDate + " 23:00:00 and " + endDate + " 23:59:59";
+        var filter = "time between '" + startDate + " 23:00:00' and '" + endDate + " 23:59:59'";
         if (termId != "") { filter += " and terminal='" + termId + "'" }
-        entityTable.Query(null, null, true);
+       
+        entityTable.Query(filter, null, true);
     })
+
+    $("#btnQuery").click();
+
     return this;
 }
