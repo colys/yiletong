@@ -57,8 +57,9 @@ function parseTableJson() {
         try {
             $(newJson).each(function () {
                 if (this.tradeName == "批上送结束(平账)") {
+                	$("#settle_status_list").empty();
                     maxId = this.id;
-                    var whereSql = "terminal='" + this.terminal + "' and Status=0 and tradeName='IC卡批上送通知交易(联机平账)' and resultCode='00'";
+                    var whereSql = "terminal='" + this.terminal + "' and Status=0 and tradeName='IC卡批上送通知交易(联机平账)' and resultCode='00' and time< '"+ this.time +"'";
                     var transData = clientEx.execQuery("count(0) batchCount,sum(tradeMoney) tradeMoney,sum(discountMoney) discountMoney,sum(tixianfeiMoney) tixianfeiMoney", "transactionLogs", whereSql, null);                    
                     if (transData == 0 || transData.length == 0) throw ("查询transactionLogs数据为空");
                     var sumData = transData[0];
@@ -68,12 +69,6 @@ function parseTableJson() {
                     sumData.finallyMoney = sumData.tradeMoney - sumData.discountMoney - sumData.tixianfeiMoney;
                     sumData.status = 0;
                     sumData.terminal = this.terminal;
-                    sumData.faren = customerInfo.faren;
-                    sumData.shanghuName = customerInfo.shanghuName;
-                    sumData.bankName = customerInfo.bankName;
-                    sumData.bankName2 = customerInfo.bankName2;
-                    sumData.province = customerInfo.province;
-                    sumData.city = customerInfo.city;
                     var inserDBJson = [{ table: "transactionlogs", action: 1, fields: { sumid: sumid, Status: 1 }, where: whereSql }, { table: "transactionSum", action: 0, fields: sumData }];
                     clientEx.execDb(inserDBJson);
                 }
@@ -94,11 +89,11 @@ function setStatus(str) {
 
 function setSumStatus(str) {
     $("#settle_status").html(str);
-    $("#settle_status").empty();
+    $("#settle_status_list").empty();
 }
 
 function appendSumLog(str) {
-    $("#settle_status").append("<div>" + str + "</div>");
+    $("#settle_status_list").append("<div>" + str + "</div>");
 }
 
 function getCustomerShouXuFeiPos(customerInfo,money){

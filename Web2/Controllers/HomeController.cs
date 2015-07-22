@@ -13,20 +13,28 @@ namespace web2.Controllers
 {
 	public class HomeController : Controller
 	{
-		static string  connStr =getSetting("connstr");
+		string connStr;
 		EncryptionUtility encryption;
 
 		public HomeController()
 		{
 			encryption = new EncryptionUtility(System.Web.HttpContext.Current.Server.MapPath("~/Content/yiletong.key"));
+			connStr =getSetting("connstr");
 		}
-		private static string getSetting(string name)
+		private string getSetting(string name,bool isFile=false)
 		{
 			if (System.Configuration.ConfigurationManager.AppSettings[name] == null)
 			{
 				throw new Exception("配置文件不正确:"+name+"！");
 			}
-			return System.Configuration.ConfigurationManager.AppSettings[name].ToString();
+			string val= System.Configuration.ConfigurationManager.AppSettings[name].ToString();
+			if (isFile) {
+				if (val.IndexOf(":") != 1)
+				{
+					val = Server.MapPath(val);
+				}
+			}
+			return val;
 		}
 
 		private string UserName {
@@ -166,46 +174,63 @@ namespace web2.Controllers
             JsonMessage resultData = new JsonMessage();
 			string errorItem = "";
 			System.Data.DataTable dt= null;
+			int RandomNum;
+			Random MyRandom = new Random();
+			RandomNum = MyRandom.Next(1001, 9999);
+			string batchCurrnum = DateTime.Now.ToString("yyyyMMddHHmmss") + RandomNum;
             try
             {
-                string cerFile = getSetting("publicCer");
-                if (cerFile.IndexOf(":") != 1)
-                {
-                    //相对路径
-                    if (cerFile[0] != '\\' && cerFile[0] != '/') { cerFile = "\\" + cerFile.Replace('/', '\\'); }
-                    cerFile = Server.MapPath(cerFile);
-                }
+				string cerFile = getSetting("rongbao_public",true);               
                 errorItem = "查询结算汇总表";
-                string sql = "select a.*,b.bankName,b. from transactionSum a join customers b on a.terminal = b.terminal where a.status == 0";//查询结算汇总表
+				string sql = "select a.id,a.terminal,a.finallyMoney money,b.faren,b.shanghuName,b.bankName ,b.bankName2,b.bankName3,b.province,b.bankAccount,b.city,b.tel from transactionSum a join customers b on b.terminal = a.terminal where a.status = 0 and b.status <> -1";//查询结算汇总表
                 dt = QueryTable(sql, false);
+				if( dt.Rows.Count==0) return Json(resultData,JsonRequestBehavior.AllowGet);
                 if (dt.Columns.IndexOf("id") == -1) { throw new Exception("查询送盘数据失败，没有ID列"); }
-                errorItem = "更新待上传标记";
-                int RandomNum;
-                Random MyRandom = new Random();
-                RandomNum = MyRandom.Next(1001, 9999);
-                string batchCurrnum = DateTime.Now.ToString("yyyyMMddHHmmss") + RandomNum;
+                errorItem = "更新待上传标记";                
                 foreach (DataRow dr in dt.Rows)
                 {
                     if (dr["id"].Equals(DBNull.Value)) { throw new Exception("ID列数据为空"); }
                     if (dr["terminal"].Equals(DBNull.Value)) { throw new Exception("terminal列数据为空"); }
-                    if (dr["tradeMoney"].Equals(DBNull.Value)) { throw new Exception("tradeMoney列数据为空"); }
-                    sql = "update transactionSum set status= 1,result='正在结算',batchCurrnum='" + batchCurrnum + "', uploadDate='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' result where id=" + dr["id"];
+					if (dr["money"].Equals(DBNull.Value)) { throw new Exception("money列数据为空"); }
+					/*
+sumData.faren = customerInfo.faren;
+                    sumData.shanghuName = customerInfo.shanghuName;
+                    sumData.bankName = customerInfo.bankName;
+                    sumData.bankName2 = customerInfo.bankName2;
+                    sumData.bankName3 = customerInfo.bankName3;
+                    sumData.province = customerInfo.province;
+                    sumData.bankAccount = customerInfo.bankAccount;
+                    sumData.city = customerInfo.city;
+                    sumData.tel = customerInfo.tel;
+					*/
+                    sql = @"update transactionSum set status= 1,results='正在结算',batchCurrnum='" + batchCurrnum + "'" +
+                    	", uploadDate='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'" +
+						",faren='"+ dr["faren"] +"' " +
+						",shanghuName='"+ dr["shanghuName"] +"' " +
+						",bankName='"+ dr["bankName"] +"' " +
+						",bankName2='"+ dr["bankName2"] +"' " +
+						",bankName3='"+ dr["bankName3"] +"' " +
+						",province='"+ dr["province"] +"' " +
+						",city='"+ dr["city"] +"' " +
+						",bankAccount='"+ dr["bankAccount"] +"' " +
+						",tel='"+ dr["tel"] +"' " +
+						" where id='" + dr["id"]+"'";
                     ExecuteCommand(sql);//标记状态为待上传
                 }
                 errorItem = "上传融宝处理";
-
+				string batchDate = DateTime.Now.ToString("yyyyMMdd");
                 Common.RongBao.RSACryptionClass testClass = new Common.RongBao.RSACryptionClass(cerFile, "");
-                string returnStr = testClass.Sent(dt, batchCurrnum);
+				string returnStr = testClass.Sent(dt, batchCurrnum,batchDate);
                 errorItem = "融宝执行成功,更新成功状态";
                 string  affectedIDStr= "";
                 foreach (DataRow dr in dt.Rows)
                 {
-                    affectedIDStr += "," + dr["id"];
-                    sql = "update transactionSum set status= 2,result='银行处理中' where id=" + dr["id"];
+					affectedIDStr += "," + dr["terminal"];
+                    sql = "update transactionSum set status= 2,results='银行处理中' where id='" + dr["id"]+"'";
                     ExecuteCommand(sql);
                 }
                 errorItem = null;
-                resultData.Result = affectedIDStr.Substring(1);
+				resultData.Result = new string[]{batchCurrnum,batchDate, affectedIDStr.Substring(1)};
             }
             catch (Exception ex)
             {
@@ -216,16 +241,36 @@ namespace web2.Controllers
                     {
                         foreach (DataRow dr in dt.Rows)
                         {
-                            string sql = "update transactionSum set status= -2 ,result = '" + resultData.Message + "' where id=" + dr["id"] + " and status= 1";
+							resultData.Message = resultData.Message.Replace('\'',' ');
+							string sql = "update transactionSum set status= -2 ,results = '" + resultData.Message + "' where batchCurrnum='" + batchCurrnum + "' and id='" + dr["id"] + "' and status= 1";
                             ExecuteCommand(sql);
                         }
                     }
-                    catch (MySqlException)
+                    catch (MySqlException e)
                     {
-                        resultData.Message += " , 更新失败标记也失败！";
+						resultData.Message += " , 更新失败标记也失败！"+e.Message;
                     }
                 }
             }
+			return Json(resultData,JsonRequestBehavior.AllowGet);
+		}
+
+		/// <summary>
+		/// 查询融宝执行情况
+		/// </summary>
+		/// <returns>The rong bao.</returns>
+		/// <param name="batchCurrnum">Batch currnum.</param>
+		/// <param name="batchDate">Batch date.</param>
+		public JsonResult GetRongBao(string batchCurrnum,string batchDate ){
+			JsonMessage resultData = new JsonMessage ();
+			try {
+				string publicCer = getSetting ("rongbao_public",true);     
+				string cerFile = getSetting("rongbao_private",true);    
+				Common.RongBao.RSACryptionClass testClass = new Common.RongBao.RSACryptionClass (publicCer, cerFile);
+				resultData.Result = testClass.TryGetResult (batchCurrnum, batchDate);
+			} catch (Exception ex) {
+				resultData.Message = ex.Message;
+			}
 			return Json(resultData,JsonRequestBehavior.AllowGet);
 		}
 
@@ -247,17 +292,19 @@ namespace web2.Controllers
 				string[] arr1 = data.Split('&');
 
 				actionName = arr1[0].Split('=')[1];
-				string dataArrStr = arr1.Length > 0 ? arr1[1].Split('=')[1] : "";
-				arr = dataArrStr.Split(',');
-				for (int i = 0; i < arr.Length; i++)
-				{
-					arr[i] = HttpUtility.UrlDecode(arr[i]);
+				string dataArrStr = (arr1.Length > 1 && arr1[1].IndexOf('=')>0) ? arr1[1].Split('=')[1] : "";
+				if(dataArrStr!=""){
+					arr = dataArrStr.Split(',');
+					for (int i = 0; i < arr.Length; i++)
+					{
+						arr[i] = HttpUtility.UrlDecode(arr[i]);
+					}
 				}
                 var actionLastPos = actionName.LastIndexOf('.');
                 string methodName ,className;
                 if(actionLastPos>0){
                     methodName = actionName.Substring(actionLastPos+1);
-                    className= actionName.Substring(0,actionLastPos-1);
+                    className= actionName.Substring(0,actionLastPos);
                 }else {
                     methodName= actionName;
                     className="Common.MySqlExecute";
@@ -280,21 +327,25 @@ namespace web2.Controllers
                         if (instance == null) throw new Exception(className + "找不到！");
                         break;
                 }
-
+				object evalResult = null;
 
                 if (instance is IDisposable)
                 {
                     using (instance as IDisposable)
                     {
-                        jr.Result = instance.GetType().InvokeMember(methodName, System.Reflection.BindingFlags.InvokeMethod, null, instance, arr);
+						evalResult = instance.GetType().InvokeMember(methodName, System.Reflection.BindingFlags.InvokeMethod, null, instance, arr);
                     }
                 }
                 else
                 {
-                    jr.Result = instance.GetType().InvokeMember(methodName, System.Reflection.BindingFlags.InvokeMethod, null, instance, arr);
+					evalResult = instance.GetType().InvokeMember(methodName, System.Reflection.BindingFlags.InvokeMethod, null, instance, arr);
                 }
                              
-				
+				if(evalResult is JsonResult){
+					return JsonConvert.SerializeObject(((JsonResult)evalResult).Data );
+				}else {
+					jr.Result = evalResult;
+				}
 			}
 			catch (Exception ex)
 			{				

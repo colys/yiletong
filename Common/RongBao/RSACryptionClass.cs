@@ -20,7 +20,7 @@ namespace Common.RongBao
         string batchBizid = "100000000056373";
         string _input_charset = "gbk";
         string batchBiztype = "00000";
-        string batchDate = DateTime.Now.ToString("yyyyMMdd");
+        
         string batchVersion = "00";
         Encoding encoding;
 
@@ -34,7 +34,7 @@ namespace Common.RongBao
         public string PubliCertificate { get; set; }
         public string PrivateKey { get; set; }
         //id,bankAccount,faren,bankName,bankName2,finallyMoney,province,city,phone
-		public string Sent(DataTable dt,string batchCurrnum)
+		public string Sent(DataTable dt,string batchCurrnum,string batchDate)
         {
 			
             int batchCount = dt.Rows.Count;
@@ -42,13 +42,13 @@ namespace Common.RongBao
             string batchContent="";
             int rowIndex = 0;
 			foreach (DataRow dr in dt.Rows) {
-                float money = Convert.ToSingle(dr["finallyMoney"]);
+				float money = Convert.ToSingle(dr["money"]);
 				batchAmount += money;
 				rowIndex++;
 				//序号,银行账户,开户名,开户行,分行,支行,公/私,金额,币种,省,市,手机号,证件类型,证件号,用户协议号,商户订单号,备注
 				if (rowIndex > 1)
 					batchContent += "|";
-                batchContent += dr["id"] + "," + dr["bankAccount"] + "," + dr["faren"] + "," + dr["bankName"] + "," + dr["bankName2"] + "," + dr["bankName3"] + ",私," + money.ToString("f2") + ",CNY," + dr["province"] + "," + dr["city"] + "," + dr["phone"] + "," + "身份证,,,,,";
+                batchContent += dr["id"] + "," + dr["bankAccount"] + "," + dr["faren"] + "," + dr["bankName"] + "," + dr["bankName2"] + "," + dr["bankName3"] + ",私," + money.ToString("f2") + ",CNY," + dr["province"] + "," + dr["city"] + "," + dr["tel"] + "," + "身份证,,,,,";
 
 			}
 
@@ -72,8 +72,9 @@ namespace Common.RongBao
 
         
 
-     	public string TryGetResult(string batchCurrnum,string batchDate)
+		public QueryResult  TryGetResult(string batchCurrnum,string batchDate)
         {
+			QueryResult qr = null;
             string easypay_url = FormatUrl(new
             {                
                 _input_charset = _input_charset,
@@ -85,16 +86,16 @@ namespace Common.RongBao
             MyHttpUtility http = new MyHttpUtility();
             string returnPayValue = http.DoGet("http://entrust.reapal.com/agentpay/payquerybatch?" + easypay_url);
             if (returnPayValue.Substring(0, 6).ToUpper() == "<RESP>") {
-
+				CheckException(returnPayValue);
             }
             else
             {
                 //解密
                 SecurityClass security = new SecurityClass(Encoding.GetEncoding("GBK"));
                 returnPayValue = security.RSADecrypt(PrivateKey, "clientok", returnPayValue);
-            }            
-            CheckException(returnPayValue);
-            return returnPayValue;
+				qr= Common.QueryResult.FromXml(returnPayValue);
+            }  
+			return qr;
         }
 
         private void CheckException(string returnPayValue)

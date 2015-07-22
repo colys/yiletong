@@ -88,9 +88,7 @@ namespace Common
                 nextVal = Convert.ToInt32(nextVal) + 1;
                 ExecuteCommand("update erp_sequence set val ='" + nextVal + "' where tableName=  '" + table + "'");
             }
-			if (table.ToLower () == "transactionsum")
-				return DateTime.Now.ToString ("yyyyMMddHHmmss") + nextVal;
-            else return nextVal.ToString();
+			return nextVal.ToString();
         }
 
         public DataTable ExecQuery(string table, string fields, string where, string order)

@@ -76,7 +76,21 @@ namespace WinForm
                 timeStr = (timer_pay.Interval / 1000) + "秒钟";
             }
             webBrowser1.Document.InvokeScript("setSumStatus", new string[] { DateTime.Now.ToString("HH:mm:ss") + "监控开始，每" + timeStr + "一次" });
+			string qjson= execQuery ("transactionsum", "distinct batchCurrnum,uploadDate", "status in (1,2) ", null);
+			JsonMessage<Dictionary<string,string>[]> jm = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<Dictionary<string,string>[]>>(qjson);
+			if (jm.Message != null) {
+				onError ("query transactionsum un recive data exception");
+			} else {
+				Dictionary<string,string>[] data = jm.Result;
+				foreach (Dictionary<string,string> dic in data) {
+					startModnitorank (new string[]{ dic ["batchCurrnum"], Convert.ToDateTime( dic ["uploadDate"]).ToString("yyyyMMdd"), "" });
+				}
+			}	
+			timer_pay.Start ();
+
         }
+
+
 
         private void BeginLoadWeb(object o)
         {
@@ -230,8 +244,9 @@ window.frames['收单日志'].queryByCondition();";
 		}
 
      
-
+		public delegate void delegateOnParam(string str);
         public delegate void QueryFinish();
+		public delegate void QueryBankFinish(QueryResult result);
 
 
 		private void watinFrameLoad(object o)
@@ -453,35 +468,41 @@ window.frames['收单日志'].queryByCondition();";
 			MessageBox.Show (json);           
         }
 
+		private void startModnitorank(string[] result){			
+			AppendSumLog("上传成功,终端号有：" + result[2]);
+			AppendSumLog("监控银行处理情况");
+			System.Threading.Thread monitorThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(MonitorBankResult));
+			monitorThread.Start(result);
+		}
+
         private void timer_pay_Tick(object sender, EventArgs e)
         {
             if (systemExit) { timer_pay.Enabled = false; return; }
             if (inMonitor) return;
             inMonitor = true;
-            AppendSumLog("发起结算");
-            var json = RunHttp("ToRongBao");
-            JsonMessage<string> resultJson= Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<string>>(json);
-            if (!string.IsNullOrEmpty(resultJson.Message))
-            {
-                AppendSumLog("结算失败：" + resultJson.Message);
-            }
-            else
-            {
-               
-                if (!string.IsNullOrEmpty(resultJson.Result))
-                {
-                    string[] terminal = resultJson.Result.Split(',');
-                    AppendSumLog("上传成功,终端号有：" + resultJson.Result);
-                    AppendSumLog("监控银行处理情况");
-                    System.Threading.Thread monitorThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(MonitorBankResult));
-                    monitorThread.Start(resultJson.Result);
-                }
-                else
-                {
-                    AppendSumLog("没有要结算的交易！");
-                }
-               
-            }
+			try{
+	            AppendSumLog("发起结算");
+	            string json = RunHttp("Home.ToRongBao");
+	            JsonMessage<string[]> resultJson= Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<string[]>>(json);
+	            if (!string.IsNullOrEmpty(resultJson.Message))
+	            {
+	                AppendSumLog("结算失败：" + resultJson.Message);
+	            }
+	            else
+	            {	               
+					if (resultJson.Result!=null && resultJson.Result.Length ==3)
+	                {
+						startModnitorank(resultJson.Result);
+	                }
+	                else
+	                {
+	                    AppendSumLog("没有要结算的交易！");
+	                }
+	               
+	            }
+			}catch(Exception ex){
+				onError ("发起结算失败："+ex.Message);
+			}
             inMonitor = false;
         }
 
@@ -490,12 +511,86 @@ window.frames['收单日志'].queryByCondition();";
             webBrowser1.Document.InvokeScript("appendSumLog", new string[] { DateTime.Now.ToString("HH:mm:ss") +":"+ str });
         }
 
+		private void onBankFinish(QueryResult result){			
+			AppendSumLog("更新结算标志");
+			List<QueryItem> jsonQueryItems = new List<QueryItem> ();
+			foreach(QueryResult.DetailInfo detail in result.batchEContent){
+				QueryItem jsonItem = new QueryItem () {
+					table = "transactionSum",
+					action = DBAction.Update,
+					where =" batchCurrnum='"+ result.batchCurrnum +"' and id="+ detail.tradeNum,
+					fields = new string[] {
+						"status",
+						"result",
+						"reciveDate"
+					},
+					values = new string[3]
+				};
+				jsonItem.values [0] = detail.status;
+				if (detail.status != "成功") {
+					AppendSumLog (detail.faren + "结算失败" + detail.tradeNum);
+				}
+				jsonItem.values [1] = detail.reason;
+				jsonItem.values [2]  = DateTime.Now.ToString ("yyyy-MM-dd HH:mm:ss");
+				jsonQueryItems.Add (jsonItem);
+			}
+			string jsonStr = Newtonsoft.Json.JsonConvert.SerializeObject (jsonQueryItems);
+			try{
+			execDb (jsonStr);
+			}catch(Exception ex){
+				onError ("更新结算标志异常:" + ex.Message);
+			}
+		}
+
+		private void logOnThere(string str)
+		{
+			
+		}
+
 
         public void MonitorBankResult(object obj)
         {
-            string[] terminals = obj.ToString().Split();
+			if (systemExit) return;
+			string[] arr = obj as string[];
+			string batchCurrnum = arr [0];
+			string batchDate = arr [1];
+			string[] terminals = arr[2].ToString().Split();			 
             MyHttpUtility http = new MyHttpUtility();
-            string result = http.DoGet("");
+			string json =RunHttp("Home.GetRongBao",batchCurrnum,batchDate);
+			JsonMessage<QueryResult> resultJson= Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<QueryResult>>(json);
+			if (!string.IsNullOrEmpty (resultJson.Message)) {
+				this.BeginInvoke (new delegateOnParam (AppendSumLog), "查询银行处理结果失败：" + resultJson.Message);
+			} else {	   
+				bool isFinish = false;
+				string statusText = "";
+				switch (resultJson.Result.batchStatus) {
+				case 0:
+					statusText = "待确认";
+					break;
+				case 1:
+					statusText = "待审核";
+					break;
+				case 2:
+					statusText = "商户审核拒绝";
+					break;
+				case 3:
+					statusText = "处理中";
+					break;
+				case 4:
+					isFinish = true;
+					statusText = "交易完毕";
+					break;
+				}
+				this.BeginInvoke (new delegateOnParam (AppendSumLog), "银行处理结果为：" + statusText);
+				if (isFinish) {
+					this.BeginInvoke (new QueryBankFinish(onBankFinish),resultJson.Result );
+					return;
+				}
+				else {
+					System.Threading.Thread.Sleep (30000);
+					MonitorBankResult (obj);
+				}
+			}
         }
 	}
 
