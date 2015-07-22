@@ -81,30 +81,27 @@ namespace Common
             webReqst.CookieContainer = CC;
             webReqst.Timeout = 30000;
             webReqst.ReadWriteTimeout = 30000;
-            try
+
+            HttpWebResponse webResponse = (HttpWebResponse)webReqst.GetResponse();
+            BugFix_CookieDomain(CC);
+            if (webResponse.StatusCode == HttpStatusCode.OK && webResponse.ContentLength < 1024 * 1024)
             {
-                HttpWebResponse webResponse = (HttpWebResponse)webReqst.GetResponse();
-                BugFix_CookieDomain(CC);
-                if (webResponse.StatusCode == HttpStatusCode.OK && webResponse.ContentLength < 1024 * 1024)
+                Stream stream = webResponse.GetResponseStream();
+                stream.ReadTimeout = 30000;
+                if (webResponse.ContentEncoding == "gzip")
                 {
-                    Stream stream = webResponse.GetResponseStream();
-                    stream.ReadTimeout = 30000;
-                    if (webResponse.ContentEncoding == "gzip")
-                    {
-                        reader = new StreamReader(new GZipStream(stream, CompressionMode.Decompress), Encoding.Default);
-                    }
-                    else
-                    {
-                        reader = new StreamReader(stream, Encoding.Default);
-                    }
-                    html = reader.ReadToEnd();
+                    reader = new StreamReader(new GZipStream(stream, CompressionMode.Decompress), Encoding.Default);
                 }
+                else
+                {
+                    reader = new StreamReader(stream, Encoding.Default);
+                }
+                html = reader.ReadToEnd();
             }
-            catch
+            else
             {
-
+                throw new Exception("server error:" + webResponse.StatusCode); 
             }
-
             return html;
         }
 

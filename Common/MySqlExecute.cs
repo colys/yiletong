@@ -22,6 +22,7 @@ namespace Common
         string table_Suffix = "";
 
         MySqlConnection conn;
+		//MySqlTransaction trans;
         MySqlCommand cmd;
         string conStr;
 
@@ -87,8 +88,9 @@ namespace Common
                 nextVal = Convert.ToInt32(nextVal) + 1;
                 ExecuteCommand("update erp_sequence set val ='" + nextVal + "' where tableName=  '" + table + "'");
             }
-
-            return nextVal.ToString();
+			if (table.ToLower () == "transactionsum")
+				return DateTime.Now.ToString ("yyyyMMddHHmmss") + nextVal;
+            else return nextVal.ToString();
         }
 
         public DataTable ExecQuery(string table, string fields, string where, string order)
@@ -109,6 +111,8 @@ namespace Common
             QueryItem[] queryItems = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryItem[]>(jsonArrStr);
             if (queryItems == null)
                 throw new Exception("json error");
+			OpenMysql ();
+
             foreach (QueryItem item in queryItems)
             {
                 string sql;

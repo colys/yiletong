@@ -15,46 +15,90 @@ namespace Common.RongBao
  
     public class RSACryptionClass
     {
-        public RSACryptionClass(string publicCer)
+        string signType = "MD5";
+        string key = "gf5663d1994f8gecgca4050776bc3813cg0c3d607ac397564d65195fg7061gg2";
+        string batchBizid = "100000000056373";
+        string _input_charset = "gbk";
+        string batchBiztype = "00000";
+        string batchDate = DateTime.Now.ToString("yyyyMMdd");
+        string batchVersion = "00";
+        Encoding encoding;
+
+    
+        public RSACryptionClass(string publicCer,string privateKey)
         {
             PubliCertificate = publicCer;
+            this.PrivateKey = privateKey;
+            encoding = Encoding.GetEncoding(_input_charset);
         }
         public string PubliCertificate { get; set; }
-
-		public string Test(DataTable dt)
+        public string PrivateKey { get; set; }
+        //id,bankAccount,faren,bankName,bankName2,finallyMoney,province,city,phone
+		public string Sent(DataTable dt,string batchCurrnum)
         {
-            string sign = "";
-            string signType = "MD5";
-            string batchBizid = "100000000001486";
-            string _input_charset = "gbk";
-            string batchBiztype = "00000";
-            string batchDate = DateTime.Now.ToString("yyyyMMdd");
-            string batchVersion = "00";
-            int RandomNum;
-            Random MyRandom = new Random();
-            RandomNum = MyRandom.Next(1001, 9999);
-            string batchCurrnum = DateTime.Now.ToString("yyyyMMddHHmmss") + RandomNum;
-
+			
             int batchCount = dt.Rows.Count;
             float batchAmount = 0;
             string batchContent="";
             int rowIndex = 0;
 			foreach (DataRow dr in dt.Rows) {
-				float money = Convert.ToSingle (dr ["money"]);
+                float money = Convert.ToSingle(dr["finallyMoney"]);
 				batchAmount += money;
 				rowIndex++;
 				//序号,银行账户,开户名,开户行,分行,支行,公/私,金额,币种,省,市,手机号,证件类型,证件号,用户协议号,商户订单号,备注
 				if (rowIndex > 1)
-					batchCount += "|";
-				batchContent += rowIndex + "," + dr ["bankAccount"] + "," + dr ["faren"] + "," + dr ["bankName"] + "," + dr [""] + "," + dr [""] + "," + dr [""] + "," + dr [""] + "," + dr [""] + "," + dr [""] + "," + dr ["tel"] + "," + "身份证,,,,T0";
+					batchContent += "|";
+                batchContent += dr["id"] + "," + dr["bankAccount"] + "," + dr["faren"] + "," + dr["bankName"] + "," + dr["bankName2"] + "," + dr["bankName3"] + ",私," + money.ToString("f2") + ",CNY," + dr["province"] + "," + dr["city"] + "," + dr["phone"] + "," + "身份证,,,,,";
 
 			}
-            batchContent = HttpUtility.UrlEncode(RSAEncryption(batchContent));
-            //协议参数
-            string easypay_url = string.Format("sign={0}&signType={1}&batchBizid={2}&_input_charset={3}&batchBiztype={4}&batchDate={5}&batchVersion={6}", sign, signType, batchBizid, _input_charset, batchBiztype, batchDate, batchVersion);
-            //业务参数batchCurrnum,50位长度，当日不能重复            
-            easypay_url += string.Format("&batchCurrnum={0}&batchCount={1}&batchAmount={2}&batchContent={3}", batchCurrnum, batchCount, batchAmount, batchContent);
+
+            string easypay_url = FormatUrl(new
+            {
+                batchBizid = batchBizid,
+                _input_charset = _input_charset,
+                batchBiztype = batchBiztype,
+                batchDate = batchDate,
+                batchVersion = batchVersion,
+                batchCurrnum = batchCurrnum,
+                batchCount = batchCount,
+                batchAmount = batchAmount,
+                batchContent = batchContent
+            });
+
             string returnPayValue = PostDataGetHtml(easypay_url);
+            CheckException(returnPayValue);
+            return returnPayValue;
+        }
+
+        
+
+     	public string TryGetResult(string batchCurrnum,string batchDate)
+        {
+            string easypay_url = FormatUrl(new
+            {                
+                _input_charset = _input_charset,
+                batchBizid = batchBizid,                
+                batchCurrnum = batchCurrnum,
+                batchDate = batchDate,   
+                batchVersion = batchVersion
+            });
+            MyHttpUtility http = new MyHttpUtility();
+            string returnPayValue = http.DoGet("http://entrust.reapal.com/agentpay/payquerybatch?" + easypay_url);
+            if (returnPayValue.Substring(0, 6).ToUpper() == "<RESP>") {
+
+            }
+            else
+            {
+                //解密
+                SecurityClass security = new SecurityClass(Encoding.GetEncoding("GBK"));
+                returnPayValue = security.RSADecrypt(PrivateKey, "clientok", returnPayValue);
+            }            
+            CheckException(returnPayValue);
+            return returnPayValue;
+        }
+
+        private void CheckException(string returnPayValue)
+        {
             if (returnPayValue == null)
             {
                 throw new Exception("与融宝通信异常，返回值为空");
@@ -62,40 +106,61 @@ namespace Common.RongBao
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(returnPayValue);
             XmlNode xmlNode = xml.SelectSingleNode("Resp/status");
-            if (xmlNode.InnerText == "fail")
+            if (xmlNode!=null && xmlNode.InnerText == "fail")
             {
                 XmlNode reasonNode = xml.SelectSingleNode("Resp/reason");
                 //失败
-                throw new Exception("融宝代扣失败：" + reasonNode.InnerText);
+                throw new Exception("融宝返回失败信息：" + reasonNode.InnerText);
             }
-            return returnPayValue;
         }
 
-          
-
-
-
-
-
-//post提交
-        public static string PostDataGetHtml(string postData)
+        private string FormatUrl(object o)
         {
-            byte[] data = Encoding.Default.GetBytes(postData);
-            Uri uRI = new Uri("http://entrust.reapal.com/agentpay/pay?");
-            HttpWebRequest req = WebRequest.Create(uRI) as HttpWebRequest;
-            req.Method = "POST";
-            req.KeepAlive = true;
-            req.ContentType = "application/x-www-form-urlencoded";
-            req.ContentLength = data.Length;
-            req.AllowAutoRedirect = true;
-            Stream outStream = req.GetRequestStream();
-            outStream.Write(data, 0, data.Length);
-            outStream.Close();
-            HttpWebResponse res = req.GetResponse() as HttpWebResponse;
-            Stream inStream = res.GetResponseStream();
-            StreamReader sr = new StreamReader(inStream, System.Text.Encoding.Default);
-            string htmlResult = sr.ReadToEnd();
-            return htmlResult;
+            SecurityClass security = new SecurityClass(encoding);            
+            security.FromFile(PubliCertificate );
+            string notEncryText="",encryText="";
+            System.Collections.Generic.Dictionary<string, string> dic = new Dictionary<string, string>();            
+            foreach (System.Reflection.PropertyInfo p in o.GetType().GetProperties())
+            {
+                dic.Add(p.Name, p.GetValue(o, null).ToString());
+            }
+            dic.OrderBy(x => x.Key).ThenBy(x => x.Value);
+            foreach (KeyValuePair<string, string> kv in dic)
+            {
+                notEncryText += "&" + kv.Key + "=" + kv.Value;
+                string txt = kv.Value;
+                if (kv.Key == "batchContent") txt = System.Web.HttpUtility.UrlEncode(security.RSAEncrypt(txt));
+                encryText += "&" + kv.Key + "=" + txt;
+            }
+            notEncryText = notEncryText.Substring(1);            
+			string sign = security.MD5(notEncryText.Trim('&')+key);
+            encryText = string.Format("sign={0}&signType={1}", sign, signType) + encryText;
+            return encryText;            
+        }
+
+
+        //post提交
+        public string PostDataGetHtml(string postData)
+        {
+            byte[] data = encoding.GetBytes(postData);
+            //Uri uRI = new Uri("http://entrust.reapal.com/agentpay/pay?");
+            MyHttpUtility http = new MyHttpUtility();
+            return http.DoPost("http://entrust.reapal.com/agentpay/pay?", data);
+
+            //HttpWebRequest req = WebRequest.Create(uRI) as HttpWebRequest;
+            //req.Method = "POST";
+            //req.KeepAlive = true;
+            //req.ContentType = "application/x-www-form-urlencoded";
+            //req.ContentLength = data.Length;
+            //req.AllowAutoRedirect = true;
+            //Stream outStream = req.GetRequestStream();
+            //outStream.Write(data, 0, data.Length);
+            //outStream.Close();
+            //HttpWebResponse res = req.GetResponse() as HttpWebResponse;
+            //Stream inStream = res.GetResponseStream();
+            //StreamReader sr = new StreamReader(inStream, System.Text.Encoding.Default);
+            //string htmlResult = sr.ReadToEnd();
+            //return htmlResult;
 
         }
 
@@ -111,7 +176,7 @@ namespace Common.RongBao
 
             X509Certificate2 cert = new X509Certificate2(PubliCertificate);
             RSACryptoServiceProvider rsa = (RSACryptoServiceProvider)cert.PublicKey.Key;
-
+            
             foreach (byte b in textBytes)
             {
                 lst.Add(b);
@@ -154,18 +219,18 @@ namespace Common.RongBao
         // //私密金钥解密
         //private void btnDecrypt_Click(object sender, EventArgs e)
         //{
-        //    //txtPrivateKeyPath.Text是私密金钥解密的档案路径
-        //    // txtPrivateKeyPass<a href="http://www.it165.net/edu/ebg/" target="_blank" class="keylink">word</a>.Text是私密金钥解密的密码
-        //    X509Certificate2 prvcrt = new X509Certificate2(txtPrivateKeyPath.Text.Trim(), 
-        //        txtPrivateKeyPass<a href="http://www.it165.net/edu/ebg/" target="_blank" class="keylink">word</a>.Text, X509KeyStorageFlags.Exportable);
-        //    RSACryptoServiceProvider prvkey = (RSACryptoServiceProvider)prvcrt.PrivateKey;
-        //    //将加密过的内容从Base64字符串转成Byte Array
-        //    byte[] encryptedData = Convert.FromBase64String(txtEncryptBody.Text);
-        //    System.Security.Cryptography.RSAParameters parms = prvkey.ExportParameters(true);
-        //    //私密金钥解密
-        //    byte[] decryptedData = RSADecrypt(encryptedData, parms, false);
-        //    //将解密出来的内容转成字符串
-        //    txtDecryptBody.Text = Encoding.UTF8.GetString(decryptedData);
+            ////txtPrivateKeyPath.Text是私密金钥解密的档案路径
+            //// txtPrivateKeyPass<a href="http://www.it165.net/edu/ebg/" target="_blank" class="keylink">word</a>.Text是私密金钥解密的密码
+            //X509Certificate2 prvcrt = new X509Certificate2(txtPrivateKeyPath.Text.Trim(), 
+            ////    txtPrivateKeyPass<a href="http://www.it165.net/edu/ebg/" target="_blank" class="keylink">word</a>.Text, X509KeyStorageFlags.Exportable);
+            //RSACryptoServiceProvider prvkey = (RSACryptoServiceProvider)prvcrt.PrivateKey;
+            ////将加密过的内容从Base64字符串转成Byte Array
+            //byte[] encryptedData = Convert.FromBase64String(txtEncryptBody.Text);
+            //System.Security.Cryptography.RSAParameters parms = prvkey.ExportParameters(true);
+            ////私密金钥解密
+            //byte[] decryptedData = RSADecrypt(encryptedData, parms, false);
+            ////将解密出来的内容转成字符串
+            //txtDecryptBody.Text = Encoding.UTF8.GetString(decryptedData);
         //}
         #endregion
 

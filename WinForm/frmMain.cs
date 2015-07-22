@@ -21,8 +21,13 @@ namespace WinForm
         string userName="福州易乐通";
         string password = "Ylt123456";
         Queue<string> terminalQueue = new Queue<string>();
-        string ActionUrl;
+        string evalActionUrl;
+        string controllerUrl;
         EncryptionUtility encryption;
+		
+		System.Threading.Thread waitQueryThread;
+		bool inQuery = false,inMonitor=false;
+        bool systemExit = false;
         public frmMain()
         {
             InitializeComponent();
@@ -41,8 +46,10 @@ namespace WinForm
 			timer1.Interval = Convert.ToInt32 (getSetting ("listenInterval"));
             string host = getSetting("webHost");
             if (host[host.Length - 1] != '/') host += "/";
-            ActionUrl = host + "Home/Eval";
+            controllerUrl = host + "Home";
+            evalActionUrl = controllerUrl + "/Eval";
             encryption = new EncryptionUtility(Application.StartupPath + "\\yiletong.key");
+			
         }
 
         private string getNextTerminal()
@@ -52,9 +59,40 @@ namespace WinForm
 				return null;
             return terminalQueue.Dequeue();
         }
+        System.Threading.Timer timer;
+        public void InitOK()
+        {
+            chromeWebBrowser1.LoadHtml("正在载入，请稍后......");
+            timer = new System.Threading.Timer(new System.Threading.TimerCallback(BeginLoadWeb), null, 0, 500);
+            string timeStr;
+            if (timer_pay.Interval > 59000)
+            {
+                double d = (timer_pay.Interval / 60000);
+                if (d == 1) timeStr = "分钟";
+                else timeStr = d + "分钟";
+            }
+            else
+            {
+                timeStr = (timer_pay.Interval / 1000) + "秒钟";
+            }
+            webBrowser1.Document.InvokeScript("setSumStatus", new string[] { DateTime.Now.ToString("HH:mm:ss") + "监控开始，每" + timeStr + "一次" });
+        }
 
+        private void BeginLoadWeb(object o)
+        {
+            timer.Change(-1, 0);
+            this.BeginInvoke(new QueryFinish(LoadRemoteWeb));            
+        }
+        private void LoadRemoteWeb()
+        {
+            openLogin();
+            tabControl1.SelectedIndex = 0;
+        }
 		public void onError(string msg){
-			MessageBox.Show (msg);
+            if (MessageBox.Show(msg, "发生异常，是否要退出？", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+            {
+                Application.Exit();
+            }
 		}
 
         private void FillQueue()
@@ -68,19 +106,14 @@ namespace WinForm
             {
 				terminalQueue.Enqueue (ter.terminal);
 			}
-//            terminalQueue.Enqueue("65886057");
-//            terminalQueue.Enqueue("65886058");
-//            terminalQueue.Enqueue("65886059");
-//            terminalQueue.Enqueue("65886060");
-//            terminalQueue.Enqueue("65886061");
-//            terminalQueue.Enqueue("65886062");
         }
 
         private void 载入ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-			openLogin ();
-			tabControl1.SelectedIndex = 0;
+            LoadRemoteWeb();
         }
+
+       
 
 		private void openLogin(){
 			chromeWebBrowser1.OpenUrl("https://119.4.99.217:7300/mcrm/login.jsp");
@@ -114,8 +147,7 @@ namespace WinForm
 
 		}
 
-        System.Threading.Thread waitQueryThread;
-        bool inQuery = false;
+        
 
         private void 触发查询ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -184,7 +216,7 @@ window.frames['收单日志'].queryByCondition();";
             {
                 System.Threading.Thread.Sleep(100);
             }
-            if (terminalQueue.Count > 0) GoQuery();
+            if (terminalQueue.Count > 0 && !systemExit) GoQuery();
         }
         private void setStatus(string str)
         {
@@ -296,15 +328,7 @@ window.frames['收单日志'].queryByCondition();";
                     if (cerFile[0] != '\\' && cerFile[0] != '/') { cerFile = "\\" + cerFile.Replace('/', '\\'); }
                     cerFile = Application.StartupPath + cerFile;
                 }
-
-				System.Data.DataTable dt =new System.Data.DataTable();
-				dt.Columns.Add("money");
-				DataRow dr1= dt.NewRow();
-				dr1[0] = 100.20F;
-				dt.Rows.Add(dr1);
-                Common.RongBao.RSACryptionClass testClass = new Common.RongBao.RSACryptionClass(cerFile);
-				string returnStr = testClass.Test(dt);
-                MessageBox.Show(returnStr);
+			
             }
             catch (Exception ex)
             {
@@ -346,52 +370,13 @@ window.frames['收单日志'].queryByCondition();";
             return System.Configuration.ConfigurationManager.AppSettings[name].ToString();
         }
 
-        //private void setCommand(string sql){
-        //    if(conn==null) OpenMysql();
-        //    if(cmd==null) cmd= new MySqlCommand(sql,conn);
-        //    else cmd.CommandText = sql;
-        //}
-
-        //private void ExecuteCommand(string sql){
-        //    setCommand(sql);
-        //    cmd.ExecuteNonQuery();
-        //}
-
-        //private DataTable QueryTable(string sql){
-        //    setCommand(sql);
-        //    System.Data.DataTable dt =new DataTable();
-        //    MySqlDataAdapter da =new MySqlDataAdapter(cmd);
-        //    da.Fill(dt);
-        //    return dt;
-        //}
-
-        //private object QueryScalar(string sql){
-        //    setCommand(sql);
-        //  return  cmd.ExecuteScalar();
-        //}
+   
 
         public string GetNextVal(string table)
         {
 
             return RunHttp("GetNextVal", table);
-           // return http.DoPost(ActionUrl, "action=" + encryption.EncryptData("GetNextVal") + "&dataArrStr=" + encryption.EncryptData(table));
-            //if (table == null) throw new Exception("table parameter error");
-            //table = GetTableName(table);
-            //OpenMysql();
-
-            //object nextVal = QueryScalar("select val from erp_sequence where tableName='" + table + "'");
-            //if (nextVal == null || nextVal == DBNull.Value)
-            //{
-            //    nextVal = 1;
-            //    ExecuteCommand("insert into erp_sequence (tableName,val) values('" + table + "','" + nextVal + "')");
-            //}
-            //else
-            //{
-            //    nextVal = Convert.ToInt32(nextVal) + 1;
-            //    ExecuteCommand("update erp_sequence set val ='" + nextVal + "' where tableName=  '" + table + "'");
-            //}
-
-            //return nextVal.ToString();
+          
         }
 
         private string RunHttp(string action,params string[] paraStrArr)
@@ -407,80 +392,20 @@ window.frames['收单日志'].queryByCondition();";
                 content = content.Substring(0,content.Length - 1);
             }
 			try{
-            return http.DoPost(ActionUrl, encryption.EncryptData(content));
+            return http.DoPost(evalActionUrl, encryption.EncryptData(content));
 			}catch(Exception ex){
 				onError (ex.Message);
 				return null;
 			}
         }
-
+       
         public string execQuery(string table,string fields,string where,string order){
             return RunHttp("ExecQuery", table, fields, where, order);
-            //try{
-            //    string sql = "select " + fields + " from " + GetTableName(table);
-            //if (where != null && where.Length > 0) sql += " where " + where;
-            //if (order != null && order.Length > 0) sql += " order by " + order;
-            //DataTable dt= QueryTable(sql);
-            //return Newtonsoft.Json.JsonConvert.SerializeObject(dt);
-            //}catch(Exception ex){
-            //    if (MessageBox.Show (ex.Message, "错误", MessageBoxButtons.RetryCancel) == DialogResult.Retry) {
-            //        return execQuery (table, fields, where, order);
-            //    } 
-            //    return null;
-            //}
-            //if(conn.State== ConnectionState.Open) conn.Close ();
+        
         }
 
         public string execDb(string jsonArrStr){
-            return RunHttp("ExecDb", jsonArrStr);
-            //try {
-            //    QueryItem[] queryItems = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryItem[]> (jsonArrStr);
-            //    if (queryItems == null)
-            //        throw new Exception ("json error");
-            //    foreach (QueryItem item in queryItems) {
-            //        string sql;
-            //        string table = GetTableName (item.table);
-            //        switch (item.action) {
-            //        case DBAction.Add:
-            //            if (item.fields == null || item.fields.Length == 0)
-            //                throw new Exception ("没有要插入的字段");
-            //            sql = "insert into " + table + " (";
-            //            for (int i = 0; i < item.fields.Length; i++)
-            //                sql += item.fields [i] + ",";
-            //            sql = sql.Substring (0, sql.Length - 1) + " ) values(";
-            //            for (int i = 0; i < item.fields.Length; i++) {
-            //                if (item.values [i] != null && item.values [i].ToUpper () != "NULL") {
-            //                    sql += "'" + item.values [i].Replace ('\'', '\"') + "',";
-            //                } else {
-            //                    sql += "null,";
-            //                }
-            //            }
-            //            sql = sql.Substring (0, sql.Length - 1) + ")";
-            //            ExecuteCommand (sql);
-            //            break;
-            //        case DBAction.Update:
-            //            if (item.fields == null || item.fields.Length == 0)
-            //                throw new Exception ("没有要更新的字段");
-            //            sql = "update " + table + " set ";
-            //            for (int i = 0; i < item.fields.Length; i++) {                           
-            //                if (item.values [i] != null && item.values [i].ToUpper () != "NULL") {
-            //                    sql += item.fields [i] + " = '" + item.values [i].Replace ('\'', '\"') + "',";
-            //                }
-                           
-            //            }
-            //            sql = sql.Substring (0, sql.Length - 1) + " where " + item.where;
-            //            ExecuteCommand (sql);
-            //            break;
-            //        case DBAction.Delete:
-            //            sql = "delete from " + table + " where " + item.where;
-            //            ExecuteCommand (sql);
-            //            break;
-            //        }
-            //    }
-            //} catch (Exception ex) {
-            //    MessageBox.Show (ex.Message);
-            //}
-            //if(conn.State== ConnectionState.Open) conn.Close ();
+            return RunHttp("ExecDb", jsonArrStr);        
 		}
 	
 
@@ -501,18 +426,20 @@ window.frames['收单日志'].queryByCondition();";
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (inQuery)
-            {
-                MessageBox.Show("正在查询，请稍候。。。");
+            systemExit = true;
+			if (inQuery || inMonitor)
+            {                
+                MessageBox.Show("正在查询，请稍候。。。");                
                 e.Cancel = true;
                 return;
             }
+            timer_pay.Enabled = false;
             timer1.Enabled = false;
         }
 
         private void 结算记录ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            GoToMyUrl("transactionsum.html", 结算记录ToolStripMenuItem.Text);
         }
 
         private void 添加客户ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -523,10 +450,52 @@ window.frames['收单日志'].queryByCondition();";
         private void sqlToolStripMenuItem_Click(object sender, EventArgs e)
         {
 			string json = execDb ("[{ table:\"transactionLogs\" ,action: 1,fields:[\"status\"],values:[1],where:\"1=1\"}]");
-			MessageBox.Show (json);
-            //string json = execQuery("transactionlogs", "*", null, null);
-            //string json = execQuery("customers", "*", null, null);
-           // JsonMessage<DataTable> dt = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<DataTable>>(json);
+			MessageBox.Show (json);           
+        }
+
+        private void timer_pay_Tick(object sender, EventArgs e)
+        {
+            if (systemExit) { timer_pay.Enabled = false; return; }
+            if (inMonitor) return;
+            inMonitor = true;
+            AppendSumLog("发起结算");
+            var json = RunHttp("ToRongBao");
+            JsonMessage<string> resultJson= Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<string>>(json);
+            if (!string.IsNullOrEmpty(resultJson.Message))
+            {
+                AppendSumLog("结算失败：" + resultJson.Message);
+            }
+            else
+            {
+               
+                if (!string.IsNullOrEmpty(resultJson.Result))
+                {
+                    string[] terminal = resultJson.Result.Split(',');
+                    AppendSumLog("上传成功,终端号有：" + resultJson.Result);
+                    AppendSumLog("监控银行处理情况");
+                    System.Threading.Thread monitorThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(MonitorBankResult));
+                    monitorThread.Start(resultJson.Result);
+                }
+                else
+                {
+                    AppendSumLog("没有要结算的交易！");
+                }
+               
+            }
+            inMonitor = false;
+        }
+
+        private void AppendSumLog(string str)
+        {
+            webBrowser1.Document.InvokeScript("appendSumLog", new string[] { DateTime.Now.ToString("HH:mm:ss") +":"+ str });
+        }
+
+
+        public void MonitorBankResult(object obj)
+        {
+            string[] terminals = obj.ToString().Split();
+            MyHttpUtility http = new MyHttpUtility();
+            string result = http.DoGet("");
         }
 	}
 

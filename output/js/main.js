@@ -16,10 +16,10 @@ function parseTableJson() {
         status_list.html("没有刷卡数据！");
         return;
     }
+    var customerInfo = null;
     var newJson =[];
     try{
     	//获取客户信息
-    	var customerInfo = null;
     	var queryData=clientEx.execQuery("*","customers","terminal='"+ terminal +"'",null);
     	if(queryData.length == 1)  customerInfo = queryData[0];
     	if(customerInfo==null){ throw("获取客户信息is null, terminal："+terminal); }
@@ -30,65 +30,103 @@ function parseTableJson() {
 	    for(var i=0;i<json.length;i++){
 	    	var item =json[i];
 	    	//判断记录是否存在,存在的话忽略,不存在则插入
-	    	var existCount = clientEx.execQuery("count(0) cc", "transactionLogs", "terminal='" + item.tid + "' and timeStr='" + item.tdate + "' and tradeName='" + item.trname + "' and tradeMoney=" + item.amt + " ", null);
-	    	if(existCount==null) return;//winform会处理异常
+	    	var existCount = clientEx.execQuery("count(0) cc", "transactionLogs", "terminal='" + item.tid + "' and timeStr='" + item.tdate + "' and tradeName='" + item.trname + "' and tradeMoney=" + item.amt + " ", null);	    	
 	    	if(existCount[0].cc > 0) continue;
 	    	var localItem = convertToLocal(item);
-	    	//计算手续费
-	    	localItem[discountMoney] =( localItem.tradeMoney * customerInfo.discount * 0.01).toFixed(2);
-	    	localItem[tixianfeiMoney] =( localItem.tradeMoney * customerInfo.tixianfei * 0.01).toFixed(2);
-	    	localItem.id= clientEx.getNexVal("transactionLogs");
+	        //计算手续费
+	    	localItem.shanghuName = customerInfo.shanghuName;	    	
+	    	localItem.discountMoney =getCustomerShouXuFeiPos(customerInfo,localItem.tradeMoney);
+	    	localItem.tixianfeiMoney = getCustomerShouXuFei(customerInfo, localItem.tradeMoney);
+	    	localItem.finallyMoney = localItem.tradeMoney - localItem.discountMoney - localItem.tixianfeiMoney;
+	    	localItem.id = clientEx.getNexVal("transactionLogs");	    	
 	    	localItem.status=0; 
 
 	    	var inserDBJson=[{ table:"transactionLogs" ,action: 0 ,fields:localItem}];
 	    	clientEx.execDb(inserDBJson);
-	    	newJson[newJson.length]=item;
+	    	newJson[newJson.length] = localItem;
 	    	$("<div>" + localItem.time.substr(11,8) + " , " + item.trname + " : " + item.amt + "</div>").appendTo(status_list);
 	    	addTerminalView(localItem);
 	    }
 	}catch(e){
-		onError("保存数据时发生异常,请赶快处理！"+ e.message);
+	    onError("保存数据时发生异常,请赶快处理！" + e.message);
+	    return;
 	}
-	if(newJson.length > 0){
-		//是否有结算
-		var maxId=0;
-		$(newJson).each(function(){
-			if(this.tradeName == "结算"){
-				maxId= this.id;
-				try{
-					var transData= clientEx.execQuery("count(0) cc,sum(tradeMoney) tradeMoney,sum(tradeMoney) pos,sum(tradeMoney) t0", "transactionLogs", "terminal='"+ this.terminal +"' and Status=0", null);
-					if(transData ==0 || transData.length ==0) throw("查询transactionLogs数据为空");
-					transData = transData[0];
-					transData["finallyMoney"] = transData.tradeMoney - transData.pos- transData.t0;
-					var sumData={id:clientEx.getNexVal("transactionSum"),status:0, terminal= this.terminal,tradeMoney:transData.tradeMoney,finallyMoney:transData.finallyMoney   }
-				}catch(e){
-					onError("用户发起了结算，但汇总交易数据失败！"+ e.message);
-				}
-			}
-		});
-		//触发通知
-	}
+    if (newJson.length > 0) {
+        //是否有结算
+        var maxId = 0;
+        try {
+            $(newJson).each(function () {
+                if (this.tradeName == "批上送结束(平账)") {
+                    maxId = this.id;
+                    var whereSql = "terminal='" + this.terminal + "' and Status=0 and tradeName='IC卡批上送通知交易(联机平账)' and resultCode='00'";
+                    var transData = clientEx.execQuery("count(0) batchCount,sum(tradeMoney) tradeMoney,sum(discountMoney) discountMoney,sum(tixianfeiMoney) tixianfeiMoney", "transactionLogs", whereSql, null);                    
+                    if (transData == 0 || transData.length == 0) throw ("查询transactionLogs数据为空");
+                    var sumData = transData[0];
+                    if (sumData.batchCount == 0) return;
+                    var sumid = clientEx.getNexVal("transactionSum");
+                    sumData.id = sumid;
+                    sumData.finallyMoney = sumData.tradeMoney - sumData.discountMoney - sumData.tixianfeiMoney;
+                    sumData.status = 0;
+                    sumData.terminal = this.terminal;
+                    sumData.faren = customerInfo.faren;
+                    sumData.shanghuName = customerInfo.shanghuName;
+                    sumData.bankName = customerInfo.bankName;
+                    sumData.bankName2 = customerInfo.bankName2;
+                    sumData.province = customerInfo.province;
+                    sumData.city = customerInfo.city;
+                    var inserDBJson = [{ table: "transactionlogs", action: 1, fields: { sumid: sumid, Status: 1 }, where: whereSql }, { table: "transactionSum", action: 0, fields: sumData }];
+                    clientEx.execDb(inserDBJson);
+                }
+            });
+        } catch (e) {
+            onError("用户发起了结算，但汇总交易数据失败！" + e.message);
+            return;
+        }
+
+    }
     //return JSON.stringify(newJson);
 }
+
 
 function setStatus(str) {
     $("#status").html(str);
 }
 
+function setSumStatus(str) {
+    $("#settle_status").html(str);
+    $("#settle_status").empty();
+}
+
+function appendSumLog(str) {
+    $("#settle_status").append("<div>" + str + "</div>");
+}
+
+function getCustomerShouXuFeiPos(customerInfo,money){
+	//节假日
+	return (money*customerInfo.discount* 0.01).toFixed(2);
+}
+
+function getCustomerShouXuFei(customerInfo,money){
+	//节假日
+	return (money*customerInfo.tixianfei* 0.01).toFixed(2);
+}
+
 
 function init(){	
-	status_list = $("#status_list");
-	var today =new Date();
-	var date= today.Format("yyyy-MM-dd");
-	var prevdate=  today.AddDays(-1).Format("yyyy-MM-dd");
-	var where= " time between '"+prevdate+" 23:00:00' and '"+date+" 23:59:59' ";//前一天11到今天11点
-	var todayAllData=clientEx.execQuery("*","transactionLogs",where,null);
-	setStatus("未开启监控！");	
-	if(todayAllData==null || todayAllData.length ==0) return;
-	for(var i=0;i< todayAllData.length;i++){
-		addTerminalView(todayAllData[i]);
-	}
-
+    status_list = $("#status_list");
+    var today =new Date();
+    var date= today.Format("yyyy-MM-dd");
+    var prevdate=  today.AddDays(-1).Format("yyyy-MM-dd");
+    var where= " time between '"+prevdate+" 23:00:00' and '"+date+" 23:59:59' ";//前一天11到今天11点
+    var todayAllData=clientEx.execQuery("*","transactionLogs",where,null);
+    setStatus("未开启监控！");	
+    if (todayAllData != null) {
+        for (var i = 0; i < todayAllData.length; i++) {
+            addTerminalView(todayAllData[i]);
+        }
+        window.external.InitOK();
+    }
+	
 }
 
 function onError(msg){	
@@ -140,72 +178,4 @@ function addTerminalView(item){
       }
       var newRow= $('<tr><td>'+ item.time +'</td><td>'+ item.tradeName +'</td><td>'+ item.tradeMoney +'</td><td>'+ item.results +'</td></tr>').appendTo(viewTableBody);
 	
-}
-
-$.customers = function (options) {
-    var settings = $.extend({ viewOnly: null, reportType: 1, defaultSize: 10, viewMore: 5, personCode: null }, options);
-    var entityTable_ops = {
-        table: "customers"
-        , editCols: [
-            {
-                group: "基础属性", fields: [
-                   { display: '终端', colName: "terminal" },
-                   { display: '法人', colName: "faren" },
-                   { display: '商户号', colName: "shanghuNo" },
-                   { display: '商户名称', colName: "shanghuName" },
-                   { display: '联系电话', colName: "tel" },
-                   { display: 'MCC码', colName: "mcc" },
-                   { display: '扣率', colName: "discount" },
-                   { display: '提现费', colName: "tixianfei" },
-                   { display: '封顶', colName: "fengding" }
-                ]
-            }]
-        , defaults: { status: 1 }
-        , markDelete: true
-        , markColName: "status"
-    };
-    var entityTable = $("#listTable").entityTable(entityTable_ops);
-    entityTable.Query(null, null, true);
-
-
-    $("#addnew").click(function () {
-        entityTable.ShowCreateDialog();
-    })
-
-    return this;
-}
-
-$.transactionLog = function (options) {
-    var settings = $.extend({ viewOnly: null, reportType: 1, defaultSize: 10, viewMore: 5, personCode: null }, options);
-    var entityTable_ops = {
-        table: "transactionLogs"
-        , editCols: []
-        , defaults: { status: 1 }
-        , markDelete: true
-        , markColName: "status"
-    };
-    var entityTable = $("#listTable").entityTable(entityTable_ops);
-
-    $("#btnQuery").click(function () {
-        var termId = $("#termId").val().trim();
-        var startDate = $("#startDate").val().trim();
-        var endDate = $("#endDate").val().trim();
-        if (startDate == null || startDate.length < 10) {
-            if (endDate != '') startDate = endDate;
-            else startDate = (new Date()).Format("yyyy-MM-dd");
-        }
-        if (endDate == null|| endDate.length < 10) {
-            if (startDate != '') endDate = startDate;
-            else endDate = (new Date()).Format("yyyy-MM-dd");
-        }
-        startDate = strToDate(startDate).AddDays(-1).Format("yyyy-MM-dd");
-        var filter = "time between '" + startDate + " 23:00:00' and '" + endDate + " 23:59:59'";
-        if (termId != "") { filter += " and terminal='" + termId + "'" }
-       
-        entityTable.Query(filter, null, true);
-    })
-
-    $("#btnQuery").click();
-
-    return this;
 }
