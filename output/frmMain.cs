@@ -102,8 +102,15 @@ namespace WinForm
             openLogin();
             tabControl1.SelectedIndex = 0;
         }
-		public void onError(string msg){
-            if (MessageBox.Show(msg, "发生异常，是否要退出？", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+
+		public void onError(string msg,Exception ex = null){
+			if(ex!=null) Console.WriteLine(DateTime.Now.ToString()+" exceptiont:"+ ex.Message +" :"+ ex.StackTrace);
+			if (msg == null)
+				msg = ex.Message;
+			else if (ex != null) {
+				msg += ex.Message;
+			}
+			if (MessageBox.Show(msg, "发生异常，是否要退出？", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
             {
                 Application.Exit();
             }
@@ -347,7 +354,7 @@ window.frames['收单日志'].queryByCondition();";
             }
             catch (Exception ex)
             {
-                onError(ex.Message);
+                onError(null,ex);
             }
         }
 
@@ -395,24 +402,23 @@ window.frames['收单日志'].queryByCondition();";
         }
 
         private string RunHttp(string action,params string[] paraStrArr)
-        {
-            MyHttpUtility http = new MyHttpUtility();
-            string content = "action=" + action + "&dataArrStr=";
+		{
+			MyHttpUtility http = new MyHttpUtility ();
+			string content = "action=" + action + "&dataArrStr=";
            
-            if(paraStrArr!=null){
-                foreach (string str in paraStrArr)
-                {
-                    content += System.Web.HttpUtility.UrlEncode(str) + ",";
-                }
-                content = content.Substring(0,content.Length - 1);
-            }
-			try{
-            return http.DoPost(evalActionUrl, encryption.EncryptData(content));
-			}catch(Exception ex){
-				onError (ex.Message);
+			if (paraStrArr != null) {
+				foreach (string str in paraStrArr) {
+					content += System.Web.HttpUtility.UrlEncode (str) + ",";
+				}
+				content = content.Substring (0, content.Length - 1);
+			}
+			try {
+				return http.DoPost (evalActionUrl, encryption.EncryptData (content));
+			} catch (Exception ex) {
+				onError ("DoPost exception:"+ content  +" ,", ex);
 				return null;
 			}
-        }
+		}
        
         public string execQuery(string table,string fields,string where,string order){
             return RunHttp("ExecQuery", table, fields, where, order);
@@ -501,7 +507,7 @@ window.frames['收单日志'].queryByCondition();";
 	               
 	            }
 			}catch(Exception ex){
-				onError ("发起结算失败："+ex.Message);
+				onError ("发起结算失败：",ex);
 			}
             inMonitor = false;
         }
@@ -538,7 +544,7 @@ window.frames['收单日志'].queryByCondition();";
 			try{
 			execDb (jsonStr);
 			}catch(Exception ex){
-				onError ("更新结算标志异常:" + ex.Message);
+				onError ("更新结算标志异常:" ,ex);
 			}
 		}
 
@@ -559,7 +565,7 @@ window.frames['收单日志'].queryByCondition();";
 			string json =RunHttp("Home.GetRongBao",batchCurrnum,batchDate);
 			JsonMessage<QueryResult> resultJson= Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<QueryResult>>(json);
 			if (!string.IsNullOrEmpty (resultJson.Message)) {
-				this.BeginInvoke (new delegateOnParam (AppendSumLog), "查询银行处理结果失败：" + resultJson.Message);
+				this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum+"查询银行处理结果失败：" + resultJson.Message);
 			} else {	   
 				bool isFinish = false;
 				string statusText = "";
@@ -581,9 +587,10 @@ window.frames['收单日志'].queryByCondition();";
 					statusText = "交易完毕";
 					break;
 				}
-				this.BeginInvoke (new delegateOnParam (AppendSumLog), "银行处理结果为：" + statusText);
+				this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum+"银行处理结果为：" + statusText);
 				if (isFinish) {
 					this.BeginInvoke (new QueryBankFinish(onBankFinish),resultJson.Result );
+					this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum+"监听完成");
 					return;
 				}
 				else {
