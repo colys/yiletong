@@ -72,7 +72,7 @@
 		    var entityTable_ops = {
 		        table: "transactionSum"
 		        //, queryTables: clientEx.getTableName("transactionLogs") + " a join " + clientEx.getTableName("customers") + " b on a.terminal= b.terminal "
-		        , queryCols: "*,case status when 0 then '未结' when 1 then '送盘' when 2 then '结算成功' when -2 then '结算失败' end statustext"
+		        , queryCols: "*,case status when 0 then '未结' when 1 then '送盘' when 2 then '处理中' when 3 then '结算成功' when -2 then '结算失败' end statustext"
                 , editCols: []
                 , defaults: { status: 1 }
                 , markDelete: true
