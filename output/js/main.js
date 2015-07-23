@@ -96,6 +96,12 @@ function appendSumLog(str) {
     $("#settle_status_list").append("<div>" + str + "</div>");
 }
 
+function setBankStatus(batnum,str){
+	var div = $("#bank_status_list #bank"+batnum);
+	if(div.length ==0) div = $("<div>" + str + "</div>").appendTo("#bank_status_list");
+	div.html(str);
+}
+
 function getCustomerShouXuFeiPos(customerInfo,money){
 	//节假日
 	return (money*customerInfo.discount* 0.01).toFixed(2);
@@ -113,13 +119,17 @@ function init(){
     var date= today.Format("yyyy-MM-dd");
     var prevdate=  today.AddDays(-1).Format("yyyy-MM-dd");
     var where= " time between '"+prevdate+" 23:00:00' and '"+date+" 23:59:59' ";//前一天11到今天11点
-    var todayAllData=clientEx.execQuery("*","transactionLogs",where,null);
-    setStatus("未开启监控！");	
-    if (todayAllData != null) {
-        for (var i = 0; i < todayAllData.length; i++) {
-            addTerminalView(todayAllData[i]);
-        }
-        window.external.InitOK();
+    try{
+	    var todayAllData=clientEx.execQuery("*","transactionLogs",where,null);
+	    setStatus("未开启监控！");	
+	    if (todayAllData != null) {
+	        for (var i = 0; i < todayAllData.length; i++) {
+	            addTerminalView(todayAllData[i]);
+	        }
+	        window.external.InitOK();
+	    }
+    }catch(e){
+    	alert(e);
     }
 	
 }

@@ -104,7 +104,13 @@ namespace WinForm
         }
 
 		public void onError(string msg,Exception ex = null){
-			if(ex!=null) Console.WriteLine(DateTime.Now.ToString()+" exceptiont:"+ ex.Message +" :"+ ex.StackTrace);
+			
+			if (ex != null) {
+				string output = DateTime.Now.ToString () + " exceptiont:" + ex.Message;
+				if (ex.StackTrace!=null)
+					output += " :" + ex.StackTrace;
+				Console.WriteLine (output);
+			}
 			if (msg == null)
 				msg = ex.Message;
 			else if (ex != null) {
@@ -120,12 +126,14 @@ namespace WinForm
         {
             string str= execQuery("customers", "terminal", "status = 1", null);
             JsonMessage<Customer[]> jm = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<Customer[]>>(str);
-            if (jm.Message!=null) { 
-                onError(jm.Message);
-            }
-            foreach (Customer ter in jm.Result)
-            {
-				terminalQueue.Enqueue (ter.terminal);
+			if (jm.Message != null) { 
+				throw new Exception (jm.Message);
+			} else {
+				if (jm.Result == null)
+					throw new Exception ("查询客户时返回空结果，可能是网络问题");
+				foreach (Customer ter in jm.Result) {
+					terminalQueue.Enqueue (ter.terminal);
+				}
 			}
         }
 
@@ -190,6 +198,7 @@ namespace WinForm
 			if (waitQueryThread != null && waitQueryThread.IsAlive) return false;
 			if (inQuery) return false;
             inQuery = true;
+			try{
             //CwbElement tabFrame = chromeWebBrowser1.Document.GetElementById("tab1");
             //if(tabFrame==null) return;
             object notFunction = chromeWebBrowser1.EvaluateScript("typeof( window.frames['收单日志'].queryByCondition) == 'undefined'");
@@ -221,6 +230,10 @@ window.frames['收单日志'].queryByCondition();";
                 waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
                 waitQueryThread.Start();
             }
+			}catch(Exception ex){
+				onError ("查询刷卡数据时发生异常：", ex);
+				inQuery = false;
+			}
 			return true;
         }
         public void OnQueryFinish()
@@ -250,7 +263,7 @@ window.frames['收单日志'].queryByCondition();";
 			chromeWebBrowser1.ExecuteScript ("$(window.frames['收单日志'].document).find('.pagination-page-list:eq(0)').find('option:last').attr('selected',true);");
 		}
 
-     
+		public delegate void delegateTwoParam(string str1,string str2);
 		public delegate void delegateOnParam(string str);
         public delegate void QueryFinish();
 		public delegate void QueryBankFinish(QueryResult result);
@@ -474,12 +487,28 @@ window.frames['收单日志'].queryByCondition();";
 			MessageBox.Show (json);           
         }
 
-		private void startModnitorank(string[] result){			
-			AppendSumLog("上传成功,终端号有：" + result[2]);
-			AppendSumLog("监控银行处理情况："+ result[1]);
-			System.Threading.Thread monitorThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(MonitorBankResult));
+		private void startModnitorank(string[] result){
+			if (!string.IsNullOrEmpty (result [2])) {
+				AppendSumLog ("上传成功,终端号有：" + result [2]);
+			}
+			AppendSumLog("监控银行处理情况："+ result[0]);
+			System.Threading.Thread monitorThread;
+			if(queryBankTherads.TryGetValue(result[0],out monitorThread))
+			{
+				if (monitorThread.IsAlive || monitorThread.IsBackground) {
+					onError ("已经有监听" + result [0] + "银行处理结果的线程！");
+					return;
+				} else {
+					monitorThread.Abort ();
+					queryBankTherads.Remove (result [0]);
+				}
+			}
+			monitorThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(MonitorBankResult));
 			monitorThread.Start(result);
+			queryBankTherads.Add (result [0], monitorThread);
 		}
+
+		System.Collections.Generic.Dictionary<string,System.Threading.Thread> queryBankTherads = new Dictionary<string, System.Threading.Thread> ();
 
         private void timer_pay_Tick(object sender, EventArgs e)
         {
@@ -487,22 +516,23 @@ window.frames['收单日志'].queryByCondition();";
             if (inMonitor) return;
             inMonitor = true;
 			try{
-	            AppendSumLog("发起结算");
+	            
 	            string json = RunHttp("Home.ToRongBao");
 	            JsonMessage<string[]> resultJson= Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<string[]>>(json);
 	            if (!string.IsNullOrEmpty(resultJson.Message))
 	            {
-	                AppendSumLog("结算失败：" + resultJson.Message);
+	                AppendSumLog("查询要结算数据失败：" + resultJson.Message);
 	            }
 	            else
 	            {	               
 					if (resultJson.Result!=null && resultJson.Result.Length ==3)
 	                {
+						AppendSumLog("发起结算");
 						startModnitorank(resultJson.Result);
 	                }
 	                else
 	                {
-	                    AppendSumLog("没有要结算的交易！");
+	                    //AppendSumLog("没有要结算的交易！");
 	                }
 	               
 	            }
@@ -517,9 +547,14 @@ window.frames['收单日志'].queryByCondition();";
             webBrowser1.Document.InvokeScript("appendSumLog", new string[] { DateTime.Now.ToString("HH:mm:ss") +":"+ str });
         }
 
+		private void SetBankLog(string batNum,string str){
+			webBrowser1.Document.InvokeScript("setBankStatus", new string[] {batNum, DateTime.Now.ToString("HH:mm:ss") +":"+ str });
+		}
+
 		private void onBankFinish(QueryResult result){			
-			AppendSumLog("更新结算标志");
+			AppendSumLog(result.batchCurrnum+ "更新结算标志");
 			List<QueryItem> jsonQueryItems = new List<QueryItem> ();
+			string logStr = "";
 			foreach(QueryResult.DetailInfo detail in result.batchEContent){
 				QueryItem jsonItem = new QueryItem () {
 					table = "transactionSum",
@@ -533,16 +568,15 @@ window.frames['收单日志'].queryByCondition();";
 					values = new string[3]
 				};
 				jsonItem.values [0] = detail.status;
-				if (detail.status != "成功") {
-					AppendSumLog (detail.faren + "结算失败" + detail.tradeNum);
-				}
+				logStr+=detail.faren + detail.status+"; ";
 				jsonItem.values [1] = detail.reason;
 				jsonItem.values [2]  = DateTime.Now.ToString ("yyyy-MM-dd HH:mm:ss");
 				jsonQueryItems.Add (jsonItem);
 			}
+			SetBankLog (result.batchCurrnum, logStr);
 			string jsonStr = Newtonsoft.Json.JsonConvert.SerializeObject (jsonQueryItems);
 			try{
-			execDb (jsonStr);
+				execDb (jsonStr);
 			}catch(Exception ex){
 				onError ("更新结算标志异常:" ,ex);
 			}
@@ -565,7 +599,7 @@ window.frames['收单日志'].queryByCondition();";
 			string json =RunHttp("Home.GetRongBao",batchCurrnum,batchDate);
 			JsonMessage<QueryResult> resultJson= Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<QueryResult>>(json);
 			if (!string.IsNullOrEmpty (resultJson.Message)) {
-				this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum+"查询银行处理结果失败：" + resultJson.Message);
+				this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum,"查询银行处理结果失败：" + resultJson.Message);
 			} else {	   
 				bool isFinish = false;
 				string statusText = "";
@@ -587,7 +621,7 @@ window.frames['收单日志'].queryByCondition();";
 					statusText = "交易完毕";
 					break;
 				}
-				this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum+"银行处理结果为：" + statusText);
+				this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum,"银行处理结果为：" + statusText);
 				if (isFinish) {
 					this.BeginInvoke (new QueryBankFinish(onBankFinish),resultJson.Result );
 					this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum+"监听完成");
