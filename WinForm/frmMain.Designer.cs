@@ -257,7 +257,7 @@
             // 
             // timer_pay
             // 
-            this.timer_pay.Interval = 120000;
+            this.timer_pay.Interval = 12000;
             this.timer_pay.Tick += new System.EventHandler(this.timer_pay_Tick);
             // 
             // frmMain

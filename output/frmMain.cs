@@ -476,7 +476,7 @@ window.frames['收单日志'].queryByCondition();";
 
 		private void startModnitorank(string[] result){			
 			AppendSumLog("上传成功,终端号有：" + result[2]);
-			AppendSumLog("监控银行处理情况");
+			AppendSumLog("监控银行处理情况："+ result[1]);
 			System.Threading.Thread monitorThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(MonitorBankResult));
 			monitorThread.Start(result);
 		}
