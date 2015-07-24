@@ -552,52 +552,50 @@ window.frames['收单日志'].queryByCondition();";
 		}
 
 		private void onBankFinish(QueryResult result){			
-			AppendSumLog(result.batchCurrnum+ "更新结算标志");
+			AppendSumLog (result.batchCurrnum + "更新结算标志");
 			List<QueryItem> jsonQueryItems = new List<QueryItem> ();
 			string nowTimeStr = DateTime.Now.ToString ("yyyy-MM-dd HH:mm:ss");
-			try{
+			string[] fields = new string[] {
+				"status",
+				"results",
+				"reciveDate"
+			};
+			try {
 				if (result.batchStatus == 2) {
 					//商户审核拒绝
 					QueryItem jsonItem = new QueryItem () {
 						table = "transactionSum",
 						action = DBAction.Update,
 						where = " batchCurrnum='" + result.batchCurrnum + "'",
-						fields = new string[] {
-							"status",
-							"result",
-							"reciveDate"
-						},
-						values = new string[]{"-2","商户审核拒绝",nowTimeStr}
+						fields = fields,
+						values = new string[]{ "-2", "商户审核拒绝", nowTimeStr }
 					};
 					jsonQueryItems.Add (jsonItem);
 				} else {					
-					if (result.batchEContent == null)throw new Exception ("获取明细为空");
+					if (result.batchEContent == null)
+						throw new Exception ("获取明细为空");
 					string logStr = "";
 					foreach (QueryResult.DetailInfo detail in result.batchEContent) {
 						QueryItem jsonItem = new QueryItem () {
 							table = "transactionSum",
 							action = DBAction.Update,
 							where = " batchCurrnum='" + result.batchCurrnum + "' and id=" + detail.tradeNum,
-							fields = new string[] {
-								"status",
-								"result",
-								"reciveDate"
-							},
+							fields = fields,
 							values = new string[3]
 						};
 						switch (detail.status) {
-							case "":
-							case "处理中":
-								jsonItem.values [0] = "1";
-								break;
-							case "成功":
-								jsonItem.values [0] = "3";
-								break;
-							case "失败":
-								jsonItem.values [0] = "-2";
-								break;
-							default:
-								throw new Exception ("处理结果明细有未定义的状态值");
+						case "":
+						case "处理中":
+							jsonItem.values [0] = "1";
+							break;
+						case "成功":
+							jsonItem.values [0] = "3";
+							break;
+						case "失败":
+							jsonItem.values [0] = "-2";
+							break;
+						default:
+							throw new Exception ("处理结果明细有未定义的状态值");
 						}
 						logStr += detail.faren + detail.status + "; ";
 						jsonItem.values [1] = detail.reason;
@@ -607,9 +605,13 @@ window.frames['收单日志'].queryByCondition();";
 					SetBankLog (result.batchCurrnum, logStr);
 				}
 				string jsonStr = Newtonsoft.Json.JsonConvert.SerializeObject (jsonQueryItems);
-				execDb (jsonStr);
-			}catch(Exception ex){
-				onError ("更新结算标志异常:" ,ex);
+				string resultStr = execDb (jsonStr);
+				JsonMessage<string> jsonMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<string>> (resultStr);
+				if (jsonMessage.Message != null)
+					throw new Exception (jsonMessage.Message);
+			} catch (Exception ex) {
+				AppendSumLog (result.batchCurrnum + "更新结算标志异常:"+ ex.Message);
+				onError ("更新结算标志异常:", ex);
 			}
 		}
 
