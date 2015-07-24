@@ -41,3 +41,4 @@ D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.Properties.Resources.resources
 D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.csproj.GenerateResource.Cache
 D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.exe
 D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.pdb
+D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.csprojResolveAssemblyReference.cache

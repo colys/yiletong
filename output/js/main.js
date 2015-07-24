@@ -98,7 +98,7 @@ function appendSumLog(str) {
 
 function setBankStatus(batnum,str){
 	var div = $("#bank_status_list #bank"+batnum);
-	if(div.length ==0) div = $("<div>" + str + "</div>").appendTo("#bank_status_list");
+	if(div.length ==0) div = $("<div id='#bank"+batnum+"' >" + str + "</div>").appendTo("#bank_status_list");
 	div.html(batnum+": "+str);
 }
 
