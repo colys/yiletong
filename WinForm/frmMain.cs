@@ -48,7 +48,7 @@ namespace WinForm
             if (host[host.Length - 1] != '/') host += "/";
             controllerUrl = host + "Home";
             evalActionUrl = controllerUrl + "/Eval";
-            encryption = new EncryptionUtility(Application.StartupPath + "\\yiletong.key");
+			encryption = new EncryptionUtility("TfoPqado2GvjxvC1GsmY6Q==");
 			
         }
 

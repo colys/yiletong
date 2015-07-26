@@ -10,16 +10,18 @@ namespace WinForm
     
     static class Program
     {
-        public static string[] mainArgs;
+        
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
         static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+        {           
+			
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
 			Application.ThreadException += new ThreadExceptionEventHandler(OnThreadException);
+			Application.Run(new frmMain());
 //			string privateKey = Application.StartupPath+"\\rongbao_decry.p12";
 //			string publicKey =  Application.StartupPath+"\\tomcat.cer";
 //			Common.RongBao.RSACryptionClass rbclass = new Common.RongBao.RSACryptionClass(publicKey, privateKey);
@@ -48,7 +50,7 @@ namespace WinForm
 //            catch (Exception ex) {
 //                MessageBox.Show(ex.Message);
 //            }
-            Application.Run(new frmMain());
+           
         }
 
 		static void OnThreadException(object sender, ThreadExceptionEventArgs t)

@@ -18,7 +18,7 @@ namespace web2.Controllers
 
 		public HomeController()
 		{
-			encryption = new EncryptionUtility(System.Web.HttpContext.Current.Server.MapPath("~/Content/yiletong.key"));
+			encryption = new EncryptionUtility("TfoPqado2GvjxvC1GsmY6Q==");
 			connStr =getSetting("connstr");
 		}
 		private string getSetting(string name,bool isFile=false)

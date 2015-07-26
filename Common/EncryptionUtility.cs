@@ -11,14 +11,15 @@ namespace Common
 
     public class EncryptionUtility
     {
-        string filePath;
+        //string filePath;
         byte[] SecretKey;
         private bool _ProtectKey;//是否需要使用DPAPI来保护密钥；  
         private string _AlgorithmName = "RC2";//加密算法的名称；  
 
-        public EncryptionUtility(string file)
+		public EncryptionUtility(string secretKey)
         {
-            filePath = file;
+           // filePath = file;
+			SecretKey =Convert.FromBase64String( secretKey);
         }
 
         public string AlgorithmName
@@ -37,7 +38,7 @@ namespace Common
         ///【根据加密算法类来生成密钥文件】；  
         /// </summary>  
         /// <param name="targetFile">保存密钥的文件</param>  
-        public void GenerateKey(string targetFile)
+        public string GenerateKey()
         {
             //创建加密算法；  
             SymmetricAlgorithm Algorithm = SymmetricAlgorithm.Create(AlgorithmName);
@@ -51,13 +52,13 @@ namespace Common
                 //使用DPAPI来加密密钥；  
                 Key = ProtectedData.Protect(Key, null, DataProtectionScope.LocalMachine);
             }
-
+			return Convert.ToBase64String (Key);
             //把密钥保存到key.config。  
-            using (FileStream fs = new FileStream(targetFile, FileMode.Create))
-            {
-                fs.Write(Key, 0, Key.Length);
-				fs.Close ();
-            }
+//            using (FileStream fs = new FileStream(targetFile, FileMode.Create))
+//            {
+//                fs.Write(Key, 0, Key.Length);
+//				fs.Close ();
+//            }
         }
 
         /// <summary>  
@@ -69,12 +70,12 @@ namespace Common
         {
             if (SecretKey == null)
             {
-                using (FileStream fs = new FileStream(filePath, FileMode.Open))
-                {
-                    SecretKey = new byte[fs.Length];
-                    fs.Read(SecretKey, 0, (int)fs.Length);
-					fs.Close ();
-                }
+//                using (FileStream fs = new FileStream(filePath, FileMode.Open))
+//                {
+//                    SecretKey = new byte[fs.Length];
+//                    fs.Read(SecretKey, 0, (int)fs.Length);
+//					fs.Close ();
+//                }
             }
             if (ProtectKey)
                 algorithm.Key = ProtectedData.Unprotect(SecretKey, null, DataProtectionScope.LocalMachine);
