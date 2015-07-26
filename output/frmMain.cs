@@ -642,42 +642,47 @@ window.frames['收单日志'].queryByCondition();";
 			string batchDate = arr [1];
 			string[] terminals = arr[2].ToString().Split();			 
             MyHttpUtility http = new MyHttpUtility();
-			string json =RunHttp("Home.GetRongBao",batchCurrnum,batchDate);
-			JsonMessage<QueryResult> resultJson= Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<QueryResult>>(json);
-			if (!string.IsNullOrEmpty (resultJson.Message)) {
-				this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum,"查询银行处理结果失败：" + resultJson.Message);
-			} else {	   
-				bool isFinish = false;
-				string statusText = "";
-				switch (resultJson.Result.batchStatus) {
-				case 0:
-					statusText = "待确认";
-					break;
-				case 1:
-					statusText = "待审核";
-					break;
-				case 2:
-					statusText = "商户审核拒绝";
-					isFinish = true;
-					break;
-				case 3:
-					statusText = "处理中";
-					break;
-				case 4:
-					isFinish = true;
-					statusText = "交易完毕";
-					break;
+			bool isFinish = false;
+			try{
+				string json =RunHttp("Home.GetRongBao",batchCurrnum,batchDate);
+				JsonMessage<QueryResult> resultJson= Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<QueryResult>>(json);
+				if (!string.IsNullOrEmpty (resultJson.Message)) {
+					this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum,"查询银行处理结果失败：" + resultJson.Message);
+				} else {	   
+					
+					string statusText = "";
+					switch (resultJson.Result.batchStatus) {
+					case 0:
+						statusText = "待确认";
+						break;
+					case 1:
+						statusText = "待审核";
+						break;
+					case 2:
+						statusText = "商户审核拒绝";
+						isFinish = true;
+						break;
+					case 3:
+						statusText = "处理中";
+						break;
+					case 4:
+						isFinish = true;
+						statusText = "交易完毕";
+						break;
+					}
+					this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum,"银行处理结果为：" + statusText);
+					if (isFinish) {
+						this.BeginInvoke (new QueryBankFinish(onBankFinish),resultJson.Result );
+						this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum+"监听完成");
+						return;
+					}
 				}
-				this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum,"银行处理结果为：" + statusText);
-				if (isFinish) {
-					this.BeginInvoke (new QueryBankFinish(onBankFinish),resultJson.Result );
-					this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum+"监听完成");
-					return;
-				}
-				else {
-					System.Threading.Thread.Sleep (30000);
-					MonitorBankResult (obj);
-				}
+			}catch(Exception ex){
+				onError ("查询银行处理",ex);
+			}
+			if(!isFinish) {
+				System.Threading.Thread.Sleep (30000);
+				MonitorBankResult (obj);
 			}
         }
 	}

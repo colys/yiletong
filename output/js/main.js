@@ -23,9 +23,9 @@ function parseTableJson() {
     	var queryData=clientEx.execQuery("*","customers","terminal='"+ terminal +"'",null);
     	if(queryData.length == 1)  customerInfo = queryData[0];
     	if(customerInfo==null){ throw("获取客户信息is null, terminal："+terminal); }
-    	if(customerInfo.discount==null || isNaN(customerInfo.discount)) { throw("获取客户信息discount is null or NaN,terminal："+terminal); }
+    	if(!customerInfo.discount || isNaN(customerInfo.discount)) { throw("获取客户信息discount is null or NaN,terminal："+terminal); }
     	if(!customerInfo.tixianfei || isNaN(customerInfo.tixianfei)){ throw("获取客户信息tixianfei is null or NaN, terminal："+terminal); }
-    	if(!customerInfo.tixianfeiEles || isNaN(customerInfo.tixianfeiEles)){ throw("获取客户信息tixianfeiEles is null or NaN, terminal："+terminal); }
+    	if(customerInfo.tixianfeiEles==null || isNaN(customerInfo.tixianfeiEles)){ throw("获取客户信息tixianfeiEles is null or NaN, terminal："+terminal); }
 
 	    for(var i=0;i<json.length;i++){
 	    	var item =json[i];

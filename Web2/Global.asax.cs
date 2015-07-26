@@ -34,5 +34,11 @@ namespace Web2
 			RegisterGlobalFilters (GlobalFilters.Filters);
 			RegisterRoutes (RouteTable.Routes);
 		}
+
+		protected void Application_Error(Object sender, EventArgs e) {
+			Exception ex = Server.GetLastError ();
+			log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
+			log.Error("Application_Error", ex);
+		}
 	}
 }
