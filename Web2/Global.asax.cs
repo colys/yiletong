@@ -29,6 +29,7 @@ namespace Web2
 
 		protected void Application_Start ()
 		{
+			log4net.Config.XmlConfigurator.Configure();//这句代码	
 			AreaRegistration.RegisterAllAreas ();
 			RegisterGlobalFilters (GlobalFilters.Filters);
 			RegisterRoutes (RouteTable.Routes);

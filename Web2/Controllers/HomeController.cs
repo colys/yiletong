@@ -10,7 +10,7 @@ using Common;
 using System.Text;
 
 namespace web2.Controllers
-{
+{	
 	public class HomeController : Controller
 	{
 		string connStr;
@@ -61,28 +61,28 @@ namespace web2.Controllers
 			return View();
 		}
 
+		public MySqlExecute CreateMysql(bool withTrans=false){
+			return new MySqlExecute ("",connStr,withTrans);
+		}
+
 		public ActionResult DoLogin()
 		{
 			string inputUserName = Request["username"].Trim();
 			string password = Request["password"].Trim();
 			string sql = "select * from users where userName = '" + inputUserName + "'";
-			DataTable dt = QueryTable(sql,true);
-			if (dt.Rows.Count == 0)
-			{
-				ViewBag.Error = "用户不存在！";
-				return View("Login");
-			}
-			else
-			{
-				if (dt.Rows[0]["password"].Equals(password))
-				{
-					UserName = inputUserName;
-					return RedirectToAction("Index");
-				}
-				else
-				{
-					ViewBag.Error = "密码错误！";
-					return View("Login");
+			using (MySqlExecute mysql = CreateMysql()) {
+				DataTable dt = mysql.QueryTable (sql);
+				if (dt.Rows.Count == 0) {
+					ViewBag.Error = "用户不存在！";
+					return View ("Login");
+				} else {
+					if (dt.Rows [0] ["password"].Equals (password)) {
+						UserName = inputUserName;
+						return RedirectToAction ("Index");
+					} else {
+						ViewBag.Error = "密码错误！";
+						return View ("Login");
+					}
 				}
 			}
 
@@ -108,53 +108,19 @@ namespace web2.Controllers
 		}
 
 
-
-		MySqlConnection conn;
-		MySqlCommand cmd;
-
-
-		private void OpenMysql()
-		{   
-			if (conn == null) conn = new MySqlConnection(connStr);
-			if (conn.State == ConnectionState.Closed) conn.Open();
-		}
-
-
-		private void setCommand(string sql)
-		{
-			if (conn == null) OpenMysql();
-			if (cmd == null) cmd = new MySqlCommand(sql, conn);
-			else cmd.CommandText = sql;
-		}
-
-		private void ExecuteCommand(string sql)
-		{
-			setCommand(sql);
-			cmd.ExecuteNonQuery();
-		}
-
-		private DataTable QueryTable(string sql,bool close)
-		{
-			setCommand(sql);
-			System.Data.DataTable dt = new DataTable();
-			MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-			da.Fill(dt);
-			if (close) conn.Close();
-			return dt;
-		}
-
-		private object QueryScalar(string sql)
-		{
-			setCommand(sql);
-			return cmd.ExecuteScalar();
-		}
-
-
 		public string GetCustomers()
-		{
+		{	
+			try{
 			string sql = "select * from customers where status = 1";
-			DataTable dt= QueryTable(sql, true);
-			return JsonConvert.SerializeObject (dt);
+			using (MySqlExecute mysql = CreateMysql()) {
+				mysql.QueryTable (sql);
+				DataTable dt = mysql.QueryTable (sql);
+				return JsonConvert.SerializeObject (dt);
+			}
+			}catch(Exception ex){
+				LogError ("GetCustomers",ex);
+				throw ex;
+			}
 		}
 
 		public string GetTransactions(string startDate, string endDate, string termid, string cusName, string company)
@@ -164,35 +130,46 @@ namespace web2.Controllers
 			string sql = "select a.*,b.shanghuName from transactionLogs a left join customers b on b.terminal=a.terminal where time between '" + Convert.ToDateTime(startDate).AddDays(-1).ToString("yyyy-MM-dd") + "23:00:00'" + " and '" + endDate.Replace("-", "") + " 23:59:59'";
 			if (!string.IsNullOrEmpty(termid)) sql += " and b.terminal ='" + FormatString(termid) + "' ";
 			if (!string.IsNullOrEmpty(cusName)) sql += " and b.faren ='" + FormatString(cusName) + "' ";
-			DataTable dt = QueryTable(sql, true);
-			return JsonConvert.SerializeObject(dt);
+			using (MySqlExecute mysql =  CreateMysql()) {
+				DataTable dt = mysql.QueryTable (sql);
+				return JsonConvert.SerializeObject (dt);
+			}
 		}
 
 	
 
 		public JsonResult ToRongBao(){
-            JsonMessage resultData = new JsonMessage();
+			JsonMessage resultData = new JsonMessage ();
 			string errorItem = "";
-			System.Data.DataTable dt= null;
+			System.Data.DataTable dt = null;
 			int RandomNum;
-			Random MyRandom = new Random();
-			RandomNum = MyRandom.Next(1001, 9999);
-			string batchCurrnum = DateTime.Now.ToString("yyyyMMddHHmmss") + RandomNum;
-            try
-            {
-				string cerFile = getSetting("rongbao_public",true);               
-                errorItem = "查询结算汇总表";
-				string sql = "select a.id,a.terminal,a.finallyMoney money,b.faren,b.shanghuName,b.bankName ,b.bankName2,b.bankName3,b.province,b.bankAccount,b.city,b.tel from transactionSum a join customers b on b.terminal = a.terminal where a.status = 0 and b.status <> -1";//查询结算汇总表
-                dt = QueryTable(sql, false);
-				if( dt.Rows.Count==0) return Json(resultData,JsonRequestBehavior.AllowGet);
-                if (dt.Columns.IndexOf("id") == -1) { throw new Exception("查询送盘数据失败，没有ID列"); }
-                errorItem = "更新待上传标记";                
-                foreach (DataRow dr in dt.Rows)
-                {
-                    if (dr["id"].Equals(DBNull.Value)) { throw new Exception("ID列数据为空"); }
-                    if (dr["terminal"].Equals(DBNull.Value)) { throw new Exception("terminal列数据为空"); }
-					if (dr["money"].Equals(DBNull.Value)) { throw new Exception("money列数据为空"); }
-					/*
+			Random MyRandom = new Random ();
+			RandomNum = MyRandom.Next (1001, 9999);
+			string batchCurrnum = DateTime.Now.ToString ("yyyyMMddHHmmss") + RandomNum;
+			try {
+				string cerFile = getSetting ("rongbao_public", true);               
+				errorItem = "查询结算汇总表";
+				string sql = "select a.id,a.terminal,a.finallyMoney money,b.faren,b.shanghuName,b.bankName ,b.bankName2,b.bankName3,b.province,b.bankAccount,b.city,b.tel,b.sourceAccount from transactionSum a join customers b on b.terminal = a.terminal where a.status = 0 and b.status <> -1";//查询结算汇总表
+				//注意：不要用事务，防止提交融宝成功后的异常又回滚
+				using (MySqlExecute mysql = CreateMysql()) {
+					dt = mysql.QueryTable (sql);
+					if (dt.Rows.Count == 0)
+						return Json (resultData, JsonRequestBehavior.AllowGet);
+					if (dt.Columns.IndexOf ("id") == -1) {
+						throw new Exception ("查询送盘数据失败，没有ID列");
+					}
+					errorItem = "更新待上传标记";                
+					foreach (DataRow dr in dt.Rows) {
+						if (dr ["id"].Equals (DBNull.Value)) {
+							throw new Exception ("ID列数据为空");
+						}
+						if (dr ["terminal"].Equals (DBNull.Value)) {
+							throw new Exception ("terminal列数据为空");
+						}
+						if (dr ["money"].Equals (DBNull.Value)) {
+							throw new Exception ("money列数据为空");
+						}
+						/*
 sumData.faren = customerInfo.faren;
                     sumData.shanghuName = customerInfo.shanghuName;
                     sumData.bankName = customerInfo.bankName;
@@ -203,56 +180,55 @@ sumData.faren = customerInfo.faren;
                     sumData.city = customerInfo.city;
                     sumData.tel = customerInfo.tel;
 					*/
-                    sql = @"update transactionSum set status= 1,results='正在结算',batchCurrnum='" + batchCurrnum + "'" +
-                    	", uploadDate='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'" +
-						",faren='"+ dr["faren"] +"' " +
-						",shanghuName='"+ dr["shanghuName"] +"' " +
-						",bankName='"+ dr["bankName"] +"' " +
-						",bankName2='"+ dr["bankName2"] +"' " +
-						",bankName3='"+ dr["bankName3"] +"' " +
-						",province='"+ dr["province"] +"' " +
-						",city='"+ dr["city"] +"' " +
-						",bankAccount='"+ dr["bankAccount"] +"' " +
-						",tel='"+ dr["tel"] +"' " +
-						" where id='" + dr["id"]+"'";
-                    ExecuteCommand(sql);//标记状态为待上传
-                }
-                errorItem = "上传融宝处理";
-				string batchDate = DateTime.Now.ToString("yyyyMMdd");
-                Common.RongBao.RSACryptionClass testClass = new Common.RongBao.RSACryptionClass(cerFile, "");
-				string returnStr = testClass.Sent(dt, batchCurrnum,batchDate);
-                errorItem = "融宝执行成功,更新成功状态";
-                string  affectedIDStr= "";
-                foreach (DataRow dr in dt.Rows)
-                {
-					affectedIDStr += "," + dr["terminal"];
-                    sql = "update transactionSum set status= 2,results='银行处理中' where id='" + dr["id"]+"'";
-                    ExecuteCommand(sql);
-                }
-                errorItem = null;
-				resultData.Result = new string[]{batchCurrnum,batchDate, affectedIDStr.Substring(1)};
-            }
-            catch (Exception ex)
-            {
-                resultData.Message = errorItem + "时发生异常：" + ex.Message;
-                if (dt != null)
-                {
-                    try
-                    {
-                        foreach (DataRow dr in dt.Rows)
-                        {
-							resultData.Message = resultData.Message.Replace('\'',' ');
-							string sql = "update transactionSum set status= -2 ,results = '" + resultData.Message + "' where batchCurrnum='" + batchCurrnum + "' and id='" + dr["id"] + "' and status= 1";
-                            ExecuteCommand(sql);
-                        }
-                    }
-                    catch (MySqlException e)
-                    {
-						resultData.Message += " , 更新失败标记也失败！"+e.Message;
-                    }
-                }
-            }
-			return Json(resultData,JsonRequestBehavior.AllowGet);
+						sql = @"update transactionSum set status= 1,results='正在结算',batchCurrnum='" + batchCurrnum + "'" +
+						", uploadDate='" + DateTime.Now.ToString ("yyyy-MM-dd HH:mm:ss") + "'" +
+						",faren='" + dr ["faren"] + "' " +
+						",shanghuName='" + dr ["shanghuName"] + "' " +
+						",bankName='" + dr ["bankName"] + "' " +
+						",bankName2='" + dr ["bankName2"] + "' " +
+						",bankName3='" + dr ["bankName3"] + "' " +
+						",province='" + dr ["province"] + "' " +
+						",city='" + dr ["city"] + "' " +
+						",bankAccount='" + dr ["bankAccount"] + "' " +
+						",sourceAccount='" + dr ["sourceAccount"] + "' " +
+						",tel='" + dr ["tel"] + "' " +
+						" where id='" + dr ["id"] + "'";
+						mysql.ExecuteCommand (sql);//标记状态为待上传
+					}
+					errorItem = "上传融宝处理";
+					string batchDate = DateTime.Now.ToString ("yyyyMMdd");
+					Common.RongBao.RSACryptionClass testClass = new Common.RongBao.RSACryptionClass (cerFile, "");
+					string returnStr = testClass.Sent (dt, batchCurrnum, batchDate);
+					errorItem = "融宝执行成功,更新成功状态";
+					string affectedIDStr = "";
+					foreach (DataRow dr in dt.Rows) {
+						affectedIDStr += "," + dr ["terminal"];
+						sql = "update transactionSum set status= 2,results='银行处理中' where id='" + dr ["id"] + "'";
+						mysql.ExecuteCommand (sql);
+					}
+				
+					errorItem = null;
+					resultData.Result = new string[]{ batchCurrnum, batchDate, affectedIDStr.Substring (1) };
+				}
+			} catch (Exception ex) {
+				resultData.Message = errorItem + "时发生异常：" + ex.Message;
+				LogError (errorItem,ex);
+				if (dt != null) {
+					try {
+						using (MySqlExecute mysql = CreateMysql()) {
+							foreach (DataRow dr in dt.Rows) {
+								resultData.Message = resultData.Message.Replace ('\'', ' ');
+								string sql = "update transactionSum set status= -2 ,results = '" + resultData.Message + "' where batchCurrnum='" + batchCurrnum + "' and id='" + dr ["id"] + "' and status= 1";
+								mysql.ExecuteCommand (sql);
+							}
+						}
+					} catch (MySqlException e) {
+						resultData.Message += " , 更新失败标记也失败！" + e.Message;
+						LogError ("更新失败标记",ex);
+					}
+				}
+			}
+			return Json (resultData, JsonRequestBehavior.AllowGet);
 		}
 
 		/// <summary>
@@ -267,14 +243,18 @@ sumData.faren = customerInfo.faren;
 				string publicCer = getSetting ("rongbao_public",true);     
 				string cerFile = getSetting("rongbao_private",true);    
 				Common.RongBao.RSACryptionClass testClass = new Common.RongBao.RSACryptionClass (publicCer, cerFile);
-				resultData.Result = testClass.TryGetResult (batchCurrnum, batchDate);
+				resultData.Result = testClass.TryGetResult ( batchCurrnum, batchDate);
 			} catch (Exception ex) {
+				LogError ("GetRongBao",ex);
 				resultData.Message = ex.Message;
 			}
 			return Json(resultData,JsonRequestBehavior.AllowGet);
 		}
 
-
+		private void LogError(string witch,Exception ex){
+			log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
+			log.Error(witch, ex);
+		}
 
 		/// <summary>
 		/// 执行服务器内容
@@ -348,7 +328,8 @@ sumData.faren = customerInfo.faren;
 				}
 			}
 			catch (Exception ex)
-			{				
+			{			
+				
 				StringBuilder errorMsgAppend = new StringBuilder();
 				if (arr != null) {
 					foreach (string val in arr) {
@@ -356,6 +337,7 @@ sumData.faren = customerInfo.faren;
 					}
 				}
 				jr.LogException(ex.InnerException, "call "+ actionName+" with:\n" + errorMsgAppend.ToString());
+				LogError ("eval",ex.InnerException);
 			}
 			return JsonConvert.SerializeObject(jr);
 		}

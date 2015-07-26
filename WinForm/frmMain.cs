@@ -65,6 +65,8 @@ namespace WinForm
             chromeWebBrowser1.LoadHtml("正在载入，请稍后......");
             timer = new System.Threading.Timer(new System.Threading.TimerCallback(BeginLoadWeb), null, 0, 500);
             string timeStr;
+			timer_pay.Interval = Convert.ToInt32 (getSetting ("jieSuangInterval"));
+			timer_pay.Enabled = false;
             if (timer_pay.Interval > 59000)
             {
                 double d = (timer_pay.Interval / 60000);
@@ -104,22 +106,26 @@ namespace WinForm
         }
 
 		public void onError(string msg,Exception ex = null){
-			
+			log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
 			if (ex != null) {
 				string output = DateTime.Now.ToString () + " exceptiont:" + ex.Message;
-				if (ex.StackTrace!=null)
-					output += " :" + ex.StackTrace;
-				Console.WriteLine (output);
+				if (ex.StackTrace != null)
+					output += " :" + ex.StackTrace;				
+				log.Error (msg, ex);
+			} else {				
+				log.Error (msg);
 			}
 			if (msg == null)
 				msg = ex.Message;
 			else if (ex != null) {
 				msg += ex.Message;
 			}
-			if (MessageBox.Show(msg, "发生异常，是否要退出？", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
-            {
-                Application.Exit();
-            }
+			if(!setStatus (msg)){
+				if (MessageBox.Show(msg, "发生异常，是否要退出？", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+	            {
+	                Application.Exit();
+	            }
+			}
 		}
 
         private void FillQueue()
@@ -186,6 +192,9 @@ namespace WinForm
                 MessageBox.Show("请先跳转到收单日志");
                 return;
             }
+			if (MessageBox.Show ("确定页码是50吗？", "提示", MessageBoxButtons.YesNo) == DialogResult.No) {
+				return;
+			}
 			if (!GoQuery ())
 				return;
             timer1.Start();            
@@ -252,11 +261,15 @@ window.frames['收单日志'].queryByCondition();";
             }
             if (terminalQueue.Count > 0 && !systemExit) GoQuery();
         }
-        private void setStatus(string str)
+		private bool setStatus(string str)
         {
             object[] objects = new object[1];
             objects[0] =str;
-            webBrowser1.Document.InvokeScript("setStatus", objects);
+			if (webBrowser1.Document!=null ) {
+				webBrowser1.Document.InvokeScript ("setStatus", objects);
+				return true;
+			} else
+				return false;
         }
 
 		public void OnFrameLoadFinish(){

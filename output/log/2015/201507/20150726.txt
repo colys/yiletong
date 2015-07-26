@@ -1,0 +1,17 @@
+
+ 
+记录时间：2015-07-26 15:46:06,415 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=ExecQuery&dataArrStr=transactionLogs,*,+time+between+%272015-07-25+23%3a00%3a00%27+and+%272015-07-26+23%3a59%3a59%27+, ,
+ 
+System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 192.168.1.119:8080
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.InternalConnect(EndPoint remoteEP)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at Common.MyHttpUtility.DoPost(String url, Byte[] data) in d:\yiletong\yiletong\Common\Utility.cs:line 138
+   at WinForm.frmMain.RunHttp(String action, String[] paraStrArr) in d:\yiletong\yiletong\WinForm\frmMain.cs:line 442

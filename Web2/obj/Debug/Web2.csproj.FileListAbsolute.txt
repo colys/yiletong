@@ -46,6 +46,7 @@ C:\QuickDisk\MyWork\yiletong\Web2\obj\Debug\Web2.pdb
 D:\yiletong\yiletong\Web2\bin\Web2.dll
 D:\yiletong\yiletong\Web2\bin\Web2.pdb
 D:\yiletong\yiletong\Web2\bin\Common.dll
+D:\yiletong\yiletong\Web2\bin\log4net.dll
 D:\yiletong\yiletong\Web2\bin\Microsoft.Web.Infrastructure.dll
 D:\yiletong\yiletong\Web2\bin\mscorlib.dll
 D:\yiletong\yiletong\Web2\bin\MySql.Data.dll

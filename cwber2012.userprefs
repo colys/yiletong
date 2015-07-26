@@ -1,16 +1,17 @@
 ﻿<Properties StartupItem="WinForm\WinForm.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="SogouExplorerHTML" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Web2\Controllers\HomeController.cs">
     <Files>
-      <File FileName="Web2\Controllers\HomeController.cs" Line="262" Column="56" />
-      <File FileName="WinForm\frmMain.cs" Line="598" Column="54" />
+      <File FileName="WinForm\frmMain.cs" Line="1" Column="1" />
       <File FileName="output\js\main.js" Line="1" Column="1" />
       <File FileName="output\transactionlog.html" Line="1" Column="1" />
       <File FileName="output\customers.html" Line="1" Column="1" />
       <File FileName="d:\yiletong\yiletong\Common\Security.cs" Line="1" Column="1" />
       <File FileName="output\main.html" Line="1" Column="1" />
-      <File FileName="WinForm\Program.cs" Line="1" Column="1" />
-      <File FileName="WinForm\App.config" Line="1" Column="1" />
+      <File FileName="Web2\Controllers\HomeController.cs" Line="246" Column="49" />
+      <File FileName="Web2\Web.config" Line="1" Column="1" />
+      <File FileName="Web2\Global.asax" Line="1" Column="1" />
+      <File FileName="Web2\Global.asax.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

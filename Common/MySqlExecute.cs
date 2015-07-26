@@ -10,27 +10,38 @@ namespace Common
 {
     public class MySqlExecute:IDisposable
     {
+		public MySqlExecute(){
+			
+		}
         public MySqlExecute(string tableSuffix,string connStr)
         {
             table_Suffix = tableSuffix;
             conStr = connStr;
         }
+		public MySqlExecute(string tableSuffix,string connStr,bool inTran)
+		{ table_Suffix = tableSuffix;
+			conStr = connStr;
+			withTrans = inTran;
+		}
         public string GetTableName(string table)
         {
             return table + table_Suffix;
         }
-        string table_Suffix = "";
+		public string table_Suffix = "";
 
         MySqlConnection conn;
-		//MySqlTransaction trans;
+		MySqlTransaction trans;
         MySqlCommand cmd;
-        string conStr;
+		public bool withTrans = false;
+		public string conStr;
 
         private void OpenMysql()
         {
            // string conStr = getSetting("connstr");
             if (conn == null) conn = new MySqlConnection(conStr);
             if (conn.State == ConnectionState.Closed) conn.Open();
+			if (withTrans)
+				trans=conn.BeginTransaction ();
         }
 
         //private string getSetting(string name)
@@ -47,16 +58,17 @@ namespace Common
         {
             if (conn == null) OpenMysql();
             if (cmd == null) cmd = new MySqlCommand(sql, conn);
+			if (trans!=null)cmd.Transaction = trans;
             else cmd.CommandText = sql;
         }
 
-        private int ExecuteCommand(string sql)
+		public int ExecuteCommand(string sql)
         {
             setCommand(sql);
             return cmd.ExecuteNonQuery();
         }
 
-        private DataTable QueryTable(string sql)
+		public DataTable QueryTable(string sql)
         {
             setCommand(sql);
             System.Data.DataTable dt = new DataTable();
@@ -98,13 +110,14 @@ namespace Common
             if (where != null && where.Length > 0) sql += " where " + where;
             if (order != null && order.Length > 0) sql += " order by " + order;
             DataTable dt = QueryTable(sql);
-            if (conn.State == ConnectionState.Open) conn.Close();
+			Close ();
             return dt;
             //return Newtonsoft.Json.JsonConvert.SerializeObject(dt);            
         }
 
         public int ExecDb(string jsonArrStr)
         {
+			withTrans = true;
             int changeCount = 0;
             QueryItem[] queryItems = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryItem[]>(jsonArrStr);
             if (queryItems == null)
@@ -160,16 +173,29 @@ namespace Common
                 }
             }
 
-            if (conn.State == ConnectionState.Open) conn.Close();
+			Close();
             return changeCount;
         }
 
-
+		public void Close(){
+			if (conn!=null && conn.State == ConnectionState.Open) {
+				if (trans != null)
+					trans.Commit ();
+				conn.Close ();
+			}
+		}
 
 
         public void Dispose()
         {
-            if (conn != null) conn.Dispose();
+			if (conn != null) {
+				if (conn.State == ConnectionState.Open) {
+					if (trans != null)
+						trans.Rollback ();
+					conn.Close ();
+				}
+				conn.Dispose ();
+			}
         }
     }
 
