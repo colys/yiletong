@@ -1,6 +1,12 @@
 ﻿<Properties StartupItem="WinForm\WinForm.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Common\EncryptionUtility.cs">
+    <Files>
+      <File FileName="WinForm\frmMain.cs" Line="130" Column="10" />
+      <File FileName="Web2\Controllers\HomeController.cs" Line="339" Column="23" />
+      <File FileName="Common\EncryptionUtility.cs" Line="58" Column="36" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\QuickDisk\MyWork\yiletong\WinFormDemo\frmMain.cs" line="414" column="1" />

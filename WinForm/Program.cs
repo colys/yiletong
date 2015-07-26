@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Sashulin;
+using System.Threading;
 
 namespace WinForm
 {
@@ -18,6 +19,7 @@ namespace WinForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+			Application.ThreadException += new ThreadExceptionEventHandler(OnThreadException);
 //			string privateKey = Application.StartupPath+"\\rongbao_decry.p12";
 //			string publicKey =  Application.StartupPath+"\\tomcat.cer";
 //			Common.RongBao.RSACryptionClass rbclass = new Common.RongBao.RSACryptionClass(publicKey, privateKey);
@@ -48,5 +50,16 @@ namespace WinForm
 //            }
             Application.Run(new frmMain());
         }
+
+		static void OnThreadException(object sender, ThreadExceptionEventArgs t)
+		{
+			log4net.ILog log = log4net.LogManager.GetLogger("OnThreadException");
+			log.Error ("OnThreadException", t.Exception);					
+			if (MessageBox.Show(t.Exception.Message+"\r\n是否要退出？", "发生异常", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+            {
+                Application.Exit();
+            }
+						
+		}
     }
 }

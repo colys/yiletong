@@ -56,6 +56,7 @@ namespace Common
             using (FileStream fs = new FileStream(targetFile, FileMode.Create))
             {
                 fs.Write(Key, 0, Key.Length);
+				fs.Close ();
             }
         }
 
@@ -72,6 +73,7 @@ namespace Common
                 {
                     SecretKey = new byte[fs.Length];
                     fs.Read(SecretKey, 0, (int)fs.Length);
+					fs.Close ();
                 }
             }
             if (ProtectKey)
@@ -111,9 +113,11 @@ namespace Common
             //参数3：对加密流的访问方式。  
             cs.Write(ClearData, 0, ClearData.Length);
             cs.FlushFinalBlock();
-
             //将加密后的结果作为字符数组返回；  
-            return Target.ToArray();            
+			byte[] bys= Target.ToArray();            
+			cs.Close ();
+			Target.Close ();
+			return bys;
         }
 
         
@@ -144,7 +148,9 @@ namespace Common
             cs.FlushFinalBlock();
 
             // 从内存数据流中获得字节并将它转换为文本；  
-            return Encoding.UTF8.GetString(Target.ToArray());
+			string str= Encoding.UTF8.GetString(Target.ToArray());
+			cs.Close ();
+			return str;
         }
     }
 }

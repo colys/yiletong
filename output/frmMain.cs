@@ -105,7 +105,7 @@ namespace WinForm
             tabControl1.SelectedIndex = 0;
         }
 
-		public void onError(string msg,Exception ex = null){
+		public void onError(string msg,Exception ex = null,bool inThead=false){
 			log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
 			if (ex != null) {
 				string output = DateTime.Now.ToString () + " exceptiont:" + ex.Message;
@@ -120,12 +120,10 @@ namespace WinForm
 			else if (ex != null) {
 				msg += ex.Message;
 			}
-			if(!setStatus (msg)){
-				if (MessageBox.Show(msg, "发生异常，是否要退出？", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
-	            {
-	                Application.Exit();
-	            }
-			}
+			if (inThead)
+				this.BeginInvoke (new delegateOnParam (setStatus),msg);
+			else	setStatus (msg);
+
 		}
 
         private void FillQueue()
@@ -261,15 +259,11 @@ window.frames['收单日志'].queryByCondition();";
             }
             if (terminalQueue.Count > 0 && !systemExit) GoQuery();
         }
-		private bool setStatus(string str)
+		private void setStatus(string str)
         {
             object[] objects = new object[1];
             objects[0] =str;
-			if (webBrowser1.Document!=null ) {
-				webBrowser1.Document.InvokeScript ("setStatus", objects);
-				return true;
-			} else
-				return false;
+			webBrowser1.Document.InvokeScript ("setStatus", objects);				
         }
 
 		public void OnFrameLoadFinish(){
@@ -550,7 +544,7 @@ window.frames['收单日志'].queryByCondition();";
 	               
 	            }
 			}catch(Exception ex){
-				onError ("发起结算失败：",ex);
+				onError ("发起结算失败：",ex,true);
 			}
             inMonitor = false;
         }
@@ -678,7 +672,7 @@ window.frames['收单日志'].queryByCondition();";
 					}
 				}
 			}catch(Exception ex){
-				onError ("查询银行处理",ex);
+				onError ("查询银行处理",ex,true);
 			}
 			if(!isFinish) {
 				System.Threading.Thread.Sleep (30000);

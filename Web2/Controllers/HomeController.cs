@@ -336,8 +336,9 @@ sumData.faren = customerInfo.faren;
 						errorMsgAppend.AppendLine (val);
 					}
 				}
-				jr.LogException(ex.InnerException, "call "+ actionName+" with:\n" + errorMsgAppend.ToString());
-				LogError ("eval",ex.InnerException);
+				Exception ex2 = ex.InnerException==null?ex:ex.InnerException;
+				jr.LogException(ex2, "call "+ actionName+" with:\n" + errorMsgAppend.ToString());
+				LogError ("eval",ex2);
 			}
 			return JsonConvert.SerializeObject(jr);
 		}

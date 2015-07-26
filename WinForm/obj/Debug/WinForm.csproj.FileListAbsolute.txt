@@ -34,6 +34,7 @@ D:\yiletong\yiletong\output\frmMain.cs
 D:\yiletong\yiletong\output\WinForm.exe.config
 D:\yiletong\yiletong\output\WinForm.exe
 D:\yiletong\yiletong\output\WinForm.pdb
+D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.csprojResolveAssemblyReference.cache
 D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.Form1.resources
 D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.Form2.resources
 D:\yiletong\yiletong\WinForm\obj\Debug\WinForm.frmMain.resources

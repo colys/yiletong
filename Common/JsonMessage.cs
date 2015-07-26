@@ -19,7 +19,8 @@ namespace Common
         }
         public void LogException(Exception ex,string appendMsg)
         {
-            Message = ex.Message + " " + appendMsg;
+			if (ex == null) Message = appendMsg;
+            else Message = ex.Message + " " + appendMsg;
             Result = null;
         }
     }
