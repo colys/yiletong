@@ -1,21 +1,26 @@
 ﻿var status_list;
-function parseTableJson() {    
-    var json = [];
-    status_list.empty();
-    var terminal = null;
-    $("#hidden_div table tbody tr").each(function () {
-        var item = {};
-        $(this).find("td").each(function () {
-            var fieldName = this.getAttribute("field");
-            item[fieldName] = this.innerText;
-        });
-        json[json.length] = item;
-        terminal = item.tid;
-    })
+function parseTableJson(jsonStr) {    
+//    var json = [];
+//    status_list.empty();
+//    var terminal = null;
+//    $("#hidden_div table tbody tr").each(function () {
+//        var item = {};
+//        $(this).find("td").each(function () {
+//            var fieldName = this.getAttribute("field");
+//            item[fieldName] = this.innerText;
+//        });
+//        json[json.length] = item;
+//        terminal = item.tid;
+//    })
+	status_list.empty();
+	var json ;
+	eval('json = '+jsonStr );
+	json = json.rows;
     if (json.length == 0) {
         status_list.html("没有刷卡数据！");
         return;
     }
+    var terminal = json[0].tid;
     var customerInfo = null;
     var newJson =[];
     try{
@@ -27,7 +32,7 @@ function parseTableJson() {
     	if(!customerInfo.tixianfei || isNaN(customerInfo.tixianfei)){ throw("获取客户信息tixianfei is null or NaN, terminal："+terminal); }
     	if(customerInfo.tixianfeiEles==null || isNaN(customerInfo.tixianfeiEles)){ throw("获取客户信息tixianfeiEles is null or NaN, terminal："+terminal); }
 
-	    for(var i=0;i<json.length;i++){
+	    for(var i=json.length-1;i > -1 ;i--){
 	    	var item =json[i];
 	    	//判断记录是否存在,存在的话忽略,不存在则插入
 	    	var existCount = clientEx.execQuery("count(0) cc", "transactionLogs", "terminal='" + item.tid + "' and timeStr='" + item.tdate + "' and tradeName='" + item.trname + "' and tradeMoney=" + item.amt + " ", null);	    	
@@ -155,22 +160,21 @@ function onError(msg){
 
 function convertToLocal(netLog,customerInfo) {
     var time ;
-    var arr = netLog.tdate.split(' ');
-    var dayStr = arr[0];
-    var timeStr = arr[1];
+    var dayStr =netLog.stdate;
+    var timeStr = netLog.stime;
     var minute = timeStr.substr(2, 2);
     if (minute > 59) minute = 59;
     var second= timeStr.substr(4, 2);
     if (second > 59) second = 59;
     time = dayStr.substr(0, 4) + '-' + dayStr.substr(4, 2) + '-' + dayStr.substr(6, 2) + " " + timeStr.substr(0, 2) + ":" + minute + ":" + second;
     //交易结果代码
-    var pos = netLog.rap.indexOf('(');
+    var pos = netLog.rspmsg.indexOf('(');
     var resultCode = null;
     if(pos!=-1){
-    	var endPos= netLog.rap.indexOf(')');
-    	if(endPos>0) resultCode = netLog.rap.substr(pos+1,endPos-pos-1);
+    	var endPos= netLog.rspmsg.indexOf(')');
+    	if(endPos>0) resultCode = netLog.rspmsg.substr(pos+1,endPos-pos-1);
     }
-    if(!resultCode){ throw "交易结果代码获取方式有变！"; }
+    //if(!resultCode){ throw "交易结果代码获取方式有变！"; }
     var money = netLog.amt;
     var isValid = 0;
     if(netLog.trname.indexOf('冲正')> -1){ money = -1 * money;isValid=1;}
@@ -179,7 +183,7 @@ function convertToLocal(netLog,customerInfo) {
     //alert(resultCode+netLog.trname);
     return { terminal: netLog.tid, time: time, tradeName: netLog.trname,
      tradeMoney: money, 
-     results: netLog.rap,resultCode: resultCode, faren: customerInfo.faren, timeStr: netLog.tdate,isValid:isValid};
+     results: netLog.rspmsg,resultCode: resultCode, faren: customerInfo.faren, timeStr: netLog.tdate,isValid:isValid};
 }
 
 function addTerminalView(item){

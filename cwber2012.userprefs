@@ -1,10 +1,12 @@
 ﻿<Properties StartupItem="WinForm\WinForm.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Common\EncryptionUtility.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="d:\yiletong\yiletong\Cef3\Interop\Classes.g\cef_browser_t.g.cs">
     <Files>
-      <File FileName="WinForm\frmMain.cs" Line="130" Column="10" />
-      <File FileName="Web2\Controllers\HomeController.cs" Line="339" Column="23" />
-      <File FileName="Common\EncryptionUtility.cs" Line="58" Column="36" />
+      <File FileName="Common\EncryptionUtility.cs" Line="35" Column="10" />
+      <File FileName="WinForm\frmMain.cs" Line="188" Column="28" />
+      <File FileName="Web2\Controllers\HomeController.cs" Line="111" Column="23" />
+      <File FileName="Common\MySqlExecute.cs" Line="140" Column="56" />
+      <File FileName="d:\yiletong\yiletong\Cef3\Interop\Classes.g\cef_browser_t.g.cs" Line="213" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

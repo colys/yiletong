@@ -23,3 +23,4 @@ D:\yiletong\yiletong\Common\bin\Debug\normnfkc.nlp
 D:\yiletong\yiletong\Common\bin\Debug\normnfkd.nlp
 D:\yiletong\yiletong\Common\obj\Debug\Common.dll
 D:\yiletong\yiletong\Common\obj\Debug\Common.pdb
+D:\yiletong\yiletong\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
