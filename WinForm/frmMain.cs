@@ -281,7 +281,9 @@ window.frames['收单日志'].queryByCondition();";
             object jsonStr = webBrowser1.Document.InvokeScript("parseTableJson", objects);
             //            if(jsonStr!=null) MessageBox.Show(jsonStr.ToString());
 			try{
-				execDb("[{\"table\":\"customers\",\"action\":1,\"fields\":\"lastQuery\",\"values\":\""+ DateTime.Today.ToString("yyyy-MM-dd") +"\",where:\"terminal="+termID+"\"}]");
+				string msg= execDb("[{\"table\":\"customers\",\"action\":1,\"fields\":[\"lastQuery\"],\"values\":[\""+ DateTime.Today.ToString("yyyy-MM-dd") +"\"],where:\"terminal="+termID+"\"}]");
+				JsonMessage<int> jsonR = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<int>>(msg);
+				if(!string.IsNullOrEmpty( jsonR.Message)) throw new Exception(jsonR.Message);
 			}catch(Exception ex){
 				onError ("update last query exception:", ex);
 			}

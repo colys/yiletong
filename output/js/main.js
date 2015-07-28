@@ -207,6 +207,6 @@ function addTerminalView(item){
       	viewTableBody=$('<tbody></tbody>').appendTo(viewTable);
       }
       var newRow= $('<tr><td>'+ item.time +'</td><td>'+ item.tradeName +'</td><td>'+ item.tradeMoney +'</td><td>'+ item.results +'</td></tr>');
-      viewTableBody.append(newRow);
+      viewTableBody.prepend(newRow);
 	
 }
