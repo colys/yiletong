@@ -103,7 +103,6 @@ function parseTableJson(jsonStr) {
 
 function setStatus(str) {
     $("#status").html(str);
-    status_list.empty();
 }
 
 function setSumStatus(str) {

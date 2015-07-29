@@ -188,6 +188,7 @@ namespace WinForm
 			if (!GoQuery ())return;
             timer1.Start();            
             触发查询ToolStripMenuItem.Enabled = false;
+			this.tabControl1.SelectedIndex = 1;
         }
         string termID,beginDate,endDate;
 		private bool GoQuery()
@@ -211,11 +212,10 @@ namespace WinForm
 				beginDate = dtLastQuery.ToString("yyyyMMdd");
 				endDate=DateTime.Today.ToString("yyyyMMdd");
 				setStatus(DateTime.Now.ToString("HH:mm:ss")+ "：正在查询" + termID + "的刷卡情况");
-				string js = "$('#hidden_json').val(''); $.ajax({url:'https://119.4.99.217:7300/mcrm/bca/txnlog_findBy',type:'POST',data:'beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=500&page=1',error:function(str,e){window.CallCSharpMethod('queryJsReturn','err:'+str+e);},success:function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str);window.CallCSharpMethod('queryJsReturn','ok'); }})";
+				string js = "$('#hidden_json').val(''); $.ajax({url:'https://119.4.99.217:7300/mcrm/bca/txnlog_findBy',type:'POST',data:'beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=100&page=1',error:function(str,e){window.CallCSharpMethod('queryJsReturn','err:'+str+e);},success:function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str);window.CallCSharpMethod('queryJsReturn','ok'); }})";
 				chromeWebBrowser1.ExecuteScript(js);
 				waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
 				waitQueryThread.Start();
-				tabControl1.SelectedIndex =1; 
 			}
 			catch (Exception ex)
 			{
@@ -292,6 +292,7 @@ window.frames['收单日志'].queryByCondition();";
             {
                 System.Threading.Thread.Sleep(100);
             }
+			System.Threading.Thread.Sleep(500);
             if (terminalQueue.Count > 0 && !systemExit) GoQuery();
         }
 
@@ -326,10 +327,13 @@ window.frames['收单日志'].queryByCondition();";
 			}
 		}
 
-		private void queryJsReturn(string str){
-			if(str!="ok"){
-				onError(str);
+		public void queryJsReturn(string str){
+			if (str != "ok") {
+				onError (str);
 				inQuery = false;
+			} else {
+				Console.WriteLine (str);
+				//this.BeginInvoke(new QueryFinish(OnQueryFinish));
 			}
 		}
 
@@ -339,7 +343,7 @@ window.frames['收单日志'].queryByCondition();";
             {
 				System.Threading.Thread.Sleep(500);
 				object val= chromeWebBrowser1.EvaluateScript("$('#hidden_json').val()");
-				if (val !=null && val!="")
+				if (val !=null && !val.Equals(string.Empty))
                {
                    this.BeginInvoke(new QueryFinish(OnQueryFinish));
 					while (inQuery) {
