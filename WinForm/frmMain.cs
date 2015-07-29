@@ -148,7 +148,7 @@ namespace WinForm
 
        
 
-		private void openLogin(){
+		private void openLogin(){			
 			chromeWebBrowser1.OpenUrl("https://119.4.99.217:7300/mcrm/login.jsp");
 		}
 
@@ -184,9 +184,11 @@ namespace WinForm
 
         private void 触发查询ToolStripMenuItem_Click(object sender, EventArgs e)
         {         
+			if (cookieStr == null) cookieStr = chromeWebBrowser1.Document.Cookie;
 			if (!GoQuery ())return;
             timer1.Start();            
             触发查询ToolStripMenuItem.Enabled = false;
+			this.tabControl1.SelectedIndex = 1;
         }
         string termID,beginDate,endDate;
 		private bool GoQuery()
@@ -210,11 +212,10 @@ namespace WinForm
 				beginDate = dtLastQuery.ToString("yyyyMMdd");
 				endDate=DateTime.Today.ToString("yyyyMMdd");
 				setStatus(DateTime.Now.ToString("HH:mm:ss")+ "：正在查询" + termID + "的刷卡情况");
-				string js = "$('#hidden_json').val(''); $.post('https://119.4.99.217:7300/mcrm/bca/txnlog_findBy','beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=500&page=1',function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str); })";
+				string js = "$('#hidden_json').val(''); $.ajax({url:'https://119.4.99.217:7300/mcrm/bca/txnlog_findBy',type:'POST',data:'beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=100&page=1',error:function(str,e){window.CallCSharpMethod('queryJsReturn',e);},success:function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str);window.CallCSharpMethod('queryJsReturn','ok'); }})";
 				chromeWebBrowser1.ExecuteScript(js);
 				waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
 				waitQueryThread.Start();
-				tabControl1.SelectedIndex =1;
 			}
 			catch (Exception ex)
 			{
@@ -278,22 +279,23 @@ window.frames['收单日志'].queryByCondition();";
             //hidden_div.InnerHtml = table.ToString();
 			string[] objects = new string[1];
 			objects [0] = json;
-            object jsonStr = webBrowser1.Document.InvokeScript("parseTableJson", objects);
-            //            if(jsonStr!=null) MessageBox.Show(jsonStr.ToString());
 			try{
+            	object jsonStr = webBrowser1.Document.InvokeScript("parseTableJson", objects);
 				string msg= execDb("[{\"table\":\"customers\",\"action\":1,\"fields\":[\"lastQuery\"],\"values\":[\""+ DateTime.Today.ToString("yyyy-MM-dd") +"\"],where:\"terminal="+termID+"\"}]");
 				JsonMessage<int> jsonR = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<int>>(msg);
 				if(!string.IsNullOrEmpty( jsonR.Message)) throw new Exception(jsonR.Message);
 			}catch(Exception ex){
-				onError ("update last query exception:", ex);
+				onError ("save data or update last query exception:", ex);
 			}
             inQuery = false;
             while (waitQueryThread != null && waitQueryThread.IsAlive)
             {
                 System.Threading.Thread.Sleep(100);
             }
+			System.Threading.Thread.Sleep(500);
             if (terminalQueue.Count > 0 && !systemExit) GoQuery();
         }
+
 		private void setStatus(string str)
         {
             object[] objects = new object[1];
@@ -325,13 +327,23 @@ window.frames['收单日志'].queryByCondition();";
 			}
 		}
 
+		public void queryJsReturn(string str){
+			if (str != "ok") {
+				onError (str);
+				inQuery = false;
+			} else {
+				Console.WriteLine (str);
+				//this.BeginInvoke(new QueryFinish(OnQueryFinish));
+			}
+		}
 
         private void watinQuery(object o)
         {
             while (true)
             {
+				System.Threading.Thread.Sleep(500);
 				object val= chromeWebBrowser1.EvaluateScript("$('#hidden_json').val()");
-				if (val !=null && val!="")
+				if (val !=null && !val.Equals(string.Empty))
                {
                    this.BeginInvoke(new QueryFinish(OnQueryFinish));
 					while (inQuery) {
@@ -380,8 +392,6 @@ window.frames['收单日志'].queryByCondition();";
 			case "index":                    
 				loadFrame ();
 				chromeWebBrowser1.ExecuteScript("if($(\"#hidden_json\").length ==0){ $('<input type=\"hidden\" id=\"hidden_json\" />').appendTo(document.body); }");
-				if (cookieStr == null)
-					cookieStr = chromeWebBrowser1.Document.Cookie;
 				break;
 
 			} 
@@ -410,19 +420,15 @@ window.frames['收单日志'].queryByCondition();";
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {			
+			
 			if (cookieStr != chromeWebBrowser1.Document.Cookie ) {
+				cookieStr = null;
 				timer1.Enabled = false;
 				触发查询ToolStripMenuItem.Enabled = true;
 				openLogin ();
 				return;
-			} else {
-				if (!inQuery)
-					GoQuery ();
 			}
-
-
-
-
+			if (!inQuery) GoQuery ();
         }
 
 
