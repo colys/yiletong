@@ -2,10 +2,11 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="d:\yiletong\yiletong\Cef3\Interop\Classes.g\cef_browser_t.g.cs">
     <Files>
-      <File FileName="Common\EncryptionUtility.cs" Line="35" Column="10" />
-      <File FileName="WinForm\frmMain.cs" Line="188" Column="28" />
-      <File FileName="Web2\Controllers\HomeController.cs" Line="111" Column="23" />
-      <File FileName="Common\MySqlExecute.cs" Line="140" Column="56" />
+      <File FileName="WinForm\frmMain.cs" Line="204" Column="11" />
+      <File FileName="Web2\Controllers\HomeController.cs" Line="1" Column="1" />
+      <File FileName="d:\yiletong\yiletong\Common\EncryptionUtility.cs" Line="1" Column="1" />
+      <File FileName="d:\yiletong\yiletong\Common\Utility.cs" Line="1" Column="1" />
+      <File FileName="WinForm\App.config" Line="1" Column="1" />
       <File FileName="d:\yiletong\yiletong\Cef3\Interop\Classes.g\cef_browser_t.g.cs" Line="213" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

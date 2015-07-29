@@ -28,6 +28,7 @@ namespace WinForm
 		System.Threading.Thread waitQueryThread;
 		bool inQuery = false,inMonitor=false;
         bool systemExit = false;
+		int listenInterval;
         public frmMain()
         {
             InitializeComponent();
@@ -43,7 +44,7 @@ namespace WinForm
             webBrowser1.ObjectForScripting = this;
             myBrowser.ObjectForScripting = this;
             myPage.Hide();
-			timer1.Interval = Convert.ToInt32 (getSetting ("listenInterval"));
+			timer1.Interval = listenInterval=Convert.ToInt32 (getSetting ("listenInterval"));
             string host = getSetting("webHost");
             if (host[host.Length - 1] != '/') host += "/";
             controllerUrl = host + "Home";
@@ -63,7 +64,7 @@ namespace WinForm
         public void InitOK()
         {
             chromeWebBrowser1.LoadHtml("正在载入，请稍后......");
-            timer = new System.Threading.Timer(new System.Threading.TimerCallback(BeginLoadWeb), null, 0, 500);
+            timer = new System.Threading.Timer(new System.Threading.TimerCallback(BeginLoadWeb), null, 100, -1);
             string timeStr;
 			timer_pay.Interval = Convert.ToInt32 (getSetting ("jieSuangInterval"));
 			timer_pay.Enabled = false;
@@ -95,8 +96,7 @@ namespace WinForm
 
 
         private void BeginLoadWeb(object o)
-        {
-            timer.Change(-1, 0);
+        {            
             this.BeginInvoke(new QueryFinish(LoadRemoteWeb));            
         }
         private void LoadRemoteWeb()
@@ -184,17 +184,20 @@ namespace WinForm
 
         private void 触发查询ToolStripMenuItem_Click(object sender, EventArgs e)
         {         
+			if (inQuery)
+				return;
 			if (cookieStr == null) cookieStr = chromeWebBrowser1.Document.Cookie;
-			if (!GoQuery ())return;
+			GoQuery (null);
             timer1.Start();            
             触发查询ToolStripMenuItem.Enabled = false;
 			this.tabControl1.SelectedIndex = 1;
         }
         string termID,beginDate,endDate;
-		private bool GoQuery()
+		private void GoQuery(object o)
         {
-			if (inQuery) return false;
-			if (waitQueryThread != null && waitQueryThread.IsAlive) return false;
+			if (inQuery)	return;
+			if (waitQueryThread != null && waitQueryThread.IsAlive) return;
+			timer1.Enabled = false;
 			try
 			{
 				
@@ -211,8 +214,8 @@ namespace WinForm
 				else dtLastQuery = Convert.ToDateTime(cus.lastQuery);
 				beginDate = dtLastQuery.ToString("yyyyMMdd");
 				endDate=DateTime.Today.ToString("yyyyMMdd");
-				setStatus(DateTime.Now.ToString("HH:mm:ss")+ "：正在查询" + termID + "的刷卡情况");
-				string js = "$('#hidden_json').val(''); $.ajax({url:'https://119.4.99.217:7300/mcrm/bca/txnlog_findBy',type:'POST',data:'beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=100&page=1',error:function(str,e){window.CallCSharpMethod('queryJsReturn','err:'+str+e);},success:function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str);window.CallCSharpMethod('queryJsReturn','ok'); }})";
+				setStatus("正在查询" + termID + "的刷卡情况");
+				string js = "$('#hidden_json').val(''); $.ajax({url:'https://119.4.99.217:7300/mcrm/bca/txnlog_findBy',type:'POST',data:'beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=100&page=1',error:function(str,e){window.CallCSharpMethod('queryJsReturn',e);},success:function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str);window.CallCSharpMethod('queryJsReturn','ok'); }})";
 				chromeWebBrowser1.ExecuteScript(js);
 				waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
 				waitQueryThread.Start();
@@ -221,59 +224,13 @@ namespace WinForm
 			{
 				onError(null,ex);
 			}
-
-			/*
-
-
-
-
-            inQuery = true;
-			try{
-            //CwbElement tabFrame = chromeWebBrowser1.Document.GetElementById("tab1");
-            //if(tabFrame==null) return;
-            object notFunction = chromeWebBrowser1.EvaluateScript("typeof( window.frames['收单日志'].queryByCondition) == 'undefined'");
-            if (notFunction != null && notFunction.Equals(true))
-            {
-                onError("完蛋了，查询方法被修改了！");
-				return false;
-            }
-            else
-            {
-
-                termID = getNextTerminal();
-				if (termID == null) {
-					MessageBox.Show ("没有终端，请先添加客户");
-					return false;
-				}
-                object date1 = chromeWebBrowser1.EvaluateScript(" $(window.frames['收单日志'].document).find('#beginstdate').next().find('.combo-value').val()");
-                object date2 = chromeWebBrowser1.EvaluateScript(" $(window.frames['收单日志'].document).find('#endstdate').next().find('.combo-value').val()");
-                if (date1!=null) beginDate = date1.ToString();
-                else date1 = "找不到";
-                if (date2 != null) endDate = date2.ToString();
-                else endDate = "找不到";
-               string js=@"
-$(window.frames['收单日志'].document).find('#tid').val('" + termID + @"');
-window.frames['收单日志'].queryByCondition();";
-                chromeWebBrowser1.ExecuteScript(js);
-                //chromeWebBrowser1.ExecuteScript("");
-                setStatus(DateTime.Now.ToString("HH:mm:ss")+ "：正在查询" + termID + "的刷卡情况");
-                waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
-                waitQueryThread.Start();
-            }
-			}catch(Exception ex){
-				onError ("查询刷卡数据时发生异常：", ex);
-				inQuery = false;
-			}
-			*/
-			return true;
         }
 		public void OnQueryFinish()
         {			
-			
+			setStatus(termID + "终端" + beginDate + "到" + endDate + "的刷卡情况:");
 			object jsonObj= chromeWebBrowser1.EvaluateScript ("$('#hidden_json').val()");
 			if (jsonObj == null) onError ("OnQueryFinish get json error", null);
 			string json = jsonObj.ToString ();
-            setStatus(DateTime.Now.ToString("HH:mm:ss") + "：" + termID + "终端" + beginDate + "到" + endDate + "的刷卡情况:");
             //object table = chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-btable:eq(1)')[0].outerHTML");
             //HtmlElement hidden_div = webBrowser1.Document.GetElementById("hidden_div");
             //hidden_div.InnerHtml = table.ToString();
@@ -287,19 +244,24 @@ window.frames['收单日志'].queryByCondition();";
 			}catch(Exception ex){
 				onError ("save data or update last query exception:", ex);
 			}
-            inQuery = false;
+			inQuery = false;//让waitQueryThread退出
             while (waitQueryThread != null && waitQueryThread.IsAlive)
             {
                 System.Threading.Thread.Sleep(100);
             }
-			System.Threading.Thread.Sleep(500);
-            if (terminalQueue.Count > 0 && !systemExit) GoQuery();
+			if (systemExit)
+				return;
+			if (terminalQueue.Count > 0 ) {
+				timer1.Interval = 1000;
+			} else
+				timer1.Interval = listenInterval;
+			timer1.Start ();
         }
 
 		private void setStatus(string str)
         {
             object[] objects = new object[1];
-            objects[0] =str;
+			objects[0] = DateTime.Now.ToString("HH:mm:ss") + "：" + str;
 			webBrowser1.Document.InvokeScript ("setStatus", objects);				
         }
 
@@ -344,7 +306,7 @@ window.frames['收单日志'].queryByCondition();";
 				System.Threading.Thread.Sleep(500);
 				object val= chromeWebBrowser1.EvaluateScript("$('#hidden_json').val()");
 				if (val !=null && !val.Equals(string.Empty))
-               {
+               {				   
                    this.BeginInvoke(new QueryFinish(OnQueryFinish));
 					while (inQuery) {
 						System.Threading.Thread.Sleep(100);
@@ -414,7 +376,7 @@ window.frames['收单日志'].queryByCondition();";
 
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
         {
-			GoQuery ();
+			GoQuery (null);
         }
 
 
@@ -428,7 +390,8 @@ window.frames['收单日志'].queryByCondition();";
 				openLogin ();
 				return;
 			}
-			if (!inQuery) GoQuery ();
+			GoQuery (null);
+
         }
 
 
