@@ -42,15 +42,14 @@ function parseTableJson(jsonStr) {
 
 	    for(var i=json.length-1;i > -1 ;i--){
 	    	var item =json[i];
-	    	//判断记录是否存在,存在的话忽略,不存在则插入
-	    	var existCount = clientEx.execQuery("count(0) cc", "transactionLogs", "terminal='" + item.tid + "' and timeStr='" + item.tdate + "' and tradeName='" + item.trname + "' and tradeMoney=" + item.amt + " ", null);	    	
-	    	if(existCount[0].cc > 0) continue;
 	    	var localItem = convertToLocal(item,customerInfo);
+	    	//判断记录是否存在,存在的话忽略,不存在则插入
+	    	var existCount = clientEx.execQuery("count(0) cc", "transactionLogs", "terminal='" + item.tid + "' and time='" + localItem.time + "' and tradeName='" + item.trname + "' and tradeMoney=" + item.amt + " ", null);	    	
+	    	if(existCount[0].cc > 0) continue;
+
 	        //计算手续费
 	    	localItem.shanghuName = customerInfo.shanghuName;	    	
-	    	localItem.discountMoney =getCustomerShouXuFeiPos(customerInfo,localItem.tradeMoney);
-	    	localItem.tixianfeiMoney = getCustomerShouXuFei(customerInfo, localItem.tradeMoney);
-	    	localItem.finallyMoney = localItem.tradeMoney - localItem.discountMoney - localItem.tixianfeiMoney;
+	    	calcMoney(customerInfo,localItem);
 	    	localItem.id = clientEx.getNexVal("transactionLogs");	    	
 	    	localItem.status=0; 
 
@@ -128,15 +127,23 @@ function setBankStatus(batnum,str){
 	div.html(batnum+": "+str);
 }
 
-function getCustomerShouXuFeiPos(customerInfo,money){
-	//节假日
-	return (money*customerInfo.discount* 0.01).toFixed(2);
+function calcMoney (customerInfo,localItem){
+	if(customerInfo.IsFengDing && !customerInfo.fengding)  throw("封顶机没配置封顶金额");
+	localItem.discountMoney= (localItem.tradeMoney*customerInfo.discount* 0.01).toFixed(2);
+	if(!customerInfo.IsFengDing ||  localItem.discountMoney < customerInfo.fengding){
+		//pos ji
+		localItem.discountMoney= (localItem.tradeMoney*customerInfo.discount* 0.01).toFixed(2);
+		var totalSxf =( localItem.tradeMoney*(customerInfo.discount+customerInfo.tixianfei)* 0.01).toFixed(2)
+		//t0
+		localItem.tixianfeiMoney= totalSxf  - localItem.discountMoney;
+	}else{		
+		//feng ding
+		localItem.discountMoney = customerInfo.fengding;
+		localItem.tixianfeiMoney = (localItem.tradeMoney*customerInfo.tixianfeiMoney* 0.01).toFixed(2);
+	}
+	localItem.finallyMoney = localItem.tradeMoney - localItem.discountMoney - localItem.tixianfeiMoney;
 }
 
-function getCustomerShouXuFei(customerInfo,money){
-	//节假日
-	return (money*customerInfo.tixianfei* 0.01).toFixed(2);
-}
 
 
 function init(){	
@@ -168,7 +175,7 @@ function onError(msg){
 
 function convertToLocal(netLog,customerInfo) {
     var time ;
-    var dayStr =netLog.stdate;
+    var dayStr =netLog.tdate;
     var timeStr = netLog.stime;
     var minute = timeStr.substr(2, 2);
     if (minute > 59) minute = 59;
@@ -186,7 +193,7 @@ function convertToLocal(netLog,customerInfo) {
     //alert(resultCode+netLog.trname);
     return { terminal: netLog.tid, time: time, tradeName: netLog.trname,
      tradeMoney: money, 
-     results: netLog.rspmsg,resultCode: resultCode, faren: customerInfo.faren, timeStr: netLog.tdate,isValid:isValid};
+     results: netLog.rspmsg,resultCode: resultCode, faren: customerInfo.faren, timeStr: netLog.tdate+" "+netLog.stime,isValid:isValid};
 }
 
 function addTerminalView(item){

@@ -150,6 +150,7 @@ namespace WinForm
 
 		private void openLogin(){			
 			chromeWebBrowser1.OpenUrl("https://119.4.99.217:7300/mcrm/login.jsp");
+			loginOutime = false;
 		}
 
         private void 触发登录ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -213,7 +214,10 @@ namespace WinForm
 				}
 				else dtLastQuery = Convert.ToDateTime(cus.lastQuery);
 				beginDate = dtLastQuery.ToString("yyyyMMdd");
-				endDate=DateTime.Today.ToString("yyyyMMdd");
+				if(DateTime.Now.Hour>22)
+					endDate=DateTime.Today.AddDays(1).ToString("yyyyMMdd");
+				else 
+					endDate=DateTime.Today.ToString("yyyyMMdd");
 				setStatus("正在查询" + termID + "的刷卡情况");
 				string js = "$('#hidden_json').val(''); $.ajax({url:'https://119.4.99.217:7300/mcrm/bca/txnlog_findBy',type:'POST',data:'beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=100&page=1',error:function(str,e){window.CallCSharpMethod('queryJsReturn',e);},success:function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str);window.CallCSharpMethod('queryJsReturn','ok'); }})";
 				chromeWebBrowser1.ExecuteScript(js);
@@ -225,6 +229,9 @@ namespace WinForm
 				onError(null,ex);
 			}
         }
+		 
+		private bool loginOutime = false;
+
 		public void OnQueryFinish()
         {			
 			setStatus(termID + "终端" + beginDate + "到" + endDate + "的刷卡情况:");
@@ -249,7 +256,7 @@ namespace WinForm
             {
                 System.Threading.Thread.Sleep(100);
             }
-			if (systemExit)
+			if (systemExit||loginOutime)
 				return;
 			if (terminalQueue.Count > 0 ) {
 				timer1.Interval = 1000;
@@ -383,7 +390,7 @@ namespace WinForm
         private void timer1_Tick_1(object sender, EventArgs e)
         {			
 			
-			if (cookieStr != chromeWebBrowser1.Document.Cookie ) {
+			if (cookieStr != chromeWebBrowser1.Document.Cookie || loginOutime) {
 				cookieStr = null;
 				timer1.Enabled = false;
 				触发查询ToolStripMenuItem.Enabled = true;
@@ -596,7 +603,7 @@ namespace WinForm
 						QueryItem jsonItem = new QueryItem () {
 							table = "transactionSum",
 							action = DBAction.Update,
-							where = " batchCurrnum='" + result.batchCurrnum + "' and id=" + detail.tradeNum,
+								where = " batchCurrnum='" + result.batchCurrnum + "'",//+ "' and id=" + detail.tradeNum,
 							fields = fields,
 							values = new string[3]
 						};

@@ -117,7 +117,7 @@ namespace Common
 
         public int ExecDb(string jsonArrStr)
         {
-			withTrans = true;
+			withTrans = false;
             int changeCount = 0;
             QueryItem[] queryItems = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryItem[]>(jsonArrStr);
             if (queryItems == null)
