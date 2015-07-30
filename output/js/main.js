@@ -15,6 +15,14 @@ function parseTableJson(jsonStr) {
 	status_list.empty();
 	var json ;
 	eval('json = '+jsonStr );
+	if(json==null){
+	 	status_list.html("json is null！");
+        return;
+	}
+	if(json.rows==null){
+	 	status_list.html("json rows is null！"+ jsonStr);
+        return;
+	}
 	json = json.rows;
     if (json.length == 0) {
         status_list.html("没有刷卡数据！");
@@ -66,12 +74,12 @@ function parseTableJson(jsonStr) {
                 	$("#settle_status_list").empty();
                     maxId = this.id;
                     //get prev jieshuang date
-                    var whereSql = "terminal='" + this.terminal + "' and Status=0 and tradeName='批上送结束(平账)' and resultCode='00' and time< '"+ this.time +"'";
+                    var whereSql = "terminal='" + this.terminal + "' and Status=0 and tradeName='批上送结束(平账)' and resultCode='0' and time< '"+ this.time +"'";
                     var prevData = clientEx.execQuery("max(time) prevTime ","transactionLogs",whereSql, null);
                     if (prevData == null || prevData.length == 0) throw ("查询上次结算数据失败");
                     var prevTime= prevData[0].prevTime;
                     //sum log of (消费)
-                    var whereSql = "terminal='" + this.terminal + "' and Status=0 and isValid = 1 and resultCode='00'";
+                    var whereSql = "terminal='" + this.terminal + "' and Status=0 and isValid = 1 and resultCode='0'";
                     if(prevTime ==null || prevTime == '')
                     	whereSql+=" and time < '"+ this.time +"'";
                     else 
@@ -168,18 +176,13 @@ function convertToLocal(netLog,customerInfo) {
     if (second > 59) second = 59;
     time = dayStr.substr(0, 4) + '-' + dayStr.substr(4, 2) + '-' + dayStr.substr(6, 2) + " " + timeStr.substr(0, 2) + ":" + minute + ":" + second;
     //交易结果代码
-    var pos = netLog.rspmsg.indexOf('(');
-    var resultCode = null;
-    if(pos!=-1){
-    	var endPos= netLog.rspmsg.indexOf(')');
-    	if(endPos>0) resultCode = netLog.rspmsg.substr(pos+1,endPos-pos-1);
-    }
+    var resultCode = netLog.errcode;
     //if(!resultCode){ throw "交易结果代码获取方式有变！"; }
     var money = netLog.amt;
     var isValid = 0;
     if(netLog.trname.indexOf('冲正')> -1){ money = -1 * money;isValid=1;}
     else if(netLog.trname=="消费") isValid=1;
-    if(resultCode != "00") isValid = 0;	
+    if(netLog.errcode != 0) isValid = 0;	
     //alert(resultCode+netLog.trname);
     return { terminal: netLog.tid, time: time, tradeName: netLog.trname,
      tradeMoney: money, 
