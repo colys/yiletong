@@ -1,5 +1,6 @@
 ﻿var status_list;
 function parseTableJson(jsonStr) {    
+	getIsHoldDay();
 //    var json = [];
 //    status_list.empty();
 //    var terminal = null;
@@ -44,9 +45,10 @@ function parseTableJson(jsonStr) {
 	    	var item =json[i];
 	    	var localItem = convertToLocal(item,customerInfo);
 	    	//判断记录是否存在,存在的话忽略,不存在则插入
-	    	var existCount = clientEx.execQuery("count(0) cc", "transactionLogs", "terminal='" + item.tid + "' and time='" + localItem.time + "' and tradeName='" + item.trname + "' and tradeMoney=" + item.amt + " ", null);	    	
-	    	if(existCount[0].cc > 0) continue;
-
+	    	var whereSql ="terminal='" + item.tid + "' and time='" + localItem.time + "' and tradeName='" + item.trname + "' and tradeMoney=" + localItem.tradeMoney ;
+	    	var existCount = clientEx.execQuery("count(0) cc", "transactionLogs",whereSql , null);	    	
+	    	if(existCount[0].cc > 0){ continue;}
+	    	//alert(whereSql);
 	        //计算手续费
 	    	localItem.shanghuName = customerInfo.shanghuName;	    	
 	    	calcMoney(customerInfo,localItem);
@@ -69,11 +71,11 @@ function parseTableJson(jsonStr) {
         var maxId = 0;
         try {
             $(newJson).each(function () {
-                if (this.tradeName == "批上送结束(平账)") {
+                if (this.tradeName == "批上送结束(平账)" ||  this.tradeName == "批上送结束(不平账)") {
                 	$("#settle_status_list").empty();
                     maxId = this.id;
                     //get prev jieshuang date
-                    var whereSql = "terminal='" + this.terminal + "' and Status=0 and tradeName='批上送结束(平账)' and resultCode='00' and time< '"+ this.time +"'";
+                    var whereSql = "terminal='" + this.terminal + "' and Status=0 and tradeName in ('批上送结束(平账)','批上送结束(不平账)') and resultCode='00' and time < '"+ this.time +"'";
                     var prevData = clientEx.execQuery("max(time) prevTime ","transactionLogs",whereSql, null);
                     if (prevData == null || prevData.length == 0) throw ("查询上次结算数据失败");
                     var prevTime= prevData[0].prevTime;
@@ -94,6 +96,7 @@ function parseTableJson(jsonStr) {
                     sumData.status = 0;
                     sumData.createDate = (new Date()).Format("yyyy-MM-dd hh:mm:ss");
                     sumData.terminal = this.terminal;
+                    whereSql = "("+whereSql+") or id ="+ this.id;
                     var inserDBJson = [{ table: "transactionlogs", action: 1, fields: { sumid: sumid, Status: 1 }, where: whereSql }, { table: "transactionSum", action: 0, fields: sumData }];
                     clientEx.execDb(inserDBJson);
                 }
@@ -126,20 +129,38 @@ function setBankStatus(batnum,str){
 	if(div.length ==0) div = $("<div id='bank"+batnum+"' >" + str + "</div>").appendTo("#bank_status_list");
 	div.html(batnum+": "+str);
 }
+var isHoldDay;
+//是否节假日
+function getIsHoldDay(){
+	isHoldDay= null;
+	var today = (new Date()).Format("yyyy-MM-dd");
+	alert(today);
+	$.ajax({
+		url:'http://www.easybots.cn/api/holiday.php?d='+today,
+		dataType:'json',
+		ansy:false,
+		error:function(e1,e2){alert(JSON.stringify( e1));alert(e2);},
+		success:function(d){
+				isHoldDay= parseInt( d[today]) > 0;
+		}
+	});
+	if(isHoldDay ==null) throw ("getIsHoldDay web services is exception happen");
+}
 
 function calcMoney (customerInfo,localItem){
 	if(customerInfo.IsFengDing && !customerInfo.fengding)  throw("封顶机没配置封顶金额");
+	if(isHoldDay) customerInfo.tixianfei+=customerInfo.tixianfeiEles;//节假日多收手续费
 	localItem.discountMoney= (localItem.tradeMoney*customerInfo.discount* 0.01).toFixed(2);
 	if(!customerInfo.IsFengDing ||  localItem.discountMoney < customerInfo.fengding){
 		//pos ji
 		localItem.discountMoney= (localItem.tradeMoney*customerInfo.discount* 0.01).toFixed(2);
-		var totalSxf =( localItem.tradeMoney*(customerInfo.discount+customerInfo.tixianfei)* 0.01).toFixed(2)
+		var totalSxf =( localItem.tradeMoney*(customerInfo.discount + customerInfo.tixianfei)* 0.01).toFixed(2)
 		//t0
 		localItem.tixianfeiMoney= totalSxf  - localItem.discountMoney;
 	}else{		
 		//feng ding
 		localItem.discountMoney = customerInfo.fengding;
-		localItem.tixianfeiMoney = (localItem.tradeMoney*customerInfo.tixianfeiMoney* 0.01).toFixed(2);
+		localItem.tixianfeiMoney = (localItem.tradeMoney*customerInfo.tixianfei* 0.01).toFixed(2);
 	}
 	localItem.finallyMoney = localItem.tradeMoney - localItem.discountMoney - localItem.tixianfeiMoney;
 }

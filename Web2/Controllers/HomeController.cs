@@ -230,6 +230,37 @@ sumData.faren = customerInfo.faren;
 			}
 			return Json (resultData, JsonRequestBehavior.AllowGet);
 		}
+		System.Collections.Generic.Dictionary<string,string> loginImages = new Dictionary<string, string> ();
+		System.Collections.Generic.Dictionary<string,string> loginImageTexts = new Dictionary<string, string> ();
+		public void NeedLoginImage(string posSer, string url){
+			string img = null;
+			switch(posSer){
+				case "jingkong":
+				img = "https://119.4.99.217:7300/mcrm/" + url;
+					break;
+				default:
+					break;
+			}
+			if(img!=null){
+				if(loginImages.ContainsKey(posSer)) loginImages[posSer]= img;
+				else loginImages.Add(posSer,img);
+				loginImageTexts.Remove (posSer);
+			}
+		}
+
+		public void EnterLoginImage(string posSer,string txt){
+			if (loginImageTexts.ContainsKey (posSer))
+				loginImageTexts [posSer] = txt;
+			else
+				loginImageTexts.Add (posSer, txt);
+
+		}
+
+		public string GetLoginImageText(string posSer){
+			string txt;
+			loginImageTexts.TryGetValue (posSer, out txt);
+			return txt;
+		}
 
 		/// <summary>
 		/// 查询融宝执行情况

@@ -120,7 +120,7 @@ namespace WinForm
 			else if (ex != null) {
 				msg += ex.Message;
 			}
-			if (inThead)
+			if (inThead )
 				this.BeginInvoke (new delegateOnParam (setStatus),msg);
 			else	setStatus (msg);
 
@@ -161,26 +161,11 @@ namespace WinForm
 
         private void 跳转到ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            loadFrame();
+            
             
         }
 
-        private void loadFrame()
-		{			
-			if (waitQueryThread != null && waitQueryThread.IsAlive)
-				return;
-			object length = chromeWebBrowser1.EvaluateScript ("$('#resTree .tree-node[node-id=10051]').length");
-			if (length.Equals( 0)) {
-				MessageBox.Show ("请先载入");
-				return;
-			}				
-			string js= "$('#resTree .tree-node[node-id=10051]').trigger('click')')";
-			chromeWebBrowser1.ExecuteScript (js);
-			waitQueryThread = new System.Threading.Thread (new System.Threading.ParameterizedThreadStart (watinFrameLoad));
-			waitQueryThread.Start ();
-
-		}
-
+   
         
 
         private void 触发查询ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -196,7 +181,7 @@ namespace WinForm
         string termID,beginDate,endDate;
 		private void GoQuery(object o)
         {
-			if (inQuery)	return;
+			if (inQuery || systemExit)	return;
 			if (waitQueryThread != null && waitQueryThread.IsAlive) return;
 			timer1.Enabled = false;
 			try
@@ -238,18 +223,23 @@ namespace WinForm
 			object jsonObj= chromeWebBrowser1.EvaluateScript ("$('#hidden_json').val()");
 			if (jsonObj == null) onError ("OnQueryFinish get json error", null);
 			string json = jsonObj.ToString ();
-            //object table = chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-btable:eq(1)')[0].outerHTML");
-            //HtmlElement hidden_div = webBrowser1.Document.GetElementById("hidden_div");
-            //hidden_div.InnerHtml = table.ToString();
-			string[] objects = new string[1];
-			objects [0] = json;
-			try{
-            	object jsonStr = webBrowser1.Document.InvokeScript("parseTableJson", objects);
-				string msg= execDb("[{\"table\":\"customers\",\"action\":1,\"fields\":[\"lastQuery\"],\"values\":[\""+ DateTime.Today.ToString("yyyy-MM-dd") +"\"],where:\"terminal="+termID+"\"}]");
-				JsonMessage<int> jsonR = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<int>>(msg);
-				if(!string.IsNullOrEmpty( jsonR.Message)) throw new Exception(jsonR.Message);
-			}catch(Exception ex){
-				onError ("save data or update last query exception:", ex);
+			if (json == "\"{\\\"flag\\\":\\\"login\\\",\\\"info\\\":\\\"    \\\",\\\"key\\\":null,\\\"mssiMsg\\\":\\\"成功\\\"}\"") {
+				loginOutime = true;
+			} else {
+				//object table = chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-btable:eq(1)')[0].outerHTML");
+				//HtmlElement hidden_div = webBrowser1.Document.GetElementById("hidden_div");
+				//hidden_div.InnerHtml = table.ToString();
+				string[] objects = new string[1];
+				objects [0] = json;
+				try {
+					object jsonStr = webBrowser1.Document.InvokeScript ("parseTableJson", objects);
+					string msg = execDb ("[{\"table\":\"customers\",\"action\":1,\"fields\":[\"lastQuery\"],\"values\":[\"" + DateTime.Today.ToString ("yyyy-MM-dd") + "\"],where:\"terminal=" + termID + "\"}]");
+					JsonMessage<int> jsonR = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<int>> (msg);
+					if (!string.IsNullOrEmpty (jsonR.Message))
+						throw new Exception (jsonR.Message);
+				} catch (Exception ex) {
+					onError ("save data or update last query exception:", ex);
+				}
 			}
 			inQuery = false;//让waitQueryThread退出
             while (waitQueryThread != null && waitQueryThread.IsAlive)
@@ -282,19 +272,7 @@ namespace WinForm
 		public delegate void QueryBankFinish(QueryResult result);
 
 
-		private void watinFrameLoad(object o)
-		{
-			while (true)
-			{
-				object isFinish= chromeWebBrowser1.EvaluateScript("typeof( window.frames['收单日志'].queryByCondition) != 'undefined'");
-				if (isFinish != null && isFinish.Equals(true))
-				{
-					this.BeginInvoke(new QueryFinish(OnFrameLoadFinish));
-					return;
-				}
-				else System.Threading.Thread.Sleep(300);
-			}
-		}
+
 
 		public void queryJsReturn(string str){
 			if (str != "ok") {
@@ -307,22 +285,28 @@ namespace WinForm
 		}
 
         private void watinQuery(object o)
-        {
-            while (true)
-            {
-				System.Threading.Thread.Sleep(500);
-				object val= chromeWebBrowser1.EvaluateScript("$('#hidden_json').val()");
-				if (val !=null && !val.Equals(string.Empty))
-               {				   
-                   this.BeginInvoke(new QueryFinish(OnQueryFinish));
-					while (inQuery) {
-						System.Threading.Thread.Sleep(100);
+		{
+			try {
+				while (true && !systemExit) {
+					System.Threading.Thread.Sleep (500);
+					object val = chromeWebBrowser1.EvaluateScript ("$('#hidden_json').val()");
+					if (val != null && !val.Equals (string.Empty)) {				   
+						this.BeginInvoke (new QueryFinish (OnQueryFinish));
+						while (inQuery) {
+							System.Threading.Thread.Sleep (100);
+						}
+						return;
+					} else {
+						System.Threading.Thread.Sleep (300);
 					}
-                   return;
-               }
-               else System.Threading.Thread.Sleep(300);
-            }
-        }
+				}
+			} catch (System.Threading.ThreadAbortException) {
+				inQuery = false;
+			}
+			catch(Exception ex){
+				onError ("watin Query", ex, true);
+			}
+		}
 
         private void chromeWebBrowser1_PageLoadFinishEventhandler(object sender, EventArgs e)
         { 
@@ -358,8 +342,7 @@ namespace WinForm
 				goLogin ();
 				cookieStr = null;
 				break;
-			case "index":                    
-				loadFrame ();
+			case "index":                    				
 				chromeWebBrowser1.ExecuteScript("if($(\"#hidden_json\").length ==0){ $('<input type=\"hidden\" id=\"hidden_json\" />').appendTo(document.body); }");
 				break;
 
@@ -485,14 +468,23 @@ namespace WinForm
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             systemExit = true;
-			if (inQuery || inMonitor)
+			chromeWebBrowser1.LoadHtml ("<p>正在退出</p>");
+			tabControl1.SelectedIndex = 0;
+			if (waitQueryThread != null && waitQueryThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+				waitQueryThread.Abort ();
+			foreach (KeyValuePair<string,System.Threading.Thread> kv in queryBankTherads) {
+				if (kv.Value != null && kv.Value.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+					kv.Value.Abort ();
+			}
+			System.Threading.Thread.Sleep (100);
+			while (inQuery || inMonitor)
             {                
-                MessageBox.Show("正在查询，请稍候。。。");                
-                e.Cancel = true;
-                return;
+				System.Threading.Thread.Sleep (500);
             }
+			chromeWebBrowser1.Dispose ();
             timer_pay.Enabled = false;
             timer1.Enabled = false;
+			if(timer!=null) timer.Dispose ();
         }
 
         private void 结算记录ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -536,8 +528,7 @@ namespace WinForm
 
         private void timer_pay_Tick(object sender, EventArgs e)
         {
-            if (systemExit) { timer_pay.Enabled = false; return; }
-            if (inMonitor) return;
+			if (systemExit || inMonitor) { return; }            
             inMonitor = true;
 			try{
 	            
@@ -654,46 +645,47 @@ namespace WinForm
 			string[] terminals = arr[2].ToString().Split();			 
             MyHttpUtility http = new MyHttpUtility();
 			bool isFinish = false;
-			try{
-				string json =RunHttp("Home.GetRongBao",batchCurrnum,batchDate);
-				JsonMessage<QueryResult> resultJson= Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<QueryResult>>(json);
-				if (!string.IsNullOrEmpty (resultJson.Message)) {
-					this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum,"查询银行处理结果失败：" + resultJson.Message);
-				} else {	   
+			while (!(isFinish ||systemExit)) {
+				try {
+					string json = RunHttp ("Home.GetRongBao", batchCurrnum, batchDate);
+					JsonMessage<QueryResult> resultJson = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<QueryResult>> (json);
+					if (!string.IsNullOrEmpty (resultJson.Message)) {
+						this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum, "查询银行处理结果失败：" + resultJson.Message);
+					} else {	   
 					
-					string statusText = "";
-					switch (resultJson.Result.batchStatus) {
-					case 0:
-						statusText = "待确认";
-						break;
-					case 1:
-						statusText = "待审核";
-						break;
-					case 2:
-						statusText = "商户审核拒绝";
-						isFinish = true;
-						break;
-					case 3:
-						statusText = "处理中";
-						break;
-					case 4:
-						isFinish = true;
-						statusText = "交易完毕";
-						break;
+						string statusText = "";
+						switch (resultJson.Result.batchStatus) {
+						case 0:
+							statusText = "待确认";
+							break;
+						case 1:
+							statusText = "待审核";
+							break;
+						case 2:
+							statusText = "商户审核拒绝";
+							isFinish = true;
+							break;
+						case 3:
+							statusText = "处理中";
+							break;
+						case 4:
+							isFinish = true;
+							statusText = "交易完毕";
+							break;
+						}
+						this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum, "银行处理结果为：" + statusText);
+						if (isFinish) {
+							this.BeginInvoke (new QueryBankFinish (onBankFinish), resultJson.Result);
+							this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum + "监听完成");
+							return;
+						}else{
+							System.Threading.Thread.Sleep (30000);
+						}
 					}
-					this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum,"银行处理结果为：" + statusText);
-					if (isFinish) {
-						this.BeginInvoke (new QueryBankFinish(onBankFinish),resultJson.Result );
-						this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum+"监听完成");
-						return;
-					}
-				}
-			}catch(Exception ex){
-				onError ("查询银行处理",ex,true);
-			}
-			if(!isFinish) {
-				System.Threading.Thread.Sleep (30000);
-				MonitorBankResult (obj);
+				} catch (Exception ex) {
+					if(!systemExit)	onError ("查询银行处理", ex, true);
+				}		 
+
 			}
         }
 	}
