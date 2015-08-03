@@ -1,4 +1,5 @@
 ﻿var status_list;
+jQuery.support.cors = true;
 function parseTableJson(jsonStr) {    
 	getIsHoldDay();
 //    var json = [];
@@ -134,14 +135,15 @@ var isHoldDay;
 function getIsHoldDay(){
 	isHoldDay= null;
 	var today = (new Date()).Format("yyyy-MM-dd");
-	alert(today);
+	
 	$.ajax({
 		url:'http://www.easybots.cn/api/holiday.php?d='+today,
 		dataType:'json',
 		ansy:false,
 		error:function(e1,e2){alert(JSON.stringify( e1));alert(e2);},
 		success:function(d){
-				isHoldDay= parseInt( d[today]) > 0;
+			var d2=today.replace(new RegExp("-","gm"),'');
+			isHoldDay= parseInt( d[d2]) > 0;
 		}
 	});
 	if(isHoldDay ==null) throw ("getIsHoldDay web services is exception happen");

@@ -204,7 +204,7 @@ namespace WinForm
 				else 
 					endDate=DateTime.Today.ToString("yyyyMMdd");
 				setStatus("正在查询" + termID + "的刷卡情况");
-				string js = "$('#hidden_json').val(''); $.ajax({url:'https://119.4.99.217:7300/mcrm/bca/txnlog_findBy',type:'POST',data:'beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=100&page=1',error:function(str,e){window.CallCSharpMethod('queryJsReturn',e);},success:function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str);window.CallCSharpMethod('queryJsReturn','ok'); }})";
+				string js = "$('#hidden_json').val(''); $.ajax({url:'https://119.4.99.217:7300/mcrm/bca/txnlog_findBy',type:'POST',cache: false,data:'beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=100&page=1',error:function(str,e){window.CallCSharpMethod('queryJsReturn',e);},success:function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str);window.CallCSharpMethod('queryJsReturn','ok'); }})";
 				chromeWebBrowser1.ExecuteScript(js);
 				waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
 				waitQueryThread.Start();
@@ -225,6 +225,8 @@ namespace WinForm
 			string json = jsonObj.ToString ();
 			if (json == "\"{\\\"flag\\\":\\\"login\\\",\\\"info\\\":\\\"    \\\",\\\"key\\\":null,\\\"mssiMsg\\\":\\\"成功\\\"}\"") {
 				loginOutime = true;
+			} else if (json == "\"This session has been expired (possibly due to multiple concurrent logins being attempted as the same user).\"") {
+				loginOutime = true; 
 			} else {
 				//object table = chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-btable:eq(1)')[0].outerHTML");
 				//HtmlElement hidden_div = webBrowser1.Document.GetElementById("hidden_div");
