@@ -107,6 +107,22 @@ namespace web2.Controllers
 			return View();
 		}
 
+		public ActionResult TransactionSum(){
+			if (UserName == null)
+			{
+				return RedirectToAction("Login");
+			}
+			return View();
+		}
+
+		public ActionResult SourceAccount(){
+			if (UserName == null)
+			{
+				return RedirectToAction("Login");
+			}
+			return View();
+		}
+
 
 		public string GetCustomers()
 		{	

@@ -6,14 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->    
     <title>@ViewBag.Title</title>
-    <script type="text/javascript" src="http://teaerp.sinaapp.com/MyJS/js/jquery.min.js"></script>
+
     <link href="http://teaerp.sinaapp.com/MyJS/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://teaerp.sinaapp.com/MyJS/css/bootstrap-theme.min.css" rel="stylesheet">	
     <link href="/Content/Site.css" rel="stylesheet">	
 
+
+
     <script type="text/javascript" src="http://teaerp.sinaapp.com/MyJS/js/jquery.min.js"></script>
-    <script src="http://teaerp.sinaapp.com/MyJS/js/json.js"></script>
     <script src="http://teaerp.sinaapp.com/MyJS/js/bootstrap.js"></script>
+    <script src="http://teaerp.sinaapp.com/MyJS/js/json.js"></script>
+    <script src="http://teaerp.sinaapp.com/MyJS/js/erp.public.js" type="text/javascript"></script>
+    <script>
+    clientEx = clientMvc;
+    </script>
 </head>
 
 <body role="document" style="zoom: 1;">
@@ -38,6 +44,8 @@
                     <ul id="menu">
                         <li>@Html.ActionLink("主页", "Index", "Home", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("客户信息", "Customer", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("原始资料", "SourceAccount", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("结算查询", "TransactionSum", "Home", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("交易查询", "Transaction", "Home", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("代理加盟", "Index", "Home", new { area = "" }, null)</li>
                     </ul>

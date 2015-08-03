@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "output", "output", "{209E7D
 		output\js\main.js = output\js\main.js
 		output\transactionlog.html = output\transactionlog.html
 		output\transactionsum.html = output\transactionsum.html
+		output\sourceAccount.html = output\sourceAccount.html
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cwber", "cwber\cwber.csproj", "{0662C0B7-3F67-4831-B09B-6C67A212DCBE}"
