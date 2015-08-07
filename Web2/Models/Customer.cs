@@ -7,7 +7,7 @@ using ColysSharp.DataBase;
 namespace Web2.Models
 {
     [DBTable(TableName="customers")]
-    public class Customer
+    public class Customer : IDBEntity
     {
         [DBField( Usage= DBFieldUsage.PrimaryKey)]
         public int id { get; set; }
@@ -28,8 +28,7 @@ namespace Web2.Models
 
         public float tixianfei { get; set; }
 
-        public string bankName { get; set; }
-        public string bankName1 { get; set; }
+        public string bankName { get; set; }        
 
         public string bankName2 { get; set; }
 

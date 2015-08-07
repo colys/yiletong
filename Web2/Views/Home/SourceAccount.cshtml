@@ -1,13 +1,63 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "福州易乐通信息有限公司-客户信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div id="body">
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>SourceAccount</title>
-</head>
-<body>
-</body>
-</html>
+    <section class="container  clear-fix">
+        <p>
+            <a id="addnew" href="#">添加</a>
+        <p>
+            <div class="row" >
 
+                <div class="col-md-12">
+                    <table class="table table-striped table-hover table-responsive" id="listTable">
+                        <thead>
+                            <tr>
+                                <th colname="#" hide="1000">#</th>                                
+                                <th colname="faren">姓名</th>                                
+                                <th colname="tel">联系电话</th>
+                                <th colname="bankAccount">银行账号</th>
+                                <th colname="bankName">银行名称</th>
+                                <th colname="#action">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+    </section>
+</div>
+
+
+
+<script>
+
+
+    var entityTable_ops = {
+        table: "SourceAccount",
+        orderby: 'faren',
+        editCols: [
+            {
+                group: "基础属性", fields: [                    
+                    { display: '姓名', colName: "faren" },                    
+                    { display: '联系电话', colName: "tel" },
+                    { display: '银行名称', colName: "bankName", placeholder:"银行名称，比如：中国民生银行" },
+                    { display: '银行账号', colName: "bankAccount" }
+                    
+                ]
+            }]
+    };
+    var entityTable = $("#listTable").entityTable(entityTable_ops);
+    entityTable.Query(null, null, true);
+
+
+    $("#addnew").click(function () {
+        entityTable.ShowCreateDialog();
+    })
+
+
+</script>

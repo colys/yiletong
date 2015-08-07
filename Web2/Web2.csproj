@@ -97,6 +97,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\SourceAccount.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

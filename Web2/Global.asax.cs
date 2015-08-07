@@ -33,9 +33,8 @@ namespace Web2
             string file = Server.MapPath("~/Content/QueryConfig.json");
             
             ColysSharp.DataBase.DBContextConfig config = new ColysSharp.DataBase.DBContextConfig()
-            {
-                
-                ConnectionString = web2.Controllers.HomeController.getSetting(Server, "connstr",true),
+            {                
+                ConnectionString = web2.Controllers.HomeController.getSetting(Server, "connstr",false),
                 DatabaseType = "mysql",
                 EntityTypeFormat = "Web2.Models.{0},Web2"
             };            

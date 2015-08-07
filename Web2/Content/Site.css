@@ -710,9 +710,9 @@ tr.pager td {
         }
 
     /* forms */
-    input {
+    /*input {
         width: 90%;
-    }
+    }*/
 
     /* login page */
     #loginForm {

@@ -96,7 +96,7 @@ namespace web2.Controllers
 		{
 			if (UserName == null)
 			{
-				return RedirectToAction("Login");
+				//return RedirectToAction("Login");
 			}
 			return View();
 

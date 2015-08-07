@@ -5,10 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" />
     <title>福州易乐通信息有限公司</title>
-    <link rel="stylesheet" href="http://teaerp.sinaapp.com/MyJS/css/bootstrap-theme.min.css" type="text/css" />
-    <link rel="stylesheet" href="http://teaerp.sinaapp.com/MyJS/css/bootstrap.min.css" type="text/css" />
-    <script src="http://teaerp.sinaapp.com/MyJS/js/jquery.min.js"></script>
-    <script src="http://teaerp.sinaapp.com/MyJS/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="http://localhost:8002/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="http://localhost:8002/css/bootstrap.min.css" type="text/css" />
+
+    <script src="http://localhost:8002/js/jquery.min.js"></script>
+    <script src="http://localhost:8002/js/bootstrap.js"></script>
 
 
 

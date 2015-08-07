@@ -5,77 +5,74 @@
 <div id="body">
    
     <section class="container  clear-fix">
-        <div class="row">
+        <p>
+            <a id="addnew" href="#">添加</a>
+        <p>
+            <div class="row">
 
-            <div class="col-md-12">
-                <table class="table table-striped table-hover table-responsive" id="listTable">
-	            <thead>
-	                <tr>
-	                    <th colname="#" hide="1000">#</th>
-	                    <th colname="terminal">终端</th>
-	                    <th colname="faren">法人</th>
-	                    <th colname="shanghuName" hide="1000">商户名称</th>
-	                    <th colname="discount">利率</th>
-	                    <th colname="tixianfei">提现费</th>
-	                    <th colname="IsFengDing">封顶机</th>
-	                    <th colname="fengding" >封顶金额</th>
-	                    <th colname="sourceAccount" hide="1000">原始账户</th>
-	                    <th colname="#action">操作</th>
-	                </tr>
-	            </thead>
-	            <tbody></tbody>
-	        </table>
+                <div class="col-md-12">
+                    <table class="table table-striped table-hover table-responsive" id="listTable">
+                        <thead>
+                            <tr>
+                                <th colname="#" hide="1000">#</th>
+                                <th colname="terminal">终端</th>
+                                <th colname="faren">法人</th>
+                                <th colname="shanghuName" hide="1000">商户名称</th>
+                                <th colname="discount">利率</th>
+                                <th colname="tixianfei">提现费</th>
+                                <th colname="IsFengDing">封顶机</th>
+                                <th colname="fengding">封顶金额</th>
+                                <th colname="sourceAccount" hide="1000">原始账户</th>
+                                <th colname="#action">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
             </div>
-            
-        </div>
 
 
-    </section>
+</section>
 </div>
 
 
 
 <script>
 
- $.customers = function (options) {
-            var settings = $.extend({ viewOnly: null, reportType: 1, defaultSize: 10, viewMore: 5, personCode: null }, options);
-            var entityTable_ops = {
-                table: "Customer"
-                , editCols: [
-                    {
-                        group: "基础属性", fields: [
-                           { display: '终端', colName: "terminal" },
-                           { display: '法人', colName: "faren" },
-                           { display: '商户名称', colName: "shanghuName" },
-                           { display: '联系电话', colName: "tel" },
-                           { display: '扣率', colName: "discount" },
-                           { display: '提现费', colName: "tixianfei" },
-                           { display: '封顶机', colName: "IsFengDing", requre: true, type: "checkbox",},
-                           { display: '封顶金额', colName: "fengding" },
-                           { display: '节假日', colName: "tixianfeiEles" },
-                           { display: '总行', colName: "bankName" },
-                           { display: '分行', colName: "bankName2" },
-                           { display: '支行', colName: "bankName3" },
-                           { display: '银行账号', colName: "bankAccount" },
-                           { display: '省份', colName: "province" },
-                           { display: '城市', colName: "city" },
-                           { display: '原始账户', colName: "sourceAccount", requre: true, type: "dropdown", table: "sourceAccount", valueField: "id", displayField: "remark" }
-                        ]
-                    }]                
-                , markDelete: true
-                , markColName: "status"
-            };
-            var entityTable = $("#listTable").entityTable(entityTable_ops);
-            entityTable.Query(null, null, true);
+ 
+var entityTable_ops = {
+    table: "Customer",    
+    editCols: [
+        {
+            group: "基础属性", fields: [
+                { display: '终端', colName: "terminal" },
+                { display: '法人', colName: "faren" },
+                { display: '商户名称', colName: "shanghuName" },
+                { display: '联系电话', colName: "tel" },
+                { display: '扣率', colName: "discount" },
+                { display: '提现费', colName: "tixianfei" },
+                { display: '封顶机', colName: "IsFengDing", requre: true, type: "checkbox",},
+                { display: '封顶金额', colName: "fengding" },
+                { display: '节假日', colName: "tixianfeiEles" },
+                { display: '总行', colName: "bankName" },
+                { display: '分行', colName: "bankName2" },
+                { display: '支行', colName: "bankName3" },
+                { display: '银行账号', colName: "bankAccount" },
+                { display: '省份', colName: "province" },
+                { display: '城市', colName: "city" },
+                { display: '原始账户', colName: "sourceAccount", requre: true, type: "dropdown", table: "SourceAccount", valueField: "id", displayField: "faren,bankName,bankAccount" }
+            ]
+        }]                                
+};
+var entityTable = $("#listTable").entityTable(entityTable_ops);
+entityTable.Query(null, null, true);
 
 
-            $("#addnew").click(function () {
-                entityTable.ShowCreateDialog();
-            })
+$("#addnew").click(function () {
+    entityTable.ShowCreateDialog();
+})
 
-            return this;
-        }
-
-        $.customers();
+       
 </script>
 
