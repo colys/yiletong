@@ -44,7 +44,7 @@ namespace WinForm
             webBrowser1.ObjectForScripting = this;
             myBrowser.ObjectForScripting = this;
             myPage.Hide();
-			timer1.Interval = listenInterval=Convert.ToInt32 (getSetting ("listenInterval"));
+			timer1.Interval = 1000;
             string host = getSetting("webHost");
             if (host[host.Length - 1] != '/') host += "/";
             controllerUrl = host + "Home";
@@ -66,6 +66,7 @@ namespace WinForm
             chromeWebBrowser1.LoadHtml("正在载入，请稍后......");
             timer = new System.Threading.Timer(new System.Threading.TimerCallback(BeginLoadWeb), null, 100, -1);
             string timeStr;
+			listenInterval= Convert.ToInt32 (getSetting ("listenInterval"));
 			timer_pay.Interval = Convert.ToInt32 (getSetting ("jieSuangInterval"));
 			timer_pay.Enabled = false;
             if (timer_pay.Interval > 59000)
@@ -97,7 +98,7 @@ namespace WinForm
 
         private void BeginLoadWeb(object o)
         {            
-            this.BeginInvoke(new QueryFinish(LoadRemoteWeb));            
+			this.BeginInvoke(new delegateNoParam(LoadRemoteWeb));            
         }
         private void LoadRemoteWeb()
         {
@@ -151,6 +152,7 @@ namespace WinForm
 		private void openLogin(){			
 			chromeWebBrowser1.OpenUrl("https://119.4.99.217:7300/mcrm/login.jsp");
 			loginOutime = false;
+			this.tabControl1.SelectedIndex = 0;
 		}
 
         private void 触发登录ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -183,7 +185,6 @@ namespace WinForm
         {
 			if (inQuery || systemExit)	return;
 			if (waitQueryThread != null && waitQueryThread.IsAlive) return;
-			timer1.Enabled = false;
 			try
 			{
 				
@@ -206,55 +207,59 @@ namespace WinForm
 				setStatus("正在查询" + termID + "的刷卡情况");
 				string js = "$('#hidden_json').val(''); $.ajax({url:'https://119.4.99.217:7300/mcrm/bca/txnlog_findBy',type:'POST',cache: false,data:'beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=100&page=1',error:function(str,e){window.CallCSharpMethod('queryJsReturn',e);},success:function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str);window.CallCSharpMethod('queryJsReturn','ok'); }})";
 				chromeWebBrowser1.ExecuteScript(js);
-				waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
-				waitQueryThread.Start();
+				waitQueryTime= DateTime.Now;
+//				waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
+//				waitQueryThread.Start();
 			}
 			catch (Exception ex)
-			{
+			{				
 				onError(null,ex);
 			}
         }
 		 
 		private bool loginOutime = false;
 
-		public void OnQueryFinish()
+		public void OnQueryFinish(bool success)
         {			
-			setStatus(termID + "终端" + beginDate + "到" + endDate + "的刷卡情况:");
-			object jsonObj= chromeWebBrowser1.EvaluateScript ("$('#hidden_json').val()");
-			if (jsonObj == null) onError ("OnQueryFinish get json error", null);
-			string json = jsonObj.ToString ();
-			if (json == "\"{\\\"flag\\\":\\\"login\\\",\\\"info\\\":\\\"    \\\",\\\"key\\\":null,\\\"mssiMsg\\\":\\\"成功\\\"}\"") {
-				loginOutime = true;
-			} else if (json == "\"This session has been expired (possibly due to multiple concurrent logins being attempted as the same user).\"") {
-				loginOutime = true; 
+			if (!success) {
+				setStatus (termID + "终端查询失败");
 			} else {
-				//object table = chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-btable:eq(1)')[0].outerHTML");
-				//HtmlElement hidden_div = webBrowser1.Document.GetElementById("hidden_div");
-				//hidden_div.InnerHtml = table.ToString();
-				string[] objects = new string[1];
-				objects [0] = json;
-				try {
-					object jsonStr = webBrowser1.Document.InvokeScript ("parseTableJson", objects);
-					string msg = execDb ("[{\"table\":\"customers\",\"action\":1,\"fields\":[\"lastQuery\"],\"values\":[\"" + DateTime.Today.ToString ("yyyy-MM-dd") + "\"],where:\"terminal=" + termID + "\"}]");
-					JsonMessage<int> jsonR = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<int>> (msg);
-					if (!string.IsNullOrEmpty (jsonR.Message))
-						throw new Exception (jsonR.Message);
-				} catch (Exception ex) {
-					onError ("save data or update last query exception:", ex);
+				setStatus (termID + "终端" + beginDate + "到" + endDate + "的刷卡情况:");
+				object jsonObj = chromeWebBrowser1.EvaluateScript ("$('#hidden_json').val()");
+				if (jsonObj == null) {
+					onError ("OnQueryFinish get json null", null);				
+				} else {
+					string json = jsonObj.ToString ();
+					if (json == "\"{\\\"flag\\\":\\\"login\\\",\\\"info\\\":\\\"    \\\",\\\"key\\\":null,\\\"mssiMsg\\\":\\\"成功\\\"}\"") {
+						loginOutime = true;
+					} else if (json == "\"This session has been expired (possibly due to multiple concurrent logins being attempted as the same user).\"") {
+						loginOutime = true; 
+					} else {
+						//object table = chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-btable:eq(1)')[0].outerHTML");
+						//HtmlElement hidden_div = webBrowser1.Document.GetElementById("hidden_div");
+						//hidden_div.InnerHtml = table.ToString();
+						string[] objects = new string[1];
+						objects [0] = json;
+						try {
+							object jsonStr = webBrowser1.Document.InvokeScript ("parseTableJson", objects);
+							string msg = execDb ("[{\"table\":\"customers\",\"action\":1,\"fields\":[\"lastQuery\"],\"values\":[\"" + DateTime.Today.ToString ("yyyy-MM-dd") + "\"],where:\"terminal=" + termID + "\"}]");
+							JsonMessage<int> jsonR = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<int>> (msg);
+							if (!string.IsNullOrEmpty (jsonR.Message))
+								throw new Exception (jsonR.Message);
+						} catch (Exception ex) {
+							onError ("save data or update last query exception:", ex);
+						}
+					}
 				}
 			}
-			inQuery = false;//让waitQueryThread退出
-            while (waitQueryThread != null && waitQueryThread.IsAlive)
-            {
-                System.Threading.Thread.Sleep(100);
-            }
+
 			if (systemExit||loginOutime)
 				return;
-			if (terminalQueue.Count > 0 ) {
-				timer1.Interval = 1000;
-			} else
+			if (terminalQueue.Count == 0) {				
 				timer1.Interval = listenInterval;
-			timer1.Start ();
+			} else
+				timer1.Interval = 1000;
+			inQuery = false;
         }
 
 		private void setStatus(string str)
@@ -270,7 +275,8 @@ namespace WinForm
 
 		public delegate void delegateTwoParam(string str1,string str2);
 		public delegate void delegateOnParam(string str);
-        public delegate void QueryFinish();
+		public delegate void delegateNoParam();
+		public delegate void QueryFinish(bool success);
 		public delegate void QueryBankFinish(QueryResult result);
 
 
@@ -278,38 +284,44 @@ namespace WinForm
 
 		public void queryJsReturn(string str){
 			if (str != "ok") {
-				onError (str);
-				inQuery = false;
+				log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
+				log.Error ("query ajax return error:" + str);
+				this.BeginInvoke(new QueryFinish(OnQueryFinish),false);
 			} else {
-				Console.WriteLine (str);
-				//this.BeginInvoke(new QueryFinish(OnQueryFinish));
+				//Console.WriteLine (str);
+				this.BeginInvoke(new QueryFinish(OnQueryFinish),true);
 			}
 		}
 
-        private void watinQuery(object o)
-		{
-			try {
-				while (true && !systemExit) {
-					System.Threading.Thread.Sleep (500);
-					object val = chromeWebBrowser1.EvaluateScript ("$('#hidden_json').val()");
-					if (val != null && !val.Equals (string.Empty)) {				   
-						this.BeginInvoke (new QueryFinish (OnQueryFinish));
-						while (inQuery) {
-							System.Threading.Thread.Sleep (100);
-						}
-						return;
-					} else {
-						System.Threading.Thread.Sleep (300);
-					}
-				}
-			} catch (System.Threading.ThreadAbortException) {
-				inQuery = false;
-			}
-			catch(Exception ex){
-				onError ("watin Query", ex, true);
-			}
-		}
+		DateTime waitQueryTime;
 
+//        private void watinQuery(object o)
+//		{
+//			try {
+//				while (true && !systemExit) {
+//					System.Threading.Thread.Sleep (500);
+//					object val = chromeWebBrowser1.EvaluateScript ("$('#hidden_json').val()");
+//					if (val != null && !val.Equals (string.Empty)) {				   
+//						this.BeginInvoke (new QueryFinish (OnQueryFinish),true);
+//						while (inQuery) {
+//							System.Threading.Thread.Sleep (100);
+//						}
+//						return;
+//					} else {
+//						System.Threading.Thread.Sleep (300);
+//					}
+//					if((DateTime.Now - waitQueryTime).TotalMinutes > 1){
+//						throw new Exception("ajax query timeout,may be web is login");
+//					}
+//				}
+//			} catch (System.Threading.ThreadAbortException) {
+//				inQuery = false;
+//			}
+//			catch(Exception ex){
+//				this.BeginInvoke (new QueryFinish (OnQueryFinish),false);
+//				onError ("watin Query", ex, true);
+//			}
+//		}
         private void chromeWebBrowser1_PageLoadFinishEventhandler(object sender, EventArgs e)
         { 
         }
@@ -344,7 +356,7 @@ namespace WinForm
 				goLogin ();
 				cookieStr = null;
 				break;
-			case "index":                    				
+			case "index":
 				chromeWebBrowser1.ExecuteScript("if($(\"#hidden_json\").length ==0){ $('<input type=\"hidden\" id=\"hidden_json\" />').appendTo(document.body); }");
 				break;
 
@@ -371,10 +383,16 @@ namespace WinForm
 			GoQuery (null);
         }
 
+		DateTime prevRefreshTime =DateTime.Now;
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {			
-			
+			if ((DateTime.Now - prevRefreshTime).TotalHours > 1) {
+				chromeWebBrowser1.OpenUrl("https://119.4.99.217:7300/mcrm/system/index");
+				prevRefreshTime = DateTime.Now;
+				timer1.Interval = 30000;
+				return;
+			}
 			if (cookieStr != chromeWebBrowser1.Document.Cookie || loginOutime) {
 				cookieStr = null;
 				timer1.Enabled = false;
