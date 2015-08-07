@@ -474,7 +474,7 @@ namespace WinForm
 
         private void 客户列表ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GoToMyUrl("customers.html", 客户列表ToolStripMenuItem.Text);
+			GoToMyUrl("http://192.168.1.119:8080/Home/Customer", 客户列表ToolStripMenuItem.Text);
         }
 
         private void GoToMyUrl(string pageName,string title)
