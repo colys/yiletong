@@ -29,6 +29,17 @@ namespace Web2
 
 		protected void Application_Start ()
 		{
+            //加载QueryEntity的配置
+            string file = Server.MapPath("~/Content/QueryConfig.json");
+            
+            ColysSharp.DataBase.DBContextConfig config = new ColysSharp.DataBase.DBContextConfig()
+            {
+                
+                ConnectionString = web2.Controllers.HomeController.getSetting(Server, "connstr",true),
+                DatabaseType = "mysql",
+                EntityTypeFormat = "Web2.Models.{0},Web2"
+            };            
+            ColysSharp.DataBase.DBContext.LoadConfigFromFile(file, config);
 			log4net.Config.XmlConfigurator.Configure();//这句代码	
 			AreaRegistration.RegisterAllAreas ();
 			RegisterGlobalFilters (GlobalFilters.Filters);

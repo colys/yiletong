@@ -8,6 +8,7 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Common;
 using System.Text;
+using ColysSharp.DataBase;
 
 namespace web2.Controllers
 {	
@@ -21,7 +22,10 @@ namespace web2.Controllers
 			encryption = new EncryptionUtility("TfoPqado2GvjxvC1GsmY6Q==");
 			connStr =getSetting("connstr");
 		}
-		private string getSetting(string name,bool isFile=false)
+        string getSetting(string name, bool isFile = false) {
+            return getSetting(System.Web.HttpContext.Current.Server , name, isFile);
+        }
+		public static string getSetting(HttpServerUtility app, string name,bool isFile=false)
 		{
 			if (System.Configuration.ConfigurationManager.AppSettings[name] == null)
 			{
@@ -31,7 +35,7 @@ namespace web2.Controllers
 			if (isFile) {
 				if (val.IndexOf(":") != 1)
 				{
-					val = Server.MapPath(val);
+					val = app.MapPath(val);
 				}
 			}
 			return val;
@@ -389,6 +393,75 @@ sumData.faren = customerInfo.faren;
 			}
 			return JsonConvert.SerializeObject(jr);
 		}
+
+
+        public string DoQuery(string permission, string queryField, string entityName, string whereField, string orderBy)
+        {
+            //QueryEntity.LoadConfig(ReadPermission());
+            JsonMessage jr = new JsonMessage();
+            DBContext db = new DBContext();
+            try
+            {
+
+                whereField = System.Web.HttpUtility.UrlDecode(whereField);
+                jr.Result = db.DoQuery(new QueryParam() { permission = permission, queryField = queryField, entityName = entityName, whereJson = whereField, orderBy = orderBy });
+            }
+            catch (Exception ex)
+            {   
+                jr.LogException(ex);
+            }
+            finally
+            {
+                db.Dispose();
+            }
+            return JsonConvert.SerializeObject(jr); ;
+        }
+
+        [HttpPost]
+        public string DoSave()
+        {   
+            string permission = Request["permission"];
+            string entityName = Request["entityName"];
+            string entityJson = Request["entityJson"];
+            //QueryEntity.LoadConfig(ReadPermission());
+            JsonMessage jr = new JsonMessage();
+            DBContext db = new DBContext();
+            try
+            {
+                if (entityJson == null) throw new Exception("entityJson is null");
+                entityJson = Server.UrlDecode(entityJson);
+                jr.Result = db.DoSave(permission, entityName, entityJson).GetPrimaryValue();
+            }
+            catch (Exception ex)
+            {
+                jr.LogException(ex);
+            }
+            finally
+            {
+                db.Dispose();
+            }
+            return JsonConvert.SerializeObject(jr);
+        }
+
+        [HttpPost]
+        public string DoDelete()
+        {            
+            string permission = Request["permission"];
+            string entityName = Request["entityName"];
+            string primaryID = Request["primaryID"];
+            DBContext db = new DBContext();
+            JsonMessage jr = new JsonMessage();
+            try
+            {
+                jr.Result = db.DoDelete(permission, entityName, primaryID);
+            }
+            catch (Exception ex)
+            {
+                jr.LogException(ex);
+            }
+            return JsonConvert.SerializeObject(jr);
+        }
+
 
 
 

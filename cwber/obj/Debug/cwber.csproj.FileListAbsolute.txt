@@ -26,3 +26,10 @@ D:\yiletong\yiletong\cwber\obj\Debug\Sashulin.ChromeWebBrowser.resources
 D:\yiletong\yiletong\cwber\obj\Debug\cwber.csproj.GenerateResource.Cache
 D:\yiletong\yiletong\cwber\obj\Debug\cwber.dll
 D:\yiletong\yiletong\cwber\obj\Debug\cwber.pdb
+E:\QuickDisk\MyWork\yiletong\cwber\obj\Debug\cwber.csprojResolveAssemblyReference.cache
+E:\QuickDisk\MyWork\yiletong\cwber\obj\Debug\Sashulin.ChromeWebBrowser.resources
+E:\QuickDisk\MyWork\yiletong\cwber\obj\Debug\cwber.csproj.GenerateResource.Cache
+E:\QuickDisk\MyWork\yiletong\cwber\obj\Debug\cwber.dll
+E:\QuickDisk\MyWork\yiletong\cwber\obj\Debug\cwber.pdb
+E:\QuickDisk\MyWork\yiletong\output\cwber.dll
+E:\QuickDisk\MyWork\yiletong\output\cwber.pdb

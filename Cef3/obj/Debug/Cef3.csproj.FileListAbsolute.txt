@@ -19,3 +19,9 @@ D:\yiletong\yiletong\output\Cef3.dll
 D:\yiletong\yiletong\output\Cef3.pdb
 D:\yiletong\yiletong\Cef3\obj\Debug\Cef3.dll
 D:\yiletong\yiletong\Cef3\obj\Debug\Cef3.pdb
+E:\QuickDisk\MyWork\yiletong\output\Cef3.xml
+E:\QuickDisk\MyWork\yiletong\output\Cef3.dll
+E:\QuickDisk\MyWork\yiletong\output\Cef3.pdb
+E:\QuickDisk\MyWork\yiletong\Cef3\obj\Debug\Cef3.csprojResolveAssemblyReference.cache
+E:\QuickDisk\MyWork\yiletong\Cef3\obj\Debug\Cef3.dll
+E:\QuickDisk\MyWork\yiletong\Cef3\obj\Debug\Cef3.pdb
