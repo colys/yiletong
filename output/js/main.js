@@ -35,7 +35,7 @@ function parseTableJson(jsonStr) {
     var newJson =[];
     try{
     	//获取客户信息
-    	var queryData=clientEx.execQuery("*","customers","terminal='"+ terminal +"'",null);
+    	var queryData=clientEx.execQuery("","*","customers","terminal='"+ terminal +"'",null);
     	if(queryData.length == 1)  customerInfo = queryData[0];
     	if(customerInfo==null){ throw("获取客户信息is null, terminal："+terminal); }
     	if(!customerInfo.discount || isNaN(customerInfo.discount)) { throw("获取客户信息discount is null or NaN,terminal："+terminal); }
@@ -47,7 +47,7 @@ function parseTableJson(jsonStr) {
 	    	var localItem = convertToLocal(item,customerInfo);
 	    	//判断记录是否存在,存在的话忽略,不存在则插入
 	    	var whereSql ="terminal='" + item.tid + "' and time='" + localItem.time + "' and tradeName='" + item.trname + "' and tradeMoney=" + localItem.tradeMoney ;
-	    	var existCount = clientEx.execQuery("count(0) cc", "transactionLogs",whereSql , null);	    	
+	    	var existCount = clientEx.execQuery("","count(0) cc", "transactionLogs",whereSql , null);	    	
 	    	if(existCount[0].cc > 0){ continue;}
 	    	//alert(whereSql);
 	        //计算手续费
@@ -77,7 +77,7 @@ function parseTableJson(jsonStr) {
                     maxId = this.id;
                     //get prev jieshuang date
                     var whereSql = "terminal='" + this.terminal + "' and Status=0 and tradeName in ('批上送结束(平账)','批上送结束(不平账)') and resultCode='00' and time < '"+ this.time +"'";
-                    var prevData = clientEx.execQuery("max(time) prevTime ","transactionLogs",whereSql, null);
+                    var prevData = clientEx.execQuery("","max(time) prevTime ","transactionLogs",whereSql, null);
                     if (prevData == null || prevData.length == 0) throw ("查询上次结算数据失败");
                     var prevTime= prevData[0].prevTime;
                     //sum log of (消费)
@@ -87,7 +87,7 @@ function parseTableJson(jsonStr) {
                     else 
                     	whereSql+=" and time between '"+prevTime+"' and '"+ this.time +"'";                   
 
-                    var transData = clientEx.execQuery("count(0) batchCount,sum(tradeMoney) tradeMoney,sum(discountMoney) discountMoney,sum(tixianfeiMoney) tixianfeiMoney", "transactionLogs", whereSql, null);                    
+                    var transData = clientEx.execQuery("","count(0) batchCount,sum(tradeMoney) tradeMoney,sum(discountMoney) discountMoney,sum(tixianfeiMoney) tixianfeiMoney", "transactionLogs", whereSql, null);                    
                     if (transData == 0 || transData.length == 0) throw ("查询transactionLogs数据为空");
                     var sumData = transData[0];
                     if (sumData.batchCount == 0){setSumStatus("发起了结算，但是没有交易记录"+ whereSql);return;}
@@ -176,7 +176,7 @@ function init(){
     var prevdate=  today.AddDays(-1).Format("yyyy-MM-dd");
     var where= " time between '"+prevdate+" 23:00:00' and '"+date+" 23:59:59' ";//前一天11到今天11点
     try{
-	    var todayAllData=clientEx.execQuery("*","transactionLogs",where,null);
+	    var todayAllData=clientEx.execQuery("","*","transactionLogs",where,null);
 	    setStatus("未开启监控！");	
 	    if (todayAllData != null) {
 	        for (var i = 0; i < todayAllData.length; i++) {
