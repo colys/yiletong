@@ -100,3 +100,4 @@ E:\QuickDisk\MyWork\yiletong\Web2\obj\Debug\Web2.pdb
 D:\QuickDisk\MyWork\yiletong\Web2\bin\ColysSharp.DataBase.dll
 D:\QuickDisk\MyWork\yiletong\Web2\bin\log4net.dll
 D:\QuickDisk\MyWork\yiletong\Web2\bin\ColysSharp.DataBase.pdb
+D:\yiletong\yiletong\Web2\bin\ColysSharp.DataBase.pdb
