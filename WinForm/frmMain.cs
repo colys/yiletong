@@ -321,22 +321,14 @@ namespace WinForm
 //				this.BeginInvoke (new QueryFinish (OnQueryFinish),false);
 //				onError ("watin Query", ex, true);
 //			}
-//		}
-        private void chromeWebBrowser1_PageLoadFinishEventhandler(object sender, EventArgs e)
-        { 
-        }
+        //		}
 
         private void goLogin()
         {        
             chromeWebBrowser1.ExecuteScript("$('#username').val('"+userName+"')");
             chromeWebBrowser1.ExecuteScript("$('#password').val('" + password + "')");
             chromeWebBrowser1.ExecuteScript("$('input[name=codeVal]').focus()");
-             
-        }
 
-        private void chromeWebBrowser1_BrowserNavigated(object sender, EventArgs e)
-        {
-            
         }
 
 		string cookieStr = null;
@@ -360,12 +352,7 @@ namespace WinForm
 				chromeWebBrowser1.ExecuteScript("if($(\"#hidden_json\").length ==0){ $('<input type=\"hidden\" id=\"hidden_json\" />').appendTo(document.body); }");
 				break;
 
-			} 
-		}
-
-        private void chromeWebBrowser1_BrowserFrameLoadEnd(object sender, EventArgs e)
-        {
-            
+			}
         }
 
         private void chromeWebBrowser1_BrowserCreated(object sender, EventArgs e)
