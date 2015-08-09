@@ -42,7 +42,9 @@
 
  
 var entityTable_ops = {
-    table: "Customer",    
+    table: "Customer",
+    permission: "customer",
+    orderby:"faren",
     editCols: [
         {
             group: "基础属性", fields: [
@@ -61,7 +63,8 @@ var entityTable_ops = {
                 { display: '银行账号', colName: "bankAccount" },
                 { display: '省份', colName: "province" },
                 { display: '城市', colName: "city" },
-                { display: '原始账户', colName: "sourceAccount", requre: true, type: "dropdown", table: "SourceAccount", valueField: "id", displayField: "faren,bankName,bankAccount" }
+                { display: '原始账户', colName: "sourceAccount", requre: true, type: "dropdown", table: "SourceAccount", valueField: "id", displayField: "faren,bankName,bankAccount" },
+                { display: '冻结', colName: "frozen" ,type:"checkbox"}
             ]
         }]                                
 };

@@ -131,7 +131,7 @@ namespace web2.Controllers
 		public string GetCustomers()
 		{	
 			try{
-			string sql = "select * from customers where status = 1";
+                string sql = "select * from customers where status > -1 and frozen <> 1";
 			using (MySqlExecute mysql = CreateMysql()) {
 				mysql.QueryTable (sql);
 				DataTable dt = mysql.QueryTable (sql);
@@ -169,7 +169,7 @@ namespace web2.Controllers
 			try {
 				string cerFile = getSetting ("rongbao_public", true);               
 				errorItem = "查询结算汇总表";
-				string sql = "select a.id,a.terminal,a.finallyMoney money,b.faren,b.shanghuName,b.bankName ,b.bankName2,b.bankName3,b.province,b.bankAccount,b.city,b.tel,b.sourceAccount from transactionSum a join customers b on b.terminal = a.terminal where a.status = 0 and b.status <> -1 limit 1";//查询结算汇总表
+                string sql = "select a.id,a.terminal,a.finallyMoney money,b.faren,b.shanghuName,b.bankName ,b.bankName2,b.bankName3,b.province,b.bankAccount,b.city,b.tel,b.sourceAccount from transactionSum a join customers b on b.terminal = a.terminal where a.status = 0 and b.status <> -1 and b.frozen <> 1 limit 1";//查询结算汇总表
 				//注意：不要用事务，防止提交融宝成功后的异常又回滚
 				using (MySqlExecute mysql = CreateMysql()) {
 					dt = mysql.QueryTable (sql);

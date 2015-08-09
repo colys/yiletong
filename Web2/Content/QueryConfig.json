@@ -1,1 +1,11 @@
-﻿
+﻿{
+	"customer-query":{
+		TableSql:"customers a left join sourceaccounts b on a.sourceaccount = b.id",
+		Fields:{sourceAccount:["b.faren+'-'+b.bankName+'-'+b.bankAccount"]}
+	},
+	"transactionsum-query":{
+		Fields:{
+			status:["(case status when 0 then '未上传' when 1 then '融宝处理中' when 2 then '银行处理中' when 3 then '成功' when -2 then '失败' end)"]
+		}
+	}
+}

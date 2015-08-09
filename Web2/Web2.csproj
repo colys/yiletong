@@ -98,6 +98,8 @@
     </Compile>
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\SourceAccount.cs" />
+    <Compile Include="Models\TransactionLog.cs" />
+    <Compile Include="Models\TransactionSum.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

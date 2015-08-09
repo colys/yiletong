@@ -39,6 +39,8 @@ namespace Web2.Models
         [DBField(Usage=DBFieldUsage.MarkDelete)]
         public int status { get; set; }
 
+        public bool frozen { get; set; }
+
         public string province { get; set; }
         public string city { get; set; }
         public int sourceAccount { get; set; }
