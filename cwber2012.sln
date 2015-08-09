@@ -5,13 +5,9 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "output", "output", "{209E7D23-68FA-4E72-A034-BCE8C25F1F48}"
 	ProjectSection(SolutionItems) = preProject
-		output\customers.html = output\customers.html
 		output\default.html = output\default.html
 		output\main.html = output\main.html
 		output\js\main.js = output\js\main.js
-		output\sourceAccount.html = output\sourceAccount.html
-		output\transactionlog.html = output\transactionlog.html
-		output\transactionsum.html = output\transactionsum.html
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForm", "WinForm\WinForm.csproj", "{AFF9F132-202C-4C48-B52F-FD1FF4AD29F9}"

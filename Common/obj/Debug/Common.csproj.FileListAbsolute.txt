@@ -24,3 +24,10 @@ D:\yiletong\yiletong\Common\bin\Debug\normnfkd.nlp
 D:\yiletong\yiletong\Common\obj\Debug\Common.dll
 D:\yiletong\yiletong\Common\obj\Debug\Common.pdb
 D:\yiletong\yiletong\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+E:\QuickDisk\MyWork\yiletong\Common\bin\Debug\Common.dll
+E:\QuickDisk\MyWork\yiletong\Common\bin\Debug\Common.pdb
+E:\QuickDisk\MyWork\yiletong\Common\bin\Debug\MySql.Data.dll
+E:\QuickDisk\MyWork\yiletong\Common\bin\Debug\Newtonsoft.Json.dll
+E:\QuickDisk\MyWork\yiletong\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+E:\QuickDisk\MyWork\yiletong\Common\obj\Debug\Common.dll
+E:\QuickDisk\MyWork\yiletong\Common\obj\Debug\Common.pdb

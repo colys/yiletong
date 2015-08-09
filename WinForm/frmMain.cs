@@ -38,16 +38,16 @@ namespace WinForm
 			Uri url = new Uri (Application.StartupPath + "\\main.html");
             settings.DefaultUrl = "http://teaerp.sinaapp.com/";
             //settings.UserAgent = "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 4 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19";
-            settings.CachePath = @"C:\temp\caches";
+            //settings.CachePath = @"C:\temp\caches";
             chromeWebBrowser1.Initialize(settings);
 			webBrowser1.Url = url;
             webBrowser1.ObjectForScripting = this;
-            myBrowser.ObjectForScripting = this;
-            myPage.Hide();
-			timer1.Interval = 1000;
             string host = getSetting("webHost");
             if (host[host.Length - 1] != '/') host += "/";
             controllerUrl = host + "Home";
+            myBrowser.Initialize(new CSharpBrowserSettings() { DefaultUrl = host });
+            myPage.Hide();
+			timer1.Interval = 1000;            
             evalActionUrl = controllerUrl + "/Eval";
 			encryption = new EncryptionUtility("TfoPqado2GvjxvC1GsmY6Q==");
 			
@@ -459,18 +459,8 @@ namespace WinForm
 
         #endregion
 
-        private void 客户列表ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-			GoToMyUrl("http://192.168.1.119:8080/Home/Customer", 客户列表ToolStripMenuItem.Text);
-        }
 
-        private void GoToMyUrl(string pageName,string title)
-        {
-            myPage.Text = title;
-            myPage.Show();
-            tabControl1.SelectedTab = myPage;
-            myBrowser.Url = new Uri(Application.StartupPath + "\\"+ pageName);            
-        }
+      
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -494,21 +484,7 @@ namespace WinForm
 			if(timer!=null) timer.Dispose ();
         }
 
-        private void 结算记录ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GoToMyUrl("transactionsum.html", 结算记录ToolStripMenuItem.Text);
-        }
 
-        private void 添加客户ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-			GoToMyUrl("transactionlog.html", transactionlogToolStripMenuItem.Text);
-        }
-
-        private void sqlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-			string json = execDb ("[{ table:\"transactionLogs\" ,action: 1,fields:[\"status\"],values:[1],where:\"1=1\"}]");
-			MessageBox.Show (json);           
-        }
 
 		private void startModnitorank(string[] result){
 			if (!string.IsNullOrEmpty (result [2])) {
