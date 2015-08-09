@@ -128,14 +128,14 @@ namespace web2.Controllers
 		}
 
 
-		public string GetCustomers()
+		public System.Data.DataTable GetCustomers()
 		{	
 			try{
                 string sql = "select * from customers where status > -1 and frozen <> 1";
 			using (MySqlExecute mysql = CreateMysql()) {
 				mysql.QueryTable (sql);
 				DataTable dt = mysql.QueryTable (sql);
-				return JsonConvert.SerializeObject (dt);
+                return dt;
 			}
 			}catch(Exception ex){
 				LogError ("GetCustomers",ex);

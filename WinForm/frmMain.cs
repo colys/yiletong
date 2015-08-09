@@ -129,7 +129,8 @@ namespace WinForm
 
         private void FillQueue()
         {
-			string str= execQuery("customers", "terminal,lastQuery", "status = 1", null);
+            string str = RunHttp("Home.GetCustomers", null);            
+			//string str= execQuery("customers", "terminal,lastQuery", "status = 1", null);
             JsonMessage<Customer[]> jm = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<Customer[]>>(str);
 			if (jm.Message != null) { 
 				throw new Exception (jm.Message);
@@ -192,6 +193,7 @@ namespace WinForm
 				//string cookie = chromeWebBrowser1.Document.Cookie;
 				//MessageBox.Show (cookie);
 				Customer cus = getNextTerminal();
+                if (cus == null) throw new Exception("get next terminal is null , may be server error");
 				termID = cus.terminal;
 				DateTime dtLastQuery;
 				if(string.IsNullOrEmpty(cus.lastQuery)){
@@ -212,7 +214,9 @@ namespace WinForm
 //				waitQueryThread.Start();
 			}
 			catch (Exception ex)
-			{				
+			{
+                inQuery = false;
+                timer1.Enabled = false;
 				onError(null,ex);
 			}
         }
