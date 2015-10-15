@@ -1,0 +1,8 @@
+2015-09-29 13:45:45,517 [8432] update customers set frozen=@frozen,IsFengDing=@IsFengDing where id = '20'
+2015-09-29 13:47:32,416 [536] update SourceAccounts set status=@status where id = '1'
+2015-09-29 13:48:15,662 [7456] update SourceAccounts set status=@status where id = '1'
+2015-09-29 13:51:42,250 [9680] update SourceAccounts set status=@status,tel=@tel where id = '3'
+2015-09-29 13:53:32,550 [6828] update SourceAccounts set status=@status,tel=@tel where id = '1'
+2015-09-29 14:01:06,237 [4780] update SourceAccounts set tel=@tel where id = '3'
+2015-09-29 14:04:21,780 [5152] update customers set frozen=@frozen,IsFengDing=@IsFengDing where id = '9'
+2015-09-29 14:04:35,477 [5152] update SourceAccounts set tel=@tel where id = '2'

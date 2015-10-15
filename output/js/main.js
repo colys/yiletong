@@ -1,6 +1,9 @@
 ﻿var status_list;
 jQuery.support.cors = true;
-function parseTableJson(jsonStr) {    
+
+
+
+function parseTableJson_delete(jsonStr) {    
 	getIsHoldDay();
 //    var json = [];
 //    status_list.empty();
@@ -44,7 +47,10 @@ function parseTableJson(jsonStr) {
 
 	    for(var i=json.length-1;i > -1 ;i--){
 	    	var item =json[i];
-	    	var localItem = convertToLocal(item,customerInfo);
+	    	var localItem = convertToLocal(item, customerInfo);
+	    	newJson[newJson.length] = localItem;
+
+
 	    	//判断记录是否存在,存在的话忽略,不存在则插入
 	    	var whereSql ="terminal='" + item.tid + "' and time='" + localItem.time + "' and tradeName='" + item.trname + "' and tradeMoney=" + localItem.tradeMoney ;
 	    	var existCount = clientEx.execQuery("","count(0) cc", "transactionLogs",whereSql , null);	    	
@@ -58,7 +64,7 @@ function parseTableJson(jsonStr) {
 
 	    	var inserDBJson=[{ table:"transactionLogs" ,action: 0 ,fields:localItem}];
 	    	clientEx.execDb(inserDBJson);
-	    	newJson[newJson.length] = localItem;
+	    	
 	    	$("<div>" + localItem.time.substr(11,8) + " , " + item.trname + " : " + item.amt + "</div>").appendTo(status_list);
 	    	addTerminalView(localItem);
 	    }
@@ -85,8 +91,7 @@ function parseTableJson(jsonStr) {
                     if(prevTime ==null || prevTime == '')
                     	whereSql+=" and time < '"+ this.time +"'";
                     else 
-                    	whereSql+=" and time between '"+prevTime+"' and '"+ this.time +"'";                   
-
+                    	whereSql+=" and time between '"+prevTime+"' and '"+ this.time +"'";
                     var transData = clientEx.execQuery("","count(0) batchCount,sum(tradeMoney) tradeMoney,sum(discountMoney) discountMoney,sum(tixianfeiMoney) tixianfeiMoney", "transactionLogs", whereSql, null);                    
                     if (transData == 0 || transData.length == 0) throw ("查询transactionLogs数据为空");
                     var sumData = transData[0];
@@ -95,7 +100,7 @@ function parseTableJson(jsonStr) {
                     sumData.id = sumid;
                     sumData.finallyMoney = sumData.tradeMoney - sumData.discountMoney - sumData.tixianfeiMoney;
                     sumData.status = 0;
-                    sumData.createDate = (new Date()).Format("yyyy-MM-dd hh:mm:ss");
+                    sumData.createDate = this.time;//(new Date()).Format("yyyy-MM-dd hh:mm:ss")；用结算记录的时间
                     sumData.terminal = this.terminal;
                     whereSql = "("+whereSql+") or id ="+ this.id;
                     var inserDBJson = [{ table: "transactionlogs", action: 1, fields: { sumid: sumid, Status: 1 }, where: whereSql }, { table: "transactionSum", action: 0, fields: sumData }];
@@ -114,6 +119,11 @@ function parseTableJson(jsonStr) {
 
 function setStatus(str) {
     $("#status").html(str);
+    $("#status_list").empty();
+}
+
+function setStatusDetail(str) {    
+    $("#status_list").append("<div>" + str + "</div>");
 }
 
 function setSumStatus(str) {
@@ -131,16 +141,18 @@ function setBankStatus(batnum,str){
 	div.html(batnum+": "+str);
 }
 var isHoldDay;
-//是否节假日
+//明天是否节假日
 function getIsHoldDay(){
-	isHoldDay= null;
-	var today = (new Date()).Format("yyyy-MM-dd");
-	
+    isHoldDay = null;
+    var todayD = new Date();    
+    var today;
+    if (todayD.getHours() > 22) today = todayD.AddDays(2).Format("yyyy-MM-dd");
+    else today= todayD.AddDays(1).Format("yyyy-MM-dd");
 	$.ajax({
 		url:'http://www.easybots.cn/api/holiday.php?d='+today,
 		dataType:'json',
 		ansy:false,
-		error:function(e1,e2){alert(JSON.stringify( e1));alert(e2);},
+		error:function(e1,e2){alert(JSON.stringify( e1));alert(e2 + " " + this.url);},
 		success:function(d){
 			var d2=today.replace(new RegExp("-","gm"),'');
 			isHoldDay= parseInt( d[d2]) > 0;
@@ -219,10 +231,9 @@ function convertToLocal(netLog,customerInfo) {
      results: netLog.rspmsg,resultCode: resultCode, faren: customerInfo.faren, timeStr: netLog.tdate+" "+netLog.stime,isValid:isValid};
 }
 
-function addTerminalView(item){
-
+function addTerminalView(item) {
+    if (typeof (item) == "string") eval(" item =" + item);
     var tview=$("#termianls").find("#view_"+ item.terminal);
-
 	if(tview.length ==0){		
 		 tview=$('<div class="col-sm-6">'+
 	        	 '<div id="view_'+ item.terminal +'" class="panel panel-default">'+

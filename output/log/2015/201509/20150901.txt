@@ -1,0 +1,12 @@
+
+ 
+记录时间：2015-09-01 22:59:46,504 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=ExecQuery&dataArrStr=transactionLogs,*,+time+between+%272015-08-31+23%3a00%3a00%27+and+%272015-09-01+23%3a59%3a59%27+, ,
+ 
+System.Net.WebException: 远程服务器返回错误: (404) 未找到。
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 435

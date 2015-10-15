@@ -1,0 +1,38 @@
+
+ 
+记录时间：2015-08-26 11:09:22,158 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.Exception: 解析json : 
+This session has been expired (possibly due to multiple concurrent logins being attempted as the same user).时发生异常：Unexpected character encountered while parsing value: T. Path '', line 0, position 0.
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 272
+
+ 
+记录时间：2015-08-26 11:27:23,395 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 基础连接已经关闭: 连接被意外关闭。
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 199
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 494
+
+ 
+记录时间：2015-08-26 11:27:23,402 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 570

@@ -1,0 +1,27 @@
+
+ 
+记录时间：2015-10-13 19:03:01,236 
+线程ID:[8704] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/b640d9dc36fc4be5af30603c4f397cc8/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-10-13 19:03:10,263 
+线程ID:[6112] 
+日志级别：  ERROR 
+出错类：web2.Controllers.HomeController property: [(null)] - 
+错误描述：获取客户信息
+ 
+System.Exception: 获取客户信息is null, terminal：1
+   在 web2.Controllers.HomeController.SyncJingKongPosData(String terminal, String json) 位置 d:\快盘\MyWork\yiletong\Web\Controllers\HomeController.cs:行号 201

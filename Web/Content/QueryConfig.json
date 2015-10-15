@@ -1,0 +1,52 @@
+﻿{
+	"customer":{
+		TableSql:"customers a left join sourceaccounts b on a.sourceaccount = b.id",
+		Fields:{
+			sourceAccountName:["b.faren+'-'+b.bankName+'-'+b.bankAccount"],
+			id:["a.id"],
+			faren:["a.faren"],			
+			bankName:["a.bankName"],
+			bankAccount:["a.bankAccount"],
+			tel:["a.tel"],
+			status:["a.status"]
+		},
+		NotAllowSaving:[],
+		NotAllowDelete:false
+	},
+	"SourceAccounts":{
+		NotAllowSaving:[],
+		NotAllowDelete:false
+	},
+	"transactionsum":{
+		TableSql:"transactionsum a left join sourceAccounts b on a.sourceaccount = b.id",	
+		Fields:{
+			id:["a.id"],
+			faren:["a.faren"],			
+			bankAccount:["a.bankAccount"],
+			sfaren:["b.faren"],
+			createDate:["substring(a.createDate,6,14)","a.createDate between '{0}' and '{1}'"],
+			reciveDate:["substring(a.reciveDate,12,8)"],
+			uploadDate:["substring(a.uploadDate,12,8)"],
+            status:["(case a.status when 0 then '未上传' when 1 then '融宝处理中' when 2 then '银行处理中' when 3 then '成功' when -2 then '失败'  when -3 then '暂停结算' end)"]
+
+		}
+	},
+	"transaction":{
+		TableSql:"transactionlogs a join  customers b on b.terminal = a.terminal and b.status>-1 left join sourceAccounts c on b.sourceaccount = c.id",	
+		Fields:{
+			id:["a.id"],
+			faren:["b.faren"],		
+			terminal:["a.terminal"],
+			shanghuName:["b.shanghuName"],
+			bankAccount:["b.bankAccount"],
+			time:["substring(a.time,6,14)","a.time between '{0}' and '{1}'"],
+			status:["a.status"],
+			sfaren:["c.faren"]
+            
+
+		}
+	}
+
+
+
+}

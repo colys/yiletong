@@ -6,34 +6,16 @@ using System.Text;
 namespace Common
 {
 
-    public class JsonMessage
-    {
-        public string Message { get; set; }
+   
+    //public class JsonMessage<T>
+    //{
+    //    public string Message { get; set; }
 
-        public object Result { get; set; }
+    //    public T Result { get; set; }
 
-        public void LogException(Exception ex)
-        {
-            Message = ex.Message;
-            Result = null;
-        }
-        public void LogException(Exception ex,string appendMsg)
-        {
-			if (ex == null) Message = appendMsg;
-            else Message = ex.Message + " " + appendMsg;
-            Result = null;
-        }
-    }
-
-    public class JsonMessage<T>
-    {
-        public string Message { get; set; }
-
-        public T Result { get; set; }
-
-        public void LogException(Exception ex)
-        {
-            Message = ex.Message;            
-        }
-    }
+    //    public void LogException(Exception ex)
+    //    {
+    //        Message = ex.Message;            
+    //    }
+    //}
 }

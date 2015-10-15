@@ -1,0 +1,62 @@
+2015-10-10 18:53:54,398 [4008] update Holiday set isHoliday=0 where day = '2015-10-10'
+2015-10-10 18:53:59,348 [4008] insert into Holiday(day,isHoliday) values('2015-10-10',0 )
+2015-10-10 18:54:08,630 [4008] update Holiday set isHoliday=1 where day = '2015-10-11'
+2015-10-10 18:54:10,445 [4008] insert into Holiday(day,isHoliday) values('2015-10-11',1 )
+2015-10-10 18:54:10,542 [4008] update Holiday set isHoliday=0 where day = '2015-10-12'
+2015-10-10 18:54:10,567 [4008] insert into Holiday(day,isHoliday) values('2015-10-12',0 )
+2015-10-10 18:54:10,657 [4008] update Holiday set isHoliday=0 where day = '2015-10-13'
+2015-10-10 18:54:10,691 [4008] insert into Holiday(day,isHoliday) values('2015-10-13',0 )
+2015-10-10 18:54:10,808 [4008] update Holiday set isHoliday=0 where day = '2015-10-14'
+2015-10-10 18:54:10,847 [4008] insert into Holiday(day,isHoliday) values('2015-10-14',0 )
+2015-10-10 18:54:10,936 [4008] update Holiday set isHoliday=0 where day = '2015-10-15'
+2015-10-10 18:54:10,970 [4008] insert into Holiday(day,isHoliday) values('2015-10-15',0 )
+2015-10-10 18:54:11,067 [4008] update Holiday set isHoliday=0 where day = '2015-10-16'
+2015-10-10 18:54:11,103 [4008] insert into Holiday(day,isHoliday) values('2015-10-16',0 )
+2015-10-10 18:54:11,191 [4008] update Holiday set isHoliday=1 where day = '2015-10-17'
+2015-10-10 18:54:11,216 [4008] insert into Holiday(day,isHoliday) values('2015-10-17',1 )
+2015-10-10 18:54:11,300 [4008] update Holiday set isHoliday=1 where day = '2015-10-18'
+2015-10-10 18:54:11,336 [4008] insert into Holiday(day,isHoliday) values('2015-10-18',1 )
+2015-10-10 18:54:11,431 [4008] update Holiday set isHoliday=0 where day = '2015-10-19'
+2015-10-10 18:54:11,488 [4008] insert into Holiday(day,isHoliday) values('2015-10-19',0 )
+2015-10-10 18:54:11,591 [4008] update Holiday set isHoliday=0 where day = '2015-10-20'
+2015-10-10 18:54:11,613 [4008] insert into Holiday(day,isHoliday) values('2015-10-20',0 )
+2015-10-10 18:54:11,730 [4008] update Holiday set isHoliday=0 where day = '2015-10-21'
+2015-10-10 18:54:11,767 [4008] insert into Holiday(day,isHoliday) values('2015-10-21',0 )
+2015-10-10 18:54:11,849 [4008] update Holiday set isHoliday=0 where day = '2015-10-22'
+2015-10-10 18:54:11,874 [4008] insert into Holiday(day,isHoliday) values('2015-10-22',0 )
+2015-10-10 18:54:11,957 [4008] update Holiday set isHoliday=0 where day = '2015-10-23'
+2015-10-10 18:54:11,991 [4008] insert into Holiday(day,isHoliday) values('2015-10-23',0 )
+2015-10-10 18:54:12,075 [4008] update Holiday set isHoliday=1 where day = '2015-10-24'
+2015-10-10 18:54:12,104 [4008] insert into Holiday(day,isHoliday) values('2015-10-24',1 )
+2015-10-10 18:54:12,190 [4008] update Holiday set isHoliday=1 where day = '2015-10-25'
+2015-10-10 18:54:12,225 [4008] insert into Holiday(day,isHoliday) values('2015-10-25',1 )
+2015-10-10 18:54:12,323 [4008] update Holiday set isHoliday=0 where day = '2015-10-26'
+2015-10-10 18:54:12,346 [4008] insert into Holiday(day,isHoliday) values('2015-10-26',0 )
+2015-10-10 18:54:12,428 [4008] update Holiday set isHoliday=0 where day = '2015-10-27'
+2015-10-10 18:54:12,453 [4008] insert into Holiday(day,isHoliday) values('2015-10-27',0 )
+2015-10-10 18:54:12,535 [4008] update Holiday set isHoliday=0 where day = '2015-10-28'
+2015-10-10 18:54:12,559 [4008] insert into Holiday(day,isHoliday) values('2015-10-28',0 )
+2015-10-10 18:54:12,644 [4008] update Holiday set isHoliday=0 where day = '2015-10-29'
+2015-10-10 18:54:12,668 [4008] insert into Holiday(day,isHoliday) values('2015-10-29',0 )
+2015-10-10 18:54:12,757 [4008] update Holiday set isHoliday=0 where day = '2015-10-30'
+2015-10-10 18:54:12,790 [4008] insert into Holiday(day,isHoliday) values('2015-10-30',0 )
+2015-10-10 18:54:12,881 [4008] update Holiday set isHoliday=1 where day = '2015-10-31'
+2015-10-10 18:54:12,904 [4008] insert into Holiday(day,isHoliday) values('2015-10-31',1 )
+2015-10-10 18:54:12,985 [4008] update Holiday set isHoliday=1 where day = '2015-11-01'
+2015-10-10 18:54:13,010 [4008] insert into Holiday(day,isHoliday) values('2015-11-01',1 )
+2015-10-10 18:54:13,093 [4008] update Holiday set isHoliday=0 where day = '2015-11-02'
+2015-10-10 18:54:13,116 [4008] insert into Holiday(day,isHoliday) values('2015-11-02',0 )
+2015-10-10 18:54:13,200 [4008] update Holiday set isHoliday=0 where day = '2015-11-03'
+2015-10-10 18:54:13,237 [4008] insert into Holiday(day,isHoliday) values('2015-11-03',0 )
+2015-10-10 18:54:13,321 [4008] update Holiday set isHoliday=0 where day = '2015-11-04'
+2015-10-10 18:54:13,344 [4008] insert into Holiday(day,isHoliday) values('2015-11-04',0 )
+2015-10-10 18:54:13,427 [4008] update Holiday set isHoliday=0 where day = '2015-11-05'
+2015-10-10 18:54:13,450 [4008] insert into Holiday(day,isHoliday) values('2015-11-05',0 )
+2015-10-10 18:54:13,534 [4008] update Holiday set isHoliday=0 where day = '2015-11-06'
+2015-10-10 18:54:13,559 [4008] insert into Holiday(day,isHoliday) values('2015-11-06',0 )
+2015-10-10 18:54:13,643 [4008] update Holiday set isHoliday=1 where day = '2015-11-07'
+2015-10-10 18:54:13,667 [4008] insert into Holiday(day,isHoliday) values('2015-11-07',1 )
+2015-10-10 18:54:13,751 [4008] update Holiday set isHoliday=1 where day = '2015-11-08'
+2015-10-10 18:54:13,773 [4008] insert into Holiday(day,isHoliday) values('2015-11-08',1 )
+2015-10-10 18:54:13,854 [4008] update Holiday set isHoliday=0 where day = '2015-11-09'
+2015-10-10 18:54:13,890 [4008] insert into Holiday(day,isHoliday) values('2015-11-09',0 )

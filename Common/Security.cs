@@ -11,14 +11,14 @@ using System.Security.Cryptography.X509Certificates;
 namespace Common
 {
 
-    class SecurityClass
+    public class SecurityClass
     {
 
         //创建了密钥对
         RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
         //private string privateKey = RSA.ToXmlString(true);
         //private string publicKey = RSA.ToXmlString(false);
-        static byte[] AOutput;
+//        static byte[] AOutput;
         Encoding encoding;
         public string publicCer;
 

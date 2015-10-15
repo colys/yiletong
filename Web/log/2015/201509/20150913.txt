@@ -1,0 +1,954 @@
+
+ 
+记录时间：2015-09-13 20:34:16,993 
+线程ID:[2844] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：获取查询表的别名:transactionlogs没定义在TableSql中
+ 
+ColysSharp.ClientException: 获取查询表的别名:transactionlogs没定义在TableSql中 ---> ColysSharp.ClientException: transactionlogs没定义在TableSql中
+   在 ColysSharp.DataBase.DBContext.GetTableAliasName(String table, QueryEntityConfig qEntity) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 504
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 543
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:34:57,602 
+线程ID:[9684] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 20:34:58,471 
+线程ID:[11828] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): 执行处理程序“System.Web.Mvc.HttpHandlerUtil+ServerExecuteHttpHandlerWrapper”的子请求时出错。 ---> System.Web.HttpUnhandledException (0x80004005): 引发类型为“System.Web.HttpUnhandledException”的异常。 ---> Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: 以下方法或属性之间的调用具有二义性:“System.IO.TextWriter.Write(string, params object[])”和“System.IO.TextWriter.Write(char[])”
+   在 CallSite.Target(Closure , CallSite , HtmlTextWriter , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecuteVoid2[T0,T1](CallSite site, T0 arg0, T1 arg1)
+   在 ASP.views_home_login_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 d:\快盘\MyWork\yiletong\Web\Views\Home\Login.aspx:行号 114
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Control.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.Mvc.ViewPage.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   在 System.Web.UI.Page.HandleError(Exception e)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   在 System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   在 System.Web.UI.Page.ProcessRequest()
+   在 System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   在 System.Web.UI.Page.ProcessRequest(HttpContext context)
+   在 System.Web.Mvc.ViewPage.ProcessRequest(HttpContext context)
+   在 ASP.views_home_login_aspx.ProcessRequest(HttpContext context) 位置 c:\Users\colys\AppData\Local\Temp\Temporary ASP.NET Files\root\b2d3eae4\aec1f984\App_Web_hqr2izsn.0.cs:行号 0
+   在 System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.<>c__DisplayClass1.<ProcessRequest>b__0()
+   在 System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.<>c__DisplayClass4.<Wrap>b__3()
+   在 System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.Wrap[TResult](Func`1 func)
+   在 System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.Wrap(Action action)
+   在 System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.ProcessRequest(HttpContext context)
+   在 System.Web.HttpServerUtility.ExecuteInternal(IHttpHandler handler, TextWriter writer, Boolean preserveForm, Boolean setPreviousPage, VirtualPath path, VirtualPath filePath, String physPath, Exception error, String queryStringOverride)
+   在 System.Web.HttpServerUtility.ExecuteInternal(IHttpHandler handler, TextWriter writer, Boolean preserveForm, Boolean setPreviousPage, VirtualPath path, VirtualPath filePath, String physPath, Exception error, String queryStringOverride)
+   在 System.Web.HttpServerUtility.Execute(IHttpHandler handler, TextWriter writer, Boolean preserveForm, Boolean setPreviousPage)
+   在 System.Web.HttpServerUtility.Execute(IHttpHandler handler, TextWriter writer, Boolean preserveForm)
+   在 System.Web.HttpServerUtilityWrapper.Execute(IHttpHandler handler, TextWriter writer, Boolean preserveForm)
+   在 System.Web.Mvc.ViewPage.RenderView(ViewContext viewContext)
+   在 System.Web.Mvc.WebFormView.RenderViewPage(ViewContext context, ViewPage page)
+   在 System.Web.Mvc.WebFormView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 20:35:46,133 
+线程ID:[11828] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): 执行处理程序“System.Web.Mvc.HttpHandlerUtil+ServerExecuteHttpHandlerWrapper”的子请求时出错。 ---> System.Web.HttpUnhandledException (0x80004005): 引发类型为“System.Web.HttpUnhandledException”的异常。 ---> Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: 以下方法或属性之间的调用具有二义性:“System.IO.TextWriter.Write(string, params object[])”和“System.IO.TextWriter.Write(char[])”
+   在 CallSite.Target(Closure , CallSite , HtmlTextWriter , Object )
+   在 ASP.views_home_login_aspx.__Render__control1(HtmlTextWriter __w, Control parameterContainer) 位置 d:\快盘\MyWork\yiletong\Web\Views\Home\Login.aspx:行号 114
+   在 System.Web.UI.Control.RenderChildrenInternal(HtmlTextWriter writer, ICollection children)
+   在 System.Web.UI.Control.RenderChildren(HtmlTextWriter writer)
+   在 System.Web.UI.Control.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Page.Render(HtmlTextWriter writer)
+   在 System.Web.Mvc.ViewPage.Render(HtmlTextWriter writer)
+   在 System.Web.UI.Control.RenderControlInternal(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer, ControlAdapter adapter)
+   在 System.Web.UI.Control.RenderControl(HtmlTextWriter writer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   在 System.Web.UI.Page.HandleError(Exception e)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   在 System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   在 System.Web.UI.Page.ProcessRequest()
+   在 System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   在 System.Web.UI.Page.ProcessRequest(HttpContext context)
+   在 System.Web.Mvc.ViewPage.ProcessRequest(HttpContext context)
+   在 ASP.views_home_login_aspx.ProcessRequest(HttpContext context) 位置 c:\Users\colys\AppData\Local\Temp\Temporary ASP.NET Files\root\b2d3eae4\aec1f984\App_Web_hqr2izsn.0.cs:行号 0
+   在 System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.<>c__DisplayClass1.<ProcessRequest>b__0()
+   在 System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.<>c__DisplayClass4.<Wrap>b__3()
+   在 System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.Wrap[TResult](Func`1 func)
+   在 System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.Wrap(Action action)
+   在 System.Web.Mvc.HttpHandlerUtil.ServerExecuteHttpHandlerWrapper.ProcessRequest(HttpContext context)
+   在 System.Web.HttpServerUtility.ExecuteInternal(IHttpHandler handler, TextWriter writer, Boolean preserveForm, Boolean setPreviousPage, VirtualPath path, VirtualPath filePath, String physPath, Exception error, String queryStringOverride)
+   在 System.Web.HttpServerUtility.ExecuteInternal(IHttpHandler handler, TextWriter writer, Boolean preserveForm, Boolean setPreviousPage, VirtualPath path, VirtualPath filePath, String physPath, Exception error, String queryStringOverride)
+   在 System.Web.HttpServerUtility.Execute(IHttpHandler handler, TextWriter writer, Boolean preserveForm, Boolean setPreviousPage)
+   在 System.Web.HttpServerUtility.Execute(IHttpHandler handler, TextWriter writer, Boolean preserveForm)
+   在 System.Web.HttpServerUtilityWrapper.Execute(IHttpHandler handler, TextWriter writer, Boolean preserveForm)
+   在 System.Web.Mvc.ViewPage.RenderView(ViewContext viewContext)
+   在 System.Web.Mvc.WebFormView.RenderViewPage(ViewContext context, ViewPage page)
+   在 System.Web.Mvc.WebFormView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 20:36:51,440 
+线程ID:[11568] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：获取查询表的别名:transactionlogs没定义在TableSql中
+ 
+ColysSharp.ClientException: 获取查询表的别名:transactionlogs没定义在TableSql中 ---> ColysSharp.ClientException: transactionlogs没定义在TableSql中
+   在 ColysSharp.DataBase.DBContext.GetTableAliasName(String table, QueryEntityConfig qEntity) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 504
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 543
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:37:29,917 
+线程ID:[11968] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：获取查询表的别名:transactionlogs没定义在TableSql中
+ 
+ColysSharp.ClientException: 获取查询表的别名:transactionlogs没定义在TableSql中 ---> ColysSharp.ClientException: transactionlogs没定义在TableSql中
+   在 ColysSharp.DataBase.DBContext.GetTableAliasName(String table, QueryEntityConfig qEntity) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 504
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 543
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:38:28,133 
+线程ID:[5268] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：执行分页查询:列名 'status' 不明确。
+ 
+ColysSharp.ClientException: 执行分页查询:列名 'status' 不明确。 ---> System.Data.SqlClient.SqlException: 列名 'status' 不明确。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.QueryTable(String text, CommandType cmdType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 117
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.QueryTable(String sql) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 20
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.PartQuery(String select, String table, String where, String orderby, Int32 start, Int32 end) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 107
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 667
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:39:54,946 
+线程ID:[7212] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 20:41:15,692 
+线程ID:[1312] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/favicon.ico' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 20:44:23,122 
+线程ID:[9296] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：执行分页查询:列名 'shanghuName' 不明确。
+列名 'sfaren' 无效。
+ 
+ColysSharp.ClientException: 执行分页查询:列名 'shanghuName' 不明确。
+列名 'sfaren' 无效。 ---> System.Data.SqlClient.SqlException: 列名 'shanghuName' 不明确。
+列名 'sfaren' 无效。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.QueryTable(String text, CommandType cmdType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 117
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.QueryTable(String sql) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 20
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.PartQuery(String select, String table, String where, String orderby, Int32 start, Int32 end) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 107
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 667
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:44:47,507 
+线程ID:[836] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：执行分页查询:列名 'shanghuName' 不明确。
+列名 'sfaren' 无效。
+ 
+ColysSharp.ClientException: 执行分页查询:列名 'shanghuName' 不明确。
+列名 'sfaren' 无效。 ---> System.Data.SqlClient.SqlException: 列名 'shanghuName' 不明确。
+列名 'sfaren' 无效。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.QueryTable(String text, CommandType cmdType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 117
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.QueryTable(String sql) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 20
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.PartQuery(String select, String table, String where, String orderby, Int32 start, Int32 end) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 107
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 667
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:54:01,149 
+线程ID:[12056] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:索引超出了数组界限。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:索引超出了数组界限。 ---> System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 644
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:54:06,576 
+线程ID:[12056] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:索引超出了数组界限。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:索引超出了数组界限。 ---> System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 644
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:54:07,765 
+线程ID:[12056] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:索引超出了数组界限。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:索引超出了数组界限。 ---> System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 644
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:54:10,936 
+线程ID:[11740] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:索引超出了数组界限。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:索引超出了数组界限。 ---> System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 644
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:54:48,082 
+线程ID:[11740] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:索引超出了数组界限。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:索引超出了数组界限。 ---> System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 644
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:54:48,542 
+线程ID:[10492] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 20:54:59,590 
+线程ID:[11740] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:索引超出了数组界限。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:索引超出了数组界限。 ---> System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 644
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:55:07,197 
+线程ID:[10492] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:索引超出了数组界限。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:索引超出了数组界限。 ---> System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 644
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:55:36,136 
+线程ID:[12056] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:索引超出了数组界限。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:索引超出了数组界限。 ---> System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 644
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:55:39,302 
+线程ID:[10492] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:索引超出了数组界限。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:索引超出了数组界限。 ---> System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 644
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:56:35,867 
+线程ID:[10492] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:索引超出了数组界限。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:索引超出了数组界限。 ---> System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 644
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:57:35,607 
+线程ID:[6500] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：执行分页查询:多次为 't' 指定了列 'faren'。
+ 
+ColysSharp.ClientException: 执行分页查询:多次为 't' 指定了列 'faren'。 ---> System.Data.SqlClient.SqlException: 多次为 't' 指定了列 'faren'。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.QueryTable(String text, CommandType cmdType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 117
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.QueryTable(String sql) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 20
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.PartQuery(String select, String table, String where, String orderby, Int32 start, Int32 end) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 107
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 675
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:58:18,907 
+线程ID:[6500] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：执行分页查询:多次为 't' 指定了列 'faren'。
+ 
+ColysSharp.ClientException: 执行分页查询:多次为 't' 指定了列 'faren'。 ---> System.Data.SqlClient.SqlException: 多次为 't' 指定了列 'faren'。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.QueryTable(String text, CommandType cmdType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 117
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.QueryTable(String sql) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 20
+   在 ColysSharp.DataBase.SqlClient.SqlAccess.PartQuery(String select, String table, String where, String orderby, Int32 start, Int32 end) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\SqlClient\SqlAccess.cs:行号 107
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 675
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 20:58:51,233 
+线程ID:[6500] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:02:39,915 
+线程ID:[1064] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:03:51,215 
+线程ID:[4168] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:04:54,559 
+线程ID:[9768] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:未将对象引用设置到对象的实例。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:未将对象引用设置到对象的实例。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 646
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 21:08:53,984 
+线程ID:[4372] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:13:51,255 
+线程ID:[9700] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:13:57,050 
+线程ID:[9700] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:18:51,464 
+线程ID:[8428] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:23:51,254 
+线程ID:[7592] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:25:48,862 
+线程ID:[7592] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:25:48,948 
+线程ID:[11732] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:25:50,666 
+线程ID:[7592] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:25:51,813 
+线程ID:[7592] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:25:52,428 
+线程ID:[6092] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:25:53,527 
+线程ID:[7592] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/d6086616dbe443b79cb2eaf99627b38c/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 21:26:15,491 
+线程ID:[6092] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:未将对象引用设置到对象的实例。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:未将对象引用设置到对象的实例。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 651
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 22:25:08,774 
+线程ID:[10792] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:未将对象引用设置到对象的实例。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:未将对象引用设置到对象的实例。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 653
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 22:25:12,291 
+线程ID:[10792] 
+日志级别：  ERROR 
+出错类：system property: [(null)] - 
+错误描述：组织selete前面的语句:未将对象引用设置到对象的实例。
+ 
+ColysSharp.ClientException: 组织selete前面的语句:未将对象引用设置到对象的实例。 ---> System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 ColysSharp.DataBase.DBContext.ParseQuery(QueryEntityInstance qei, Type entityType) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 653
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 308
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 ColysSharp.DataBase.DBContext.DoQuery(QueryParam param) 位置 d:\快盘\MyWork\ColysSharp\DataBase\DataBase\DBContext.cs:行号 312
+   在 ColysSharp.Mvc.BaseController.DoQuery(String permission, String queryField, String entityName, String whereField, String orderBy) 位置 d:\快盘\MyWork\ColysSharp\DataBase\Mvc\BaseController.cs:行号 67
+
+ 
+记录时间：2015-09-13 22:28:59,374 
+线程ID:[5652] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/favicon.ico' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 22:32:08,149 
+线程ID:[11160] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/2e37c86ac6d34c25b05f0e5da47ab7eb/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 22:37:08,142 
+线程ID:[3792] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/2e37c86ac6d34c25b05f0e5da47ab7eb/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 22:42:08,133 
+线程ID:[10744] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/2e37c86ac6d34c25b05f0e5da47ab7eb/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+ 
+记录时间：2015-09-13 22:48:23,113 
+线程ID:[8992] 
+日志级别：  ERROR 
+出错类：ASP.global_asax property: [(null)] - 
+错误描述：Application_Error
+ 
+System.Web.HttpException (0x80004005): The controller for path '/2e37c86ac6d34c25b05f0e5da47ab7eb/arterySignalR/ping' was not found or does not implement IController.
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

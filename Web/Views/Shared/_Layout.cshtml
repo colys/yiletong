@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->    
+    <title>@ViewBag.Title</title>
+
+    
+    
+    <link href="http://www.qqzi.com/MyJS/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://www.qqzi.com/MyJS/css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="http://www.qqzi.com/MyJS/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="http://www.qqzi.com/MyJS/css/erp.public.css" rel="stylesheet" />
+    <link href="/Content/Site.css" rel="stylesheet">	            
+
+    <script src="http://www.qqzi.com/MyJS/js/jquery.min.js"></script>
+    <script src="http://www.qqzi.com/MyJS/js/bootstrap.js"></script>
+    <script src="http://www.qqzi.com/MyJS/js/json.js"></script>
+    <script type="text/javascript" src="http://www.qqzi.com/MyJS/js/bootstrap-paginator.js"></script>
+    
+    <script type="text/javascript" src="http://momentjs.com/downloads/moment.js"></script>    
+    <script type="text/javascript" src="http://www.qqzi.com/MyJS/js/erp.public.js"></script>
+    <script type="text/javascript" src="http://www.qqzi.com/MyJS/js/base64.js"></script>
+    <script type="text/javascript" src="http://www.qqzi.com/MyJS/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script>        
+        clientHttpNet.serviceUrl = "";
+        clientEx = clientHttpNet;
+        var timeoutPlatform;
+        function getStatus() {
+            var action = "status";
+            if (window.location.href.toLowerCase().indexOf("home") == -1) return;
+            $.getJSON(action, function (d) {
+                if (d.clientCount == 0) {
+                   // alert("监控没启动");                    
+                }
+                if (d.clientCount > 0 && d.timeout) {
+                    var str = "<img src=\"../Content/VerifyCode/" + d.platform + ".jpg\" /><br> <input type='text' id='txtVerifycode' />"
+                    $("#loginTimeroutModal .moal-content-groups").empty().html(str);
+                    timeoutPlatform = d.platform;
+                    $("#loginTimeroutModal").modal("show");
+                } else { if (timeoutPlatform != null) $("#loginTimeroutModal").modal("hide"); }
+                setTimeout(getStatus, 60000);
+            });        
+            
+        }
+
+        $(function () {
+            setTimeout(getStatus, 1000);
+            $("#loginTimeroutModal").modal("hide").find('.btn-primary').click(function () {                
+                var verifycode = $("#txtVerifycode").val();
+                $.ajax({ url: "SetVerifyCode?platform=" + timeoutPlatform + "&verifyCode=" + verifycode });
+                $("#loginTimeroutModal").modal("hide");
+                timeoutPlatform = null;
+            });
+        })
+        
+    </script>
+</head>
+
+<body role="document" style="zoom: 1;">
+
+    <header>
+        <div class="container">
+            <div class="float-left">
+                <p>
+                    @if (ViewBag.UserName != null)
+                    {
+                        <a href="~/">~欢迎您回来，@ViewBag.UserName</a>
+                    }
+                    else
+                    {
+                        <a href="Home/login">登录</a>
+                    }
+
+                </p>
+            </div>
+            <div class="float-right">
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("主页", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("客户信息", "Customer", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("原始资料", "SourceAccount", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("结算查询", "TransactionSum", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("交易查询", "Transaction", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("代理加盟", "Index", "Home", new { area = "" }, null)</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <section class="container  clear-fix" style="margin-top:5px;">
+            <div style="width: 100%;height:240px; background: url('../Images/banner1.jpg')"> </div>
+        </section>
+    </header>
+    
+    @RenderBody()
+
+    <div class="modal fade" style="width:auto" id="loginTimeroutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">× </button>
+                    <h4 class="modal-title" id="myModalLabel">监控超时，正在重登录，请输入验证码</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="moal-content-groups">
+                        
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+        <footer>
+            <p style="text-align:center">
+                福州易乐通信息有限公司 copyright 2014-2020 版权所有
+            </p>
+        </footer>
+
+
+
+</body>
+</html>

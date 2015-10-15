@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ColysSharp.DataBase">
+      <HintPath>..\..\ERPMobileService\ND.ErpMobileService\Lib\ColysSharp.DataBase.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Security" />
@@ -48,12 +51,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer.cs" />
     <Compile Include="EncryptionUtility.cs" />
+    <Compile Include="Holiday.cs" />
+    <Compile Include="JingKongResult.cs" />
     <Compile Include="JsonMessage.cs" />
     <Compile Include="MySqlExecute.cs" />
+    <Compile Include="PosPlatformClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RongBao\RSACryptionClass.cs" />
     <Compile Include="Security.cs" />
+    <Compile Include="SourceAccount.cs" />
+    <Compile Include="TransactionLog.cs" />
+    <Compile Include="TransactionSum.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="RongBao\QueryResult.cs" />
   </ItemGroup>

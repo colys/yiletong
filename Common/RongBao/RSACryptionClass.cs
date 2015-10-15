@@ -70,9 +70,9 @@ namespace Common.RongBao
             return returnPayValue;
         }
 
-        
 
-		public QueryResult  TryGetResult(string batchCurrnum,string batchDate)
+
+        public QueryResult TryGetResult(string batchCurrnum, string batchDate, out string returnPayValue)
         {
 			QueryResult qr = null;
             string easypay_url = FormatUrl(new
@@ -84,7 +84,7 @@ namespace Common.RongBao
                 batchVersion = batchVersion
             });
             MyHttpUtility http = new MyHttpUtility();
-            string returnPayValue = http.DoGet("http://entrust.reapal.com/agentpay/payquerybatch?" + easypay_url);
+            returnPayValue = http.DoGet("http://entrust.reapal.com/agentpay/payquerybatch?" + easypay_url,false);
             if (returnPayValue.Substring(0, 6).ToUpper() == "<RESP>") {
 				CheckException(returnPayValue);
             }

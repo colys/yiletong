@@ -1,0 +1,10 @@
+
+ 
+记录时间：2015-10-12 19:02:59,061 
+线程ID:[8704] 
+日志级别：  ERROR 
+出错类：web2.Controllers.HomeController property: [(null)] - 
+错误描述：获取客户信息
+ 
+System.Exception: 获取客户信息is null, terminal：1
+   在 web2.Controllers.HomeController.SyncJingKongPosData(String terminal, String json) 位置 d:\快盘\MyWork\yiletong\Web\Controllers\HomeController.cs:行号 201

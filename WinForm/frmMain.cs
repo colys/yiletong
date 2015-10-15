@@ -10,6 +10,10 @@ using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Common;
+using System.IO;
+using ColysSharp.Modals;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace WinForm
 {
@@ -18,14 +22,15 @@ namespace WinForm
     [System.Runtime.InteropServices.ComVisibleAttribute(true)]
     public partial class frmMain : Form
     {
-        string userName="福州易乐通";
-        string password = "Ylt123456";
+        string userName;
+        string password;
+        string posPlatForm = "xiandaijk";
 		Queue<Customer> terminalQueue = new Queue<Customer>();
         string evalActionUrl;
         string controllerUrl;
         EncryptionUtility encryption;
 		
-		System.Threading.Thread waitQueryThread;
+		System.Threading.Thread queryThread;
 		bool inQuery = false,inMonitor=false;
         bool systemExit = false;
 		int listenInterval;
@@ -39,13 +44,15 @@ namespace WinForm
             settings.DefaultUrl = "http://teaerp.sinaapp.com/";
             //settings.UserAgent = "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 4 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19";
             //settings.CachePath = @"C:\temp\caches";
-            chromeWebBrowser1.Initialize(settings);
+            userName = getSetting("posusername");
+            password = getSetting("pospassword");
 			webBrowser1.Url = url;
             webBrowser1.ObjectForScripting = this;
             string host = getSetting("webHost");
+            this.Text += "(" + host + ")";
             if (host[host.Length - 1] != '/') host += "/";
             controllerUrl = host + "Home";
-            myBrowser.Initialize(new CSharpBrowserSettings() { DefaultUrl = host });
+            myBrowser.Initialize(new CSharpBrowserSettings() { DefaultUrl = controllerUrl + "/Customer" });
             myPage.Hide();
 			timer1.Interval = 1000;            
             evalActionUrl = controllerUrl + "/Eval";
@@ -60,11 +67,10 @@ namespace WinForm
 				return null;
             return terminalQueue.Dequeue();
         }
-        System.Threading.Timer timer;
+        
         public void InitOK()
-        {
-            chromeWebBrowser1.LoadHtml("正在载入，请稍后......");
-            timer = new System.Threading.Timer(new System.Threading.TimerCallback(BeginLoadWeb), null, 100, -1);
+        {            
+            
             string timeStr;
 			listenInterval= Convert.ToInt32 (getSetting ("listenInterval"));
 			timer_pay.Interval = Convert.ToInt32 (getSetting ("jieSuangInterval"));
@@ -81,7 +87,7 @@ namespace WinForm
             }
             webBrowser1.Document.InvokeScript("setSumStatus", new string[] { DateTime.Now.ToString("HH:mm:ss") + "监控开始，每" + timeStr + "一次" });
 			string qjson= execQuery ("transactionsum", "distinct batchCurrnum,uploadDate", "status in (1,2) ", null);
-			JsonMessage<Dictionary<string,string>[]> jm = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<Dictionary<string,string>[]>>(qjson);
+			JsonMessage<Dictionary<string,string>[]> jm = JsonConvert.DeserializeObject<JsonMessage<Dictionary<string,string>[]>>(qjson);
 			if (jm.Message != null) {
 				onError ("query transactionsum un recive data exception");
 			} else {
@@ -89,22 +95,32 @@ namespace WinForm
 				foreach (Dictionary<string,string> dic in data) {
 					startModnitorank (new string[]{ dic ["batchCurrnum"], Convert.ToDateTime( dic ["uploadDate"]).ToString("yyyyMMdd"), "" });
 				}
-			}	
-			timer_pay.Start ();
-
+			}				
+            try
+            {
+                EvalAction<string>("Home.RegisterClient", posPlatForm);
+                registed = true;
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+                Close();
+            }
+            timer_pay.Start();
+            timer1.Start();
         }
 
+        bool registed = false;
 
-
-        private void BeginLoadWeb(object o)
-        {            
-			this.BeginInvoke(new delegateNoParam(LoadRemoteWeb));            
-        }
-        private void LoadRemoteWeb()
+        public T EvalAction<T>(string action, params string[] paramArr)
         {
-            openLogin();
-            tabControl1.SelectedIndex = 0;
+            string qjson = RunHttp(action, paramArr);
+            JsonMessage<T> jmRegister = JsonConvert.DeserializeObject<JsonMessage<T>>(qjson);
+            if (jmRegister.Message != null) throw new Exception(jmRegister.Message);
+            return jmRegister.Result;
         }
+
+              
+       
 
 		public void onError(string msg,Exception ex = null,bool inThead=false){
 			log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
@@ -122,7 +138,7 @@ namespace WinForm
 				msg += ex.Message;
 			}
 			if (inThead )
-				this.BeginInvoke (new delegateOnParam (setStatus),msg);
+				this.BeginInvoke (new delegateOneParam (setStatus),msg);
 			else	setStatus (msg);
 
 		}
@@ -138,164 +154,195 @@ namespace WinForm
 				if (jm.Result == null)
 					throw new Exception ("查询客户时返回空结果，可能是网络问题");
 				foreach (Customer ter in jm.Result) {
-					terminalQueue.Enqueue (ter);
+                    if (string.IsNullOrEmpty(ter.lastQuery)) ter.lastQuery = DateTime.Today.ToString("yyyy-MM-dd");
+                    terminalQueue.Enqueue(ter);
 				}
 			}
         }
-
-        private void 载入ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadRemoteWeb();
-        }
-
        
 
-		private void openLogin(){			
-			chromeWebBrowser1.OpenUrl("https://119.4.99.217:7300/mcrm/login.jsp");
-			loginOutime = false;
-			this.tabControl1.SelectedIndex = 0;
-		}
-
-        private void 触发登录ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CwbElement buttons = chromeWebBrowser1.Document.GetElementById("submitButton");
-            buttons.Click();
-        }
-
-        private void 跳转到ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-            
-        }
-
-   
-        
 
         private void 触发查询ToolStripMenuItem_Click(object sender, EventArgs e)
         {         
-			if (inQuery)
-				return;
-			if (cookieStr == null) cookieStr = chromeWebBrowser1.Document.Cookie;
+			if (inQuery) return;            
 			GoQuery (null);
             timer1.Start();            
             触发查询ToolStripMenuItem.Enabled = false;
-			this.tabControl1.SelectedIndex = 1;
+			this.tabControl1.SelectedIndex = 0;
         }
         string termID,beginDate,endDate;
+        
 		private void GoQuery(object o)
         {
 			if (inQuery || systemExit)	return;
-			if (waitQueryThread != null && waitQueryThread.IsAlive) return;
-			try
-			{
-				
-				inQuery = true;
-				//string cookie = chromeWebBrowser1.Document.Cookie;
-				//MessageBox.Show (cookie);
-				Customer cus = getNextTerminal();
+			if (queryThread != null && queryThread.IsAlive) return;            
+            try
+            {                
+                inQuery = true;   
+                Customer cus = getNextTerminal();
                 if (cus == null) throw new Exception("get next terminal is null , may be server error");
-				termID = cus.terminal;
-				DateTime dtLastQuery;
-				if(string.IsNullOrEmpty(cus.lastQuery)){
-					if(DateTime.Now.Hour< 10){ dtLastQuery=DateTime.Today.AddDays(-1);}
-					else dtLastQuery=DateTime.Today;
-				}
-				else dtLastQuery = Convert.ToDateTime(cus.lastQuery);
-				beginDate = dtLastQuery.ToString("yyyyMMdd");
-				if(DateTime.Now.Hour>22)
-					endDate=DateTime.Today.AddDays(1).ToString("yyyyMMdd");
-				else 
-					endDate=DateTime.Today.ToString("yyyyMMdd");
-				setStatus("正在查询" + termID + "的刷卡情况");
-				string js = "$('#hidden_json').val(''); $.ajax({url:'https://119.4.99.217:7300/mcrm/bca/txnlog_findBy',type:'POST',cache: false,data:'beginstdate="+beginDate+"&endstdate="+endDate+"&branchId=&refno=&mid=&tid="+termID+"&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=100&page=1',error:function(str,e){window.CallCSharpMethod('queryJsReturn',e);},success:function(d){ var str= JSON.stringify(d);$('#hidden_json').val(str);window.CallCSharpMethod('queryJsReturn','ok'); }})";
-				chromeWebBrowser1.ExecuteScript(js);
-				waitQueryTime= DateTime.Now;
-//				waitQueryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(watinQuery));
-//				waitQueryThread.Start();
-			}
-			catch (Exception ex)
-			{
+                termID = cus.terminal;
+                DateTime dtLastQuery;
+                if (string.IsNullOrEmpty(cus.lastQuery))
+                {
+                    if (DateTime.Now.Hour < 10) { dtLastQuery = DateTime.Today.AddDays(-1); }
+                    else dtLastQuery = DateTime.Today;
+                }
+                else dtLastQuery = Convert.ToDateTime(cus.lastQuery);
+                beginDate = dtLastQuery.ToString("yyyy/MM/dd");
+                if (DateTime.Now.Hour > 22)
+                    endDate = DateTime.Today.AddDays(1).ToString("yyyy/MM/dd");
+                else
+                    endDate = DateTime.Today.ToString("yyyy/MM/dd");
+                setStatus("正在查询" + termID + "的刷卡情况");
+                waitQueryTime = DateTime.Now;
+                queryThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(queryJingKong));
+                queryThread.Start();
+            }
+            catch (Exception ex)
+            {
                 inQuery = false;
                 timer1.Enabled = false;
-				onError(null,ex);
-			}
+                onError(null, ex);
+            }
+        }
+
+        private void queryJingKong(object o){
+            int tryCount = 10;
+            while (true)
+            {                
+                try
+                {
+                    Random MyRandom = new Random();
+                    int RandomNum = MyRandom.Next(1001, 9999);
+                    string json = JingKongHttp.DoPostHttps("https://119.4.99.217:7300/mcrm/bca/txnlog_findBy", "beginstdate=" + beginDate + "&endstdate=" + endDate + "&branchId=65023903&refno=&mid=&tid=" + termID + "&midName=&transid=&rspcode=&mgrid=&rsp=&lpName=&rows=200&page=1&shuijishu=" + RandomNum, Application.StartupPath, "https://119.4.99.217:7300/mcrm/jsp/bca/bcatxnlog.jsp");
+                    this.BeginInvoke(new delegateOneParam(OnQueryFinish), json);
+                    break;
+                }
+                catch (System.Net.WebException)
+                {
+                    tryCount--;
+                    if (tryCount < 0) break;
+                    System.Threading.Thread.Sleep(5000);
+                }
+                catch (Exception ex)
+                {
+                    this.BeginInvoke(new delegateOneParam(OnQueryFinish), "");
+                    onError("queryJingKong", ex, true);
+                    break;
+                }                
+            }
         }
 		 
-		private bool loginOutime = false;
+		private bool loginOutime = true;
 
-		public void OnQueryFinish(bool success)
-        {			
-			if (!success) {
-				setStatus (termID + "终端查询失败");
-			} else {
-				setStatus (termID + "终端" + beginDate + "到" + endDate + "的刷卡情况:");
-				object jsonObj = chromeWebBrowser1.EvaluateScript ("$('#hidden_json').val()");
-				if (jsonObj == null) {
-					onError ("OnQueryFinish get json null", null);				
-				} else {
-					string json = jsonObj.ToString ();
-					if (json == "\"{\\\"flag\\\":\\\"login\\\",\\\"info\\\":\\\"    \\\",\\\"key\\\":null,\\\"mssiMsg\\\":\\\"成功\\\"}\"") {
-						loginOutime = true;
-					} else if (json == "\"This session has been expired (possibly due to multiple concurrent logins being attempted as the same user).\"") {
-						loginOutime = true; 
-					} else {
-						//object table = chromeWebBrowser1.EvaluateScript("$(window.frames['收单日志'].document).find('.datagrid-btable:eq(1)')[0].outerHTML");
-						//HtmlElement hidden_div = webBrowser1.Document.GetElementById("hidden_div");
-						//hidden_div.InnerHtml = table.ToString();
-						string[] objects = new string[1];
-						objects [0] = json;
-						try {
-							object jsonStr = webBrowser1.Document.InvokeScript ("parseTableJson", objects);
-							string msg = execDb ("[{\"table\":\"customers\",\"action\":1,\"fields\":[\"lastQuery\"],\"values\":[\"" + DateTime.Today.ToString ("yyyy-MM-dd") + "\"],where:\"terminal=" + termID + "\"}]");
-							JsonMessage<int> jsonR = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<int>> (msg);
-							if (!string.IsNullOrEmpty (jsonR.Message))
-								throw new Exception (jsonR.Message);
-						} catch (Exception ex) {
-							onError ("save data or update last query exception:", ex);
-						}
-					}
-				}
-			}
+        public void OnQueryFinish(string json)
+        {
+            try
+            {
+                if (json == "")
+                {
+                    inQuery = false;
+                    setStatus(termID + "终端查询失败");
+                }
+                else
+                {
+                    setStatus(termID + "终端" + beginDate + "到" + endDate + "的刷卡情况:");
+                    if (json == "\"{\\\"flag\\\":\\\"login\\\",\\\"info\\\":\\\"    \\\",\\\"key\\\":null,\\\"mssiMsg\\\":\\\"成功\\\"}\"")
+                    {
+                        loginOutime = true;
+                    }
+                    else if (json.Length > 50 && json.Substring(0, 50).ToUpper().IndexOf("<!DOCTYPE") > -1)
+                    {
+                        loginOutime = true;
+                    }
+                    else if (json == "\"This session has been expired (possibly due to multiple concurrent logins being attempted as the same user).\"")
+                    {
+                        loginOutime = true;
+                    }
+                    else
+                    {
 
-			if (systemExit||loginOutime)
-				return;
-			if (terminalQueue.Count == 0) {				
-				timer1.Interval = listenInterval;
-			} else
-				timer1.Interval = 1000;
-			inQuery = false;
+                        try
+                        {
+                            string str = RunHttp("Home.SyncJingKongPosData", termID, json);
+                            JsonMessage<TransactionLog[]> resultJson = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<TransactionLog[]>>(str);
+                            if (resultJson.Message != null) { throw new Exception(resultJson.Message); }
+                            if (resultJson.Result.Length == 0)
+                            {
+                                setStatuDetal("没有刷卡数据!");
+                            }
+                            else
+                            {
+                                foreach (TransactionLog log in resultJson.Result)
+                                {
+                                    setStatuDetal(log.tradeName + "," + log.time + "," + log.tradeMoney);
+                                    addTerminalView(Newtonsoft.Json.JsonConvert.SerializeObject(log));
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            onError("SyncJingKongPosData exception:", ex);
+                        }
+                    }
+                }
+                inQuery = false;
+                if (systemExit || loginOutime)
+                    return;
+                if (terminalQueue.Count == 0)
+                {
+                    timer1.Interval = listenInterval;
+                }
+                else
+                    timer1.Interval = 1000;
+            }
+            catch (Exception ex)
+            {
+                inQuery = false;
+                onError("OnQueryFinish", ex);
+            }
         }
 
-		private void setStatus(string str)
+
+        private void setStatus(string str)
         {
             object[] objects = new object[1];
-			objects[0] = DateTime.Now.ToString("HH:mm:ss") + "：" + str;
-			webBrowser1.Document.InvokeScript ("setStatus", objects);				
+            objects[0] = DateTime.Now.ToString("HH:mm:ss") + "：" + str;
+            webBrowser1.Document.InvokeScript("setStatus", objects);
         }
-
-		public void OnFrameLoadFinish(){
-			chromeWebBrowser1.ExecuteScript ("$(window.frames['收单日志'].document).find('.pagination-page-list:eq(0)').find('option:last').attr('selected',true);");
-		}
+        private void setStatuDetal(string str)
+        {
+            object[] objects = new object[1];
+            objects[0] = str;
+            webBrowser1.Document.InvokeScript("setStatusDetail", objects);
+        }
+        private void addTerminalView(string str)
+        {
+            object[] objects = new object[1];
+            objects[0] = str;
+            webBrowser1.Document.InvokeScript("addTerminalView", objects);
+        }
+	
 
 		public delegate void delegateTwoParam(string str1,string str2);
-		public delegate void delegateOnParam(string str);
-		public delegate void delegateNoParam();
-		public delegate void QueryFinish(bool success);
+		public delegate void delegateOneParam(string str);
+		public delegate void delegateNoParam();		
 		public delegate void QueryBankFinish(QueryResult result);
 
 
 
 
-		public void queryJsReturn(string str){
-			if (str != "ok") {
-				log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
-				log.Error ("query ajax return error:" + str);
-				this.BeginInvoke(new QueryFinish(OnQueryFinish),false);
-			} else {
-				//Console.WriteLine (str);
-				this.BeginInvoke(new QueryFinish(OnQueryFinish),true);
-			}
-		}
+        //public void queryJsReturn(string str){
+        //    if (str != "ok") {
+        //        log4net.ILog log = log4net.LogManager.GetLogger(this.GetType());
+        //        log.Error ("query ajax return error:" + str);
+        //        this.BeginInvoke(new delegateOneParam(OnQueryFinish), false);
+        //    } else {
+        //        //Console.WriteLine (str);
+        //        this.BeginInvoke(new delegateOneParam(OnQueryFinish), true);
+        //    }
+        //}
 
 		DateTime waitQueryTime;
 
@@ -327,71 +374,22 @@ namespace WinForm
 //			}
         //		}
 
-        private void goLogin()
-        {        
-            chromeWebBrowser1.ExecuteScript("$('#username').val('"+userName+"')");
-            chromeWebBrowser1.ExecuteScript("$('#password').val('" + password + "')");
-            chromeWebBrowser1.ExecuteScript("$('input[name=codeVal]').focus()");
-
-        }
 
 		string cookieStr = null;
-        private void chromeWebBrowser1_BrowserDocumentCompleted(object sender, EventArgs e)
-		{
-			if (chromeWebBrowser1.Document == null)
-				return;
-			int pos = chromeWebBrowser1.Url.LastIndexOf ("/");
-			string pageName = chromeWebBrowser1.Url.Substring (pos + 1).ToLower ();
-			switch (pageName) {
-			case "default.html":
-				openLogin ();
-				break;
-			case "login.jsp":
-			case "j_spring_security_check":
-                    //还要有登录失败的判断
-				goLogin ();
-				cookieStr = null;
-				break;
-			case "index":
-				chromeWebBrowser1.ExecuteScript("if($(\"#hidden_json\").length ==0){ $('<input type=\"hidden\" id=\"hidden_json\" />').appendTo(document.body); }");
-				break;
+       
 
-			}
-        }
-
-        private void chromeWebBrowser1_BrowserCreated(object sender, EventArgs e)
-        {
-			chromeWebBrowser1.LoadHtml("点击菜单 文件->载入");
-			string url = "file:///" + Application.StartupPath.Replace ('\\', '/') + "/default.html";
-			chromeWebBrowser1.OpenUrl (url);
-           
-        }
+       
 
 
-
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-			GoQuery (null);
-        }
-
-		DateTime prevRefreshTime =DateTime.Now;
 
         private void timer1_Tick_1(object sender, EventArgs e)
-        {			
-			if ((DateTime.Now - prevRefreshTime).TotalHours > 1) {
-				chromeWebBrowser1.OpenUrl("https://119.4.99.217:7300/mcrm/system/index");
-				prevRefreshTime = DateTime.Now;
-				timer1.Interval = 30000;
-				return;
-			}
-			if (cookieStr != chromeWebBrowser1.Document.Cookie || loginOutime) {
-				cookieStr = null;
+        {						
+            if (loginOutime)
+            {				
 				timer1.Enabled = false;
-				触发查询ToolStripMenuItem.Enabled = true;
-				openLogin ();
-				return;
-			}
-			GoQuery (null);
+				触发查询ToolStripMenuItem.Enabled = true;				
+                UploadVerifyCode();				
+			}else GoQuery (null);
 
         }
 
@@ -432,24 +430,6 @@ namespace WinForm
           
         }
 
-        private string RunHttp(string action,params string[] paraStrArr)
-		{
-			MyHttpUtility http = new MyHttpUtility ();
-			string content = "action=" + action + "&dataArrStr=";
-           
-			if (paraStrArr != null) {
-				foreach (string str in paraStrArr) {
-					content += System.Web.HttpUtility.UrlEncode (str) + ",";
-				}
-				content = content.Substring (0, content.Length - 1);
-			}
-			try {
-				return http.DoPost (evalActionUrl, encryption.EncryptData (content));
-			} catch (Exception ex) {
-				onError ("DoPost exception:"+ content  +" ,", ex);
-				return null;
-			}
-		}
        
         public string execQuery(string table,string fields,string where,string order){
             return RunHttp("ExecQuery", table, fields, where, order);
@@ -463,16 +443,34 @@ namespace WinForm
 
         #endregion
 
-
+        MyHttpUtility webHttp = new MyHttpUtility();
+        private string RunHttp(string action,params string[] paraStrArr)
+		{			
+			string content = "action=" + action + "&dataArrStr=";           
+			if (paraStrArr != null) {
+				foreach (string str in paraStrArr) {
+					content += System.Web.HttpUtility.UrlEncode (str) + ",";
+				}
+				content = content.Substring (0, content.Length - 1);
+			}
+			try {
+				return webHttp.DoPost (evalActionUrl, encryption.EncryptData (content));
+			} catch (Exception ex) {
+				onError ("DoPost exception:"+ content  +" ,", ex);
+				return null;
+			}
+		}
       
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            systemExit = true;
-			chromeWebBrowser1.LoadHtml ("<p>正在退出</p>");
+            if (MessageBox.Show("您真的要退出吗？", "提示", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No) e.Cancel = true;
+            systemExit = true;			
 			tabControl1.SelectedIndex = 0;
-			if (waitQueryThread != null && waitQueryThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
-				waitQueryThread.Abort ();
+			if (queryThread != null && queryThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+				queryThread.Abort ();
+            if (moniterLoginThread != null && moniterLoginThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
+                moniterLoginThread.Abort();            
 			foreach (KeyValuePair<string,System.Threading.Thread> kv in queryBankTherads) {
 				if (kv.Value != null && kv.Value.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
 					kv.Value.Abort ();
@@ -481,11 +479,10 @@ namespace WinForm
 			while (inQuery || inMonitor)
             {                
 				System.Threading.Thread.Sleep (500);
-            }
-			chromeWebBrowser1.Dispose ();
+            }			
             timer_pay.Enabled = false;
             timer1.Enabled = false;
-			if(timer!=null) timer.Dispose ();
+            if (registed) RunHttp("Home.RegisterLogoff", posPlatForm);//加上判断，防止因为已有监控自动关闭，又logoff掉其它的
         }
 
 
@@ -515,7 +512,7 @@ namespace WinForm
 
         private void timer_pay_Tick(object sender, EventArgs e)
         {
-			if (systemExit || inMonitor) { return; }            
+			if (systemExit || inMonitor || loginOutime) { return; }            
             inMonitor = true;
 			try{
 	            
@@ -637,7 +634,7 @@ namespace WinForm
 					string json = RunHttp ("Home.GetRongBao", batchCurrnum, batchDate);
 					JsonMessage<QueryResult> resultJson = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonMessage<QueryResult>> (json);
 					if (!string.IsNullOrEmpty (resultJson.Message)) {
-						this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum, "查询银行处理结果失败：" + resultJson.Message);
+						this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum, "查询银行处理结果异常：" + resultJson.Message);
 					} else {	   
 					
 						string statusText = "";
@@ -661,21 +658,120 @@ namespace WinForm
 							break;
 						}
 						this.BeginInvoke (new delegateTwoParam (SetBankLog), batchCurrnum, "银行处理结果为：" + statusText);
-						if (isFinish) {
-							this.BeginInvoke (new QueryBankFinish (onBankFinish), resultJson.Result);
-							this.BeginInvoke (new delegateOnParam (AppendSumLog), batchCurrnum + "监听完成");
-							return;
-						}else{
-							System.Threading.Thread.Sleep (30000);
-						}
+						
 					}
+                    if (isFinish)
+                    {
+                        this.BeginInvoke(new QueryBankFinish(onBankFinish), resultJson.Result);
+                        this.BeginInvoke(new delegateOneParam(AppendSumLog), batchCurrnum + "监听完成");
+                        return;
+                    }
+                    else
+                    {
+                        System.Threading.Thread.Sleep(150000);
+                    }
 				} catch (Exception ex) {
 					if(!systemExit)	onError ("查询银行处理", ex, true);
 				}		 
 
 			}
         }
-	}
+
+        private void myBrowser_PageLoadFinishEventhandler(object sender, EventArgs e)
+        {
+            if (myBrowser.Url.ToLower().IndexOf("login") > -1) {
+                myBrowser.ExecuteScript("$('#username').val('" + getSetting("webusername") + "')");
+                myBrowser.ExecuteScript("$('#password').val('" + getSetting("webpassword") + "')");
+                myBrowser.ExecuteScript("$('button[type=submit]').click()");
+            }
+        }
+        
+        System.Threading.Thread moniterLoginThread;
+
+        #region 登录相关
+        MyHttpUtility JingKongHttp = new MyHttpUtility();
+        string loginUrl = "https://119.4.99.217:7300/mcrm/login.jsp";
+        //上传验证码
+        public void UploadVerifyCode() {
+            if(moniterLoginThread!=null && moniterLoginThread.IsAlive) return;
+            try
+            {
+
+                JingKongHttp.DoGet(loginUrl);
+                 Random MyRandom = new Random();
+                int RandomNum = MyRandom.Next(100000000, 999999999);
+                string url = "https://119.4.99.217:7300/mcrm/code/code?" + RandomNum;
+                string filePath = Application.StartupPath + "\\"+posPlatForm+".jpg";
+                JingKongHttp.Download(url, filePath, Application.StartupPath, "https://119.4.99.217:7300/mcrm/j_spring_security_check");
+                
+                //上传
+                url = controllerUrl + "/UploadForReLogin?platform="+posPlatForm;
+                WebClient webClient = new WebClient();
+                byte[] resultByte= webClient.UploadFile(url, filePath);
+                string errorMsg= Encoding.UTF8.GetString(resultByte);
+                if (!string.IsNullOrEmpty(errorMsg)) throw new Exception(errorMsg);
+                //切到web
+                tabControl1.SelectedIndex = 1;
+                myBrowser.Reload();//刷新，输入验证码
+                moniterLoginThread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(MoniterVerifyCodeIsSet));
+                moniterLoginThread.Start();
+            }
+            catch (Exception ex) {
+                onError("重新登录", ex);
+            }
+        }
+
+        //拿到验证码后，执行登录
+        public void DoRelogin(string verifyCode) {
+            string data = "j_username=" + userName + "&j_password=" + password + "&codeVal=" + verifyCode;
+            
+            string response = JingKongHttp.DoPostHttps("https://119.4.99.217:7300/mcrm/j_spring_security_check", data, Application.StartupPath,"https://119.4.99.217:7300/mcrm/login.jsp");
+            if (response.IndexOf("<div class=\"alert alert-danger\" style=\"margin: 0px;\">验证码错误</div>") > -1)
+            {
+                //MessageBox.Show("重登录失败，验证码" + verifyCode + "错误");
+                UploadVerifyCode();
+            }
+            else
+            {
+                //if (response.IndexOf("您的密码已经过期，请修改您的初始密码") > -1) {
+                //    MessageBox.Show("金控密码已经过期");
+                //    this.Close();
+                //    return;
+                //}
+                loginOutime = false;
+                EvalAction<string>("Home.RegisterClient", posPlatForm);
+                registed = true;
+                //继续监控
+                触发查询ToolStripMenuItem_Click(null, null);
+            }
+        }
+
+        public void MoniterVerifyCodeIsSet(object o) {
+            while (true)
+            {
+                try
+                {
+                    PosPlatformClient client = EvalAction<PosPlatformClient>("Home.IsVerifyCodeSet", posPlatForm);
+                    if (client == null) System.Threading.Thread.Sleep(3000);
+                    else
+                    {
+                        this.BeginInvoke(new delegateOneParam(DoRelogin), client.verifyCode);
+                        break;
+                    }
+                }
+                catch (System.Threading.ThreadAbortException)
+                {
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    onError("获取web输入的验证码", ex, true);
+                    System.Threading.Thread.Sleep(3000);
+                }
+            }
+        }
+        #endregion
+    }
 
 
     public class Customer{

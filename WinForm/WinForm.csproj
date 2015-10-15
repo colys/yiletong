@@ -36,6 +36,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\output\Cef3.dll</HintPath>
     </Reference>
+    <Reference Include="ColysSharp.DataBase">
+      <HintPath>..\..\ERPMobileService\ND.ErpMobileService\Lib\ColysSharp.DataBase.dll</HintPath>
+    </Reference>
     <Reference Include="cwber, Version=1.1.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\output\cwber.dll</HintPath>

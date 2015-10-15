@@ -1,0 +1,1778 @@
+
+ 
+记录时间：2015-09-02 22:01:22,853 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.IsVerifyCodeSet&dataArrStr=xiandaijk ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:01:22,925 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.InvalidCastException: 指定的转换无效。
+   在 System.Windows.Forms.UnsafeNativeMethods.IHTMLDocument2.GetLocation()
+   在 System.Windows.Forms.WebBrowser.get_Document()
+   在 WinForm.frmMain.setStatus(String str) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 291
+   在 WinForm.frmMain.onError(String msg, Exception ex, Boolean inThead) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 142
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 438
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 116
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:24,925 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.IsVerifyCodeSet&dataArrStr=xiandaijk ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:01:24,928 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.InvalidCastException: 指定的转换无效。
+   在 System.Windows.Forms.UnsafeNativeMethods.IHTMLDocument2.GetLocation()
+   在 System.Windows.Forms.WebBrowser.get_Document()
+   在 WinForm.frmMain.setStatus(String str) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 291
+   在 WinForm.frmMain.onError(String msg, Exception ex, Boolean inThead) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 142
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 438
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 116
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:28,529 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:28,580 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:28,638 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:28,689 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:28,740 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:28,807 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:28,858 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:28,912 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:28,960 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,031 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,080 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,139 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,216 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,288 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,362 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,465 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,530 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,579 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,633 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,761 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,910 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:29,969 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,029 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,077 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,124 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,182 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,227 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,272 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,325 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,407 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,466 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,513 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,562 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,605 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,659 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,706 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,751 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,802 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,849 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,904 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:30,958 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,039 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,086 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,137 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,223 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,268 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,341 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,432 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,483 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,527 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,595 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,703 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,752 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,799 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,845 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,896 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,943 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:31,995 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:32,044 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:32,102 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:32,208 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:32,359 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:32,419 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:01:32,483 
+线程ID:[9] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：获取web输入的验证码
+ 
+System.Exception: 服务器出错！
+   在 WinForm.frmMain.EvalAction[T](String action, String[] paramArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 118
+   在 WinForm.frmMain.MoniterVerifyCodeIsSet(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 727
+
+ 
+记录时间：2015-09-02 22:02:45,152 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66032367,%7b%22rows%22%3a%5b%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202450%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91270701%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096353216%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202414%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002301%22%2c%22transid%22%3a87%2c%22trname%22%3a%22%e6%89%b9%e4%b8%8a%e9%80%81%e7%bb%93%e6%9d%9f(%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22202414%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202445%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91270476%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096353150%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202409%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002300%22%2c%22transid%22%3a19%2c%22trname%22%3a%22%e7%bb%93%e7%ae%97%22%2c%22ttime%22%3a%22202409%22%7d%2c%7b%22actno%22%3a%22531693******5297%22%2c%22amt%22%3a18690.0%2c%22appCode%22%3anull%2c%22authcode%22%3a%22068447%22%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e4%b8%ad%e5%9b%bd%e5%bb%ba%e8%ae%be%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201059999%22%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202125%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91268089%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096350751%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202049%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002299%22%2c%22transid%22%3a3%2c%22trname%22%3a%22%e6%b6%88%e8%b4%b9%22%2c%22ttime%22%3a%22202049%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902201955%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91267105%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201+%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096349620%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22201955%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002298%22%2c%22transid%22%3a17%2c%22trname%22%3a%22%e7%ad%be%e5%88%b0%e5%8f%8c%e5%80%8d%e5%af%86%e9%92%a5%22%2c%22ttime%22%3a%22201955%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153727%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004349%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090295%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153727%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002297%22%2c%22transid%22%3a87%2c%22trname%22%3a%22%e6%89%b9%e4%b8%8a%e9%80%81%e7%bb%93%e6%9d%9f(%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22153727%22%7d%2c%7b%22actno%22%3a%22625996******9974%22%2c%22amt%22%3a20130.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e5%86%9c%e4%b8%9a%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201030000%22%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153724%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004333%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090260%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153724%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002294%22%2c%22transid%22%3a83%2c%22trname%22%3a%22IC%e5%8d%a1%e6%89%b9%e4%b8%8a%e9%80%81%e9%80%9a%e7%9f%a5%e4%ba%a4%e6%98%93(%e8%81%94%e6%9c%ba%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22153724%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153718%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004182%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090189%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153718%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002295%22%2c%22transid%22%3a19%2c%22trname%22%3a%22%e7%bb%93%e7%ae%97%22%2c%22ttime%22%3a%22153718%22%7d%2c%7b%22actno%22%3a%22625996******9974%22%2c%22amt%22%3a20130.0%2c%22appCode%22%3anull%2c%22authcode%22%3a%22065895%22%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e5%86%9c%e4%b8%9a%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201030000%22%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153521%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91002314%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096088313%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153520%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002294%22%2c%22transid%22%3a3%2c%22trname%22%3a%22%e6%b6%88%e8%b4%b9%22%2c%22ttime%22%3a%22153520%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153436%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91001388%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201+%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096087604%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153401%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002293%22%2c%22transid%22%3a17%2c%22trname%22%3a%22%e7%ad%be%e5%88%b0%e5%8f%8c%e5%80%8d%e5%af%86%e9%92%a5%22%2c%22ttime%22%3a%22153401%22%7d%5d%2c%22total%22%3a9%7d ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:02:45,177 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:03:09,721 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 基础连接已经关闭: 接收时发生错误。 ---> System.IO.IOException: 无法从传输连接中读取数据: 远程主机强迫关闭了一个现有的连接。。 ---> System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+   在 System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   在 System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   在 System.Net.PooledStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   在 System.Net.Connection.SyncRead(HttpWebRequest request, Boolean userRetrievedStream, Boolean probeRead)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:03:09,723 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:03:13,770 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66057693,%7b%22rows%22%3a%5b%5d%2c%22total%22%3a0%7d ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:03:13,771 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:03:15,800 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:03:15,802 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:03:17,809 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66057146,%7b%22rows%22%3a%5b%5d%2c%22total%22%3a0%7d ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:03:17,812 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:03:22,560 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.RegisterLogoff&dataArrStr=xiandaijk ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:06:33,099 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66032367,%7b%22rows%22%3a%5b%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202450%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91270701%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096353216%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202414%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002301%22%2c%22transid%22%3a87%2c%22trname%22%3a%22%e6%89%b9%e4%b8%8a%e9%80%81%e7%bb%93%e6%9d%9f(%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22202414%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202445%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91270476%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096353150%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202409%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002300%22%2c%22transid%22%3a19%2c%22trname%22%3a%22%e7%bb%93%e7%ae%97%22%2c%22ttime%22%3a%22202409%22%7d%2c%7b%22actno%22%3a%22531693******5297%22%2c%22amt%22%3a18690.0%2c%22appCode%22%3anull%2c%22authcode%22%3a%22068447%22%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e4%b8%ad%e5%9b%bd%e5%bb%ba%e8%ae%be%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201059999%22%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202125%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91268089%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096350751%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202049%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002299%22%2c%22transid%22%3a3%2c%22trname%22%3a%22%e6%b6%88%e8%b4%b9%22%2c%22ttime%22%3a%22202049%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902201955%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91267105%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201+%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096349620%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22201955%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002298%22%2c%22transid%22%3a17%2c%22trname%22%3a%22%e7%ad%be%e5%88%b0%e5%8f%8c%e5%80%8d%e5%af%86%e9%92%a5%22%2c%22ttime%22%3a%22201955%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153727%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004349%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090295%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153727%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002297%22%2c%22transid%22%3a87%2c%22trname%22%3a%22%e6%89%b9%e4%b8%8a%e9%80%81%e7%bb%93%e6%9d%9f(%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22153727%22%7d%2c%7b%22actno%22%3a%22625996******9974%22%2c%22amt%22%3a20130.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e5%86%9c%e4%b8%9a%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201030000%22%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153724%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004333%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090260%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153724%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002294%22%2c%22transid%22%3a83%2c%22trname%22%3a%22IC%e5%8d%a1%e6%89%b9%e4%b8%8a%e9%80%81%e9%80%9a%e7%9f%a5%e4%ba%a4%e6%98%93(%e8%81%94%e6%9c%ba%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22153724%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153718%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004182%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090189%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153718%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002295%22%2c%22transid%22%3a19%2c%22trname%22%3a%22%e7%bb%93%e7%ae%97%22%2c%22ttime%22%3a%22153718%22%7d%2c%7b%22actno%22%3a%22625996******9974%22%2c%22amt%22%3a20130.0%2c%22appCode%22%3anull%2c%22authcode%22%3a%22065895%22%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e5%86%9c%e4%b8%9a%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201030000%22%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153521%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91002314%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096088313%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153520%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002294%22%2c%22transid%22%3a3%2c%22trname%22%3a%22%e6%b6%88%e8%b4%b9%22%2c%22ttime%22%3a%22153520%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153436%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91001388%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201+%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096087604%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153401%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002293%22%2c%22transid%22%3a17%2c%22trname%22%3a%22%e7%ad%be%e5%88%b0%e5%8f%8c%e5%80%8d%e5%af%86%e9%92%a5%22%2c%22ttime%22%3a%22153401%22%7d%5d%2c%22total%22%3a9%7d ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:06:33,125 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:06:57,203 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 基础连接已经关闭: 接收时发生错误。 ---> System.IO.IOException: 无法从传输连接中读取数据: 远程主机强迫关闭了一个现有的连接。。 ---> System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+   在 System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   在 System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   在 System.Net.PooledStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   在 System.Net.Connection.SyncRead(HttpWebRequest request, Boolean userRetrievedStream, Boolean probeRead)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:06:57,205 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:07:01,234 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66057693,%7b%22rows%22%3a%5b%5d%2c%22total%22%3a0%7d ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:07:01,237 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:07:03,312 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:07:03,313 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:07:05,318 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66057146,%7b%22rows%22%3a%5b%5d%2c%22total%22%3a0%7d ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:07:05,321 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:07:17,325 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.GetCustomers&dataArrStr= ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:07:17,329 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.FillQueue() 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 150
+   在 WinForm.frmMain.getNextTerminal() 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 65
+   在 WinForm.frmMain.GoQuery(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 182
+
+ 
+记录时间：2015-09-02 22:07:19,445 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:07:19,447 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:07:49,459 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:07:49,461 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:08:19,475 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:08:19,478 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:08:49,488 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:08:49,490 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:09:19,511 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:09:19,512 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:09:49,520 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:09:49,522 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:11:10,202 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.Exception: 获取客户信息时发生异常：获取客户信息discount is null or NaN,terminal：65888302
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 255
+
+ 
+记录时间：2015-09-02 22:11:42,734 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66032367,%7b%22rows%22%3a%5b%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202450%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91270701%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096353216%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202414%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002301%22%2c%22transid%22%3a87%2c%22trname%22%3a%22%e6%89%b9%e4%b8%8a%e9%80%81%e7%bb%93%e6%9d%9f(%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22202414%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202445%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91270476%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096353150%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202409%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002300%22%2c%22transid%22%3a19%2c%22trname%22%3a%22%e7%bb%93%e7%ae%97%22%2c%22ttime%22%3a%22202409%22%7d%2c%7b%22actno%22%3a%22531693******5297%22%2c%22amt%22%3a18690.0%2c%22appCode%22%3anull%2c%22authcode%22%3a%22068447%22%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e4%b8%ad%e5%9b%bd%e5%bb%ba%e8%ae%be%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201059999%22%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202125%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91268089%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096350751%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202049%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002299%22%2c%22transid%22%3a3%2c%22trname%22%3a%22%e6%b6%88%e8%b4%b9%22%2c%22ttime%22%3a%22202049%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902201955%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91267105%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201+%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096349620%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22201955%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002298%22%2c%22transid%22%3a17%2c%22trname%22%3a%22%e7%ad%be%e5%88%b0%e5%8f%8c%e5%80%8d%e5%af%86%e9%92%a5%22%2c%22ttime%22%3a%22201955%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153727%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004349%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090295%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153727%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002297%22%2c%22transid%22%3a87%2c%22trname%22%3a%22%e6%89%b9%e4%b8%8a%e9%80%81%e7%bb%93%e6%9d%9f(%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22153727%22%7d%2c%7b%22actno%22%3a%22625996******9974%22%2c%22amt%22%3a20130.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e5%86%9c%e4%b8%9a%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201030000%22%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153724%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004333%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090260%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153724%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002294%22%2c%22transid%22%3a83%2c%22trname%22%3a%22IC%e5%8d%a1%e6%89%b9%e4%b8%8a%e9%80%81%e9%80%9a%e7%9f%a5%e4%ba%a4%e6%98%93(%e8%81%94%e6%9c%ba%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22153724%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153718%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004182%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090189%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153718%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002295%22%2c%22transid%22%3a19%2c%22trname%22%3a%22%e7%bb%93%e7%ae%97%22%2c%22ttime%22%3a%22153718%22%7d%2c%7b%22actno%22%3a%22625996******9974%22%2c%22amt%22%3a20130.0%2c%22appCode%22%3anull%2c%22authcode%22%3a%22065895%22%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e5%86%9c%e4%b8%9a%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201030000%22%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153521%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91002314%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096088313%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153520%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002294%22%2c%22transid%22%3a3%2c%22trname%22%3a%22%e6%b6%88%e8%b4%b9%22%2c%22ttime%22%3a%22153520%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153436%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91001388%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201+%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096087604%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153401%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002293%22%2c%22transid%22%3a17%2c%22trname%22%3a%22%e7%ad%be%e5%88%b0%e5%8f%8c%e5%80%8d%e5%af%86%e9%92%a5%22%2c%22ttime%22%3a%22153401%22%7d%5d%2c%22total%22%3a9%7d ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:11:42,744 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:12:19,682 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66057693,%7b%22rows%22%3a%5b%5d%2c%22total%22%3a0%7d ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:12:19,684 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:12:49,709 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:12:49,711 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:13:19,735 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66057146,%7b%22rows%22%3a%5b%5d%2c%22total%22%3a0%7d ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:13:19,737 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:13:50,562 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.Exception: 获取客户信息时发生异常：获取客户信息discount is null or NaN,terminal：65888302
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 255
+
+ 
+记录时间：2015-09-02 22:14:21,749 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66029380,%7b%22rows%22%3a%5b%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350102600000429%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%22117.136.42.48%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000006%22%2c%22descr%22%3a%2220150902135932%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a90919386%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22511303199503245825%22%2c%22lpName%22%3a%22%e6%9e%97%e6%9c%9d%e8%8b%b1%22%2c%22mid%22%3a%22834391054111056%22%2c%22name%22%3a%22%e7%a6%8f%e5%b7%9e%e9%bc%93%e6%a5%bc%e5%8c%ba%e5%90%89%e7%a5%a5%e7%99%be%e8%b4%a7%e8%b6%85%e5%b8%82%22%2c%22oper%22%3a%2201+%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096007048%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22135858%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266029380%22%2c%22traceno%22%3a%22000018%22%2c%22transid%22%3a40%2c%22trname%22%3a%22%e7%ad%be%e5%88%b0%e5%8f%8c%e5%80%8d%e5%af%86%e9%92%a5%22%2c%22ttime%22%3a%22135858%22%7d%5d%2c%22total%22%3a1%7d ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:14:21,751 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:14:51,774 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:14:51,777 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:15:21,801 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66050196,%7b%22rows%22%3a%5b%5d%2c%22total%22%3a0%7d ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:15:21,805 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:15:51,842 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:15:51,845 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:16:21,869 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66032367,%7b%22rows%22%3a%5b%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202450%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91270701%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096353216%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202414%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002301%22%2c%22transid%22%3a87%2c%22trname%22%3a%22%e6%89%b9%e4%b8%8a%e9%80%81%e7%bb%93%e6%9d%9f(%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22202414%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202445%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91270476%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096353150%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202409%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002300%22%2c%22transid%22%3a19%2c%22trname%22%3a%22%e7%bb%93%e7%ae%97%22%2c%22ttime%22%3a%22202409%22%7d%2c%7b%22actno%22%3a%22531693******5297%22%2c%22amt%22%3a18690.0%2c%22appCode%22%3anull%2c%22authcode%22%3a%22068447%22%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e4%b8%ad%e5%9b%bd%e5%bb%ba%e8%ae%be%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201059999%22%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902202125%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91268089%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096350751%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22202049%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002299%22%2c%22transid%22%3a3%2c%22trname%22%3a%22%e6%b6%88%e8%b4%b9%22%2c%22ttime%22%3a%22202049%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000017%22%2c%22descr%22%3a%2220150902201955%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91267105%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201+%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096349620%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22201955%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002298%22%2c%22transid%22%3a17%2c%22trname%22%3a%22%e7%ad%be%e5%88%b0%e5%8f%8c%e5%80%8d%e5%af%86%e9%92%a5%22%2c%22ttime%22%3a%22201955%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153727%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004349%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090295%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153727%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002297%22%2c%22transid%22%3a87%2c%22trname%22%3a%22%e6%89%b9%e4%b8%8a%e9%80%81%e7%bb%93%e6%9d%9f(%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22153727%22%7d%2c%7b%22actno%22%3a%22625996******9974%22%2c%22amt%22%3a20130.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e5%86%9c%e4%b8%9a%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201030000%22%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153724%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004333%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090260%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153724%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002294%22%2c%22transid%22%3a83%2c%22trname%22%3a%22IC%e5%8d%a1%e6%89%b9%e4%b8%8a%e9%80%81%e9%80%9a%e7%9f%a5%e4%ba%a4%e6%98%93(%e8%81%94%e6%9c%ba%e5%b9%b3%e8%b4%a6)%22%2c%22ttime%22%3a%22153724%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153718%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91004182%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096090189%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153718%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002295%22%2c%22transid%22%3a19%2c%22trname%22%3a%22%e7%bb%93%e7%ae%97%22%2c%22ttime%22%3a%22153718%22%7d%2c%7b%22actno%22%3a%22625996******9974%22%2c%22amt%22%3a20130.0%2c%22appCode%22%3anull%2c%22authcode%22%3a%22065895%22%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3a%222%22%2c%22cliIp%22%3a%2210.18.5.18%22%2c%22cliTel%22%3anull%2c%22crdname%22%3a%22%e5%86%9c%e4%b8%9a%e9%93%b6%e8%a1%8c%22%2c%22crdtid%22%3a%2201030000%22%2c%22curcode%22%3a%22156%22%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153521%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91002314%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096088313%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153520%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002294%22%2c%22transid%22%3a3%2c%22trname%22%3a%22%e6%b6%88%e8%b4%b9%22%2c%22ttime%22%3a%22153520%22%7d%2c%7b%22actno%22%3anull%2c%22amt%22%3a0.0%2c%22appCode%22%3anull%2c%22authcode%22%3anull%2c%22bizLicId%22%3a%22350921600162441%22%2c%22branchId%22%3a%226502390666%22%2c%22cardType%22%3anull%2c%22cliIp%22%3a%2210.18.5.19%22%2c%22cliTel%22%3anull%2c%22crdname%22%3anull%2c%22crdtid%22%3anull%2c%22curcode%22%3anull%2c%22custMgrId%22%3anull%2c%22cycleno%22%3a%22000016%22%2c%22descr%22%3a%2220150902153436%22%2c%22errcode%22%3a0%2c%22errmsg%22%3anull%2c%22id%22%3a91001388%2c%22iptmode%22%3anull%2c%22lpCertno%22%3a%22352225195805230018%22%2c%22lpName%22%3a%22%e5%91%a8%e7%bb%8f%e5%bd%ac%22%2c%22mid%22%3a%22834403050390076%22%2c%22name%22%3a%22%e9%9c%9e%e6%b5%a6%e5%8e%bf%e7%ab%8b%e5%b9%b3%e8%a3%85%e4%bf%ae%e6%9d%90%e6%96%99%e7%bb%8f%e8%90%a5%e9%83%a8%22%2c%22oper%22%3a%2201+%22%2c%22orgdate%22%3anull%2c%22orgrefno%22%3anull%2c%22orgtrno%22%3anull%2c%22othActno%22%3anull%2c%22refno%22%3a%22000096087604%22%2c%22rspcode%22%3a%2200%22%2c%22rspmsg%22%3a%22%e4%ba%a4%e6%98%93%e6%88%90%e5%8a%9f%22%2c%22sdate%22%3a%2220150902%22%2c%22stdate%22%3a%2220150902%22%2c%22stime%22%3a%22153401%22%2c%22tdate%22%3a%2220150902%22%2c%22tfrActno%22%3anull%2c%22tid%22%3a%2266032367%22%2c%22traceno%22%3a%22002293%22%2c%22transid%22%3a17%2c%22trname%22%3a%22%e7%ad%be%e5%88%b0%e5%8f%8c%e5%80%8d%e5%af%86%e9%92%a5%22%2c%22ttime%22%3a%22153401%22%7d%5d%2c%22total%22%3a9%7d ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:16:21,874 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:16:51,895 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:16:51,898 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:17:21,924 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.SyncJingKongPosData&dataArrStr=66057693,%7b%22rows%22%3a%5b%5d%2c%22total%22%3a0%7d ,
+ 
+System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 289
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:17:21,928 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 254
+
+ 
+记录时间：2015-09-02 22:17:38,695 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：SyncJingKongPosData exception:
+ 
+System.Exception: 获取客户信息时发生异常：获取客户信息discount is null or NaN,terminal：65888302
+   在 WinForm.frmMain.OnQueryFinish(String json) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 255
+
+ 
+记录时间：2015-09-02 22:18:01,028 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.GetCustomers&dataArrStr= ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:18:01,036 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.FillQueue() 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 150
+   在 WinForm.frmMain.getNextTerminal() 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 65
+   在 WinForm.frmMain.GoQuery(Object o) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 182
+
+ 
+记录时间：2015-09-02 22:18:11,908 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:18:11,911 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:18:41,919 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:18:41,922 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:19:11,935 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:19:11,938 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:19:41,949 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.ToRongBao&dataArrStr ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436
+
+ 
+记录时间：2015-09-02 22:19:41,953 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：发起结算失败：
+ 
+System.ArgumentNullException: 值不能为 null。
+参数名: value
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 WinForm.frmMain.timer_pay_Tick(Object sender, EventArgs e) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 499
+
+ 
+记录时间：2015-09-02 22:19:45,001 
+线程ID:[1] 
+日志级别：  ERROR 
+出错类：WinForm.frmMain property: [(null)] - 
+错误描述：DoPost exception:action=Home.RegisterLogoff&dataArrStr=xiandaijk ,
+ 
+System.Net.WebException: 无法连接到远程服务器 ---> System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。 127.0.0.1:6564
+   在 System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   在 System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 Common.MyHttpUtility.DoPost(String url, Byte[] data) 位置 d:\QuickDisk\MyWork\yiletong\Common\Utility.cs:行号 285
+   在 WinForm.frmMain.RunHttp(String action, String[] paraStrArr) 位置 d:\QuickDisk\MyWork\yiletong\WinForm\frmMain.cs:行号 436

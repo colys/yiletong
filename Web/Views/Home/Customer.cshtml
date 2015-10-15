@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "福州易乐通信息有限公司-客户信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="body">
+   
+    <section class="container  clear-fix">
+        <p>
+            <a id="addnew" href="#">添加</a>
+        <p>
+          
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-responsive" id="listTable">
+                        <thead>
+                            <tr>
+                                <th colname="#" hide="1000">#</th>
+                                <th colname="terminal">终端</th>
+                                <th colname="faren">法人</th>
+                                <th colname="shanghuName" hide="1000">商户名称</th>
+                                <th colname="discount">利率</th>
+                                <th colname="tixianfei">提现费</th>
+                                <th colname="IsFengDing">封顶机</th>
+                                <th colname="fengding">封顶金额</th>
+                                <th colname="sourceAccountName" hide="1000">原始账户</th>
+                                <th colname="#action">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+          
+
+</section>
+</div>
+
+
+
+<script>
+
+ 
+    var entityTable_ops = {
+    autoList: false,
+    table: "Customer",
+    permission: "customer",
+    orderby: "terminal",
+    editCols: [
+        {
+            group: "基础属性", fields: [
+                { display: '终端', colName: "terminal", requre: true },
+                { display: '法人', colName: "faren", requre: true },
+                { display: '商户名称', colName: "shanghuName", requre: true },
+                { display: '联系电话', colName: "tel", requre: true },
+                { display: '扣率', colName: "discount", requre: true },
+                { display: '提现费', colName: "tixianfei", requre: true },
+                { display: '封顶机', colName: "IsFengDing", requre: true, type: "checkbox",},
+                { display: '封顶金额', colName: "fengding", requre: true },
+                { display: '节假日', colName: "tixianfeiEles", requre: true },
+                { display: '代扣费', colName: "daifufei", requre: true },
+                { display: '单笔下限', colName: "eachMin", requre: true },
+                { display: '单笔上限', colName: "eachMax", requre: true },
+                { display: '当日累计下限', colName: "dayMin", requre: true },
+                { display: '当日累计上限', colName: "dayMax", requre: true },
+                { display: '总行', colName: "bankName", requre: true },
+                { display: '分行', colName: "bankName2", requre: true },
+                { display: '支行', colName: "bankName3", requre: true },
+                { display: '银行账号', colName: "bankAccount", requre: true },
+                { display: '省份', colName: "province", requre: true },
+                { display: '城市', colName: "city", requre: true },
+                { display: '原始账户', colName: "sourceAccount", requre: true, type: "dropdown", table: "SourceAccount", valueField: "id", displayField: "faren,bankName,bankAccount", permission: "SourceAccounts" },
+                { display: '冻结', colName: "frozen" ,type:"checkbox"}
+            ]
+        }]                                
+};
+var entityTable = $("#listTable").entityTable(entityTable_ops);
+entityTable.Query(null, null, true);
+
+
+$("#addnew").click(function () {
+    entityTable.ShowCreateDialog();
+})
+
+       
+</script>
+
